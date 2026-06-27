@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Técnico Final - Cartilla Dental Hemofilia</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #333333;
+            --bg: #525659;
+            --text: #000000;
+        }
+
+        body {
+            font-family: 'Arial', Helvetica, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 21.59cm;
+            min-height: 27.94cm;
+            background: white;
+            padding: 2.54cm 3cm;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            text-align: justify;
+        }
+
+        .header-logo {
+            text-align: center;
+            margin-bottom: 1.5cm;
+        }
+
+        .header-logo img {
+            max-width: 150px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 1.5em;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 14pt;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 12pt;
+            text-transform: uppercase;
+            text-align: left;
+            margin-bottom: 0.5em;
+        }
+
+        h3 {
+            font-size: 12pt;
+            text-align: left;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        p,
+        li,
+        td,
+        th {
+            font-size: 11pt;
+            margin-bottom: 0.5em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.5rem 0 1rem 0;
+            font-size: 10pt;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        code,
+        pre {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        pre {
+            background: #f9f9f9;
+            color: #000;
+            border: 1px solid #ccc;
+            padding: 1rem;
+            white-space: pre-wrap;
+            font-size: 10pt;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        blockquote {
+            border-left: 3px solid #ccc;
+            margin: 0 0 0 1rem;
+            padding-left: 1rem;
+            color: #444;
+            font-style: italic;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #000;
+            margin: 1em 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            page-break-inside: avoid;
+        }
+
+        .gallery figure {
+            margin: 0;
+            text-align: center;
+        }
+
+        .gallery img {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery figcaption {
+            font-size: 9pt;
+            color: #555;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Botón de exportación flotante */
+        .export-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: inherit;
+        }
+
+        .export-btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilos optimizados para la exportación a PDF (impresión) */
+        @media print {
+            body {
+                background-color: transparent !important;
+                padding: 0 !important;
+                display: block !important;
+            }
+
+            .container {
+                box-shadow: none !important;
+                width: auto !important;
+                min-height: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            h1,
+            h2,
+            h3 {
+                page-break-after: avoid;
+            }
+
+            blockquote,
+            img,
+            .mermaid {
+                page-break-inside: avoid;
+            }
+
+            table,
+            pre {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            @page {
+                margin: 2.54cm 3cm;
+                /* Márgenes estándar de tesis */
+                size: letter portrait;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header-logo">
+            <img src="image1.png" alt="Logo Institucional">
+        </div>
+        <h1>INFORME TÉCNICO DE DESARROLLO</h1>
+        <hr>
+        <p><strong>Trabajo de Grado:</strong><br><em>Diseño, desarrollo e implementación de una aplicación móvil para el
+                cuidado oral del paciente pediátrico con hemofilia: enfoque de ingeniería de software y usabilidad</em>
+        </p>
+        <p><strong>Estudiante:</strong> Breyner Ismael Ciro Otero<br><strong>Evaluador:</strong> Prof. Germán Jairo
+            Hernández Pérez<br><strong>Fecha:</strong> Junio de 2026</p>
+        <hr>
+        <h2>1. INTRODUCCIÓN</h2>
+        <p>El presente informe técnico documenta los resultados finales del diseño, arquitectura y desarrollo de la
+            aplicación móvil, una herramienta educativa e
+            interactiva orientada al cuidado oral del paciente pediátrico con hemofilia. La aplicación fue construida
+            para mejorar la adherencia al tratamiento y fortalecer la comunicación entre cuidadores y profesionales de
+            la salud, aplicando rigurosamente principios de ingeniería de software y metodologías centradas en el
+            usuario.</p>
+        <hr>
+        <h2>2. OBJETIVO GENERAL</h2>
+        <p>Diseñar, desarrollar e implementar una aplicación móvil para el cuidado oral del paciente pediátrico con
+            hemofilia, aplicando principios de ingeniería de software y metodologías centradas en el usuario para crear
+            una herramienta educativa e interactiva que mejore la adherencia al tratamiento y fortalezca la comunicación
+            entre cuidadores y profesionales de la salud.</p>
+        <h2>3. OBJETIVOS ESPECÍFICOS</h2>
+        <ol>
+            <li>Analizar los requerimientos funcionales y no funcionales de la aplicación mediante técnicas de
+                ingeniería de software, considerando las necesidades específicas de cuidadores de pacientes pediátricos
+                con hemofilia y los estándares de calidad para aplicaciones médicas.</li>
+            <li>Diseñar la arquitectura de software de la aplicación móvil aplicando patrones de diseño apropiados,
+                considerando aspectos de seguridad, escalabilidad y usabilidad específicos para el dominio de la salud
+                pediátrica.</li>
+            <li>Evaluar la usabilidad de la aplicación mediante pruebas con usuarios finales, aplicando métricas de
+                experiencia de usuario (UX) y principios de diseño centrado en el usuario para garantizar la efectividad
+                y satisfacción del sistema.</li>
+        </ol>
+        <hr>
+        <h2>4. ANTECEDENTES Y ESTADO DEL ARTE</h2>
+        <p>La viabilidad y justificación técnica de este proyecto se sustentan en una revisión integral de la literatura
+            médico-odontológica. Guías pediátricas especializadas [1, 2] documentan extensivamente los desafíos
+            inherentes al cuidado oral en pacientes hemofílicos. Investigaciones clínicas como las de Bravo y Muñoz [3]
+            evidencian que los procedimientos odontológicos en esta población revisten una alta complejidad y
+            frecuentemente exigen hospitalización por riesgo hemorrágico post-extracción. Por su parte, estudios como el
+            de Avendaño Córdova et al. [4] demuestran la factibilidad de ejecutar tratamientos preventivos optimizando
+            la terapia de reemplazo, requiriendo protocolos estrictos. En esta misma línea, Grandas Ramírez [5] concluye
+            que el paradigma de atención debe reorientarse imperativamente hacia la prevención primaria, revelando la
+            carencia de herramientas de educación en salud dirigidas a los cuidadores.</p>
+        <p>Para dar respuesta a esta necesidad, el presente producto de software nace como resultado de la investigación
+            de López Aguirre y González Bejarano [6] donde el presente informe detalla la materialización e
+            ingeniería de dicha propuesta. El contenido clínico-educativo integrado es el resultado directo
+            de esta sinergia, operando la aplicación móvil como el habilitador tecnológico para el despliegue
+            interactivo del conocimiento documentado en [6].</p>
+        <p>Desde la perspectiva tecnológica y del estado del arte, el ecosistema actual de <em>mHealth</em> (salud
+            móvil) para el manejo de la hemofilia presenta soluciones como <em>HemMobile®</em> [7], <em>SOS
+                Hemofilia</em> [8] y <em>Microhealth Bleeding Disorders</em> [9]. Aunque estas plataformas son robustas
+            en el registro de infusiones y seguimiento de sangrados sistémicos, auditorías de mercado revelan que
+            ninguna aborda de forma específica la profilaxis y el cuidado oral pediátrico, brecha
+            funcional que confirma la pertinencia y el carácter innovador del presente desarrollo.
+        </p>
+        <hr>
+        <h2>5. METODOLOGÍA Y FASES DE DESARROLLO</h2>
+        <p>El ciclo de vida del software se estructuró bajo un enfoque metodológico híbrido, integrando fases iterativas
+            de diseño centrado en el usuario (User-Centered Design) con prácticas formales de ingeniería de software
+            para aplicaciones móviles [10], y alineándose estrictamente a los lineamientos normativos de usabilidad para
+            software en salud [11]. El desarrollo se ejecutó sistemáticamente a lo largo de 16 semanas, consolidándose
+            en las siguientes fases operativas:</p>
+        <ul>
+            <li><strong>Fase 1: Análisis y Planificación (Semanas 1-2):</strong> Levantamiento de requerimientos
+                funcionales y no funcionales, modelado del dominio de datos clínicos basado en la literatura base [6] y
+                definición inicial de la arquitectura del sistema.</li>
+            <li><strong>Fase 2: Arquitectura UX/UI (Semanas 3-4):</strong> Prototipado de alta fidelidad, definición del
+                <em>Design System</em> y adaptación ergonómica de interfaces para asegurar una curva de aprendizaje
+                mínima en usuarios no técnicos.
+            </li>
+            <li><strong>Fase 3: Desarrollo Core e Implementación Frontend (Semanas 5-11):</strong> Configuración del
+                entorno nativo mediante React Native (Expo), implementación del enrutamiento declarativo y desarrollo
+                algorítmico del motor de renderizado vectorial (SVG) para la anatomía interactiva.</li>
+            <li><strong>Fase 4: Testing, Refactorización y Despliegue (Semanas 12-16):</strong> Ejecución de pruebas de
+                validación de componentes, auditoría de métricas de rendimiento (Performance), calibración responsiva en
+                múltiples dimensiones de pantalla y generación de empaquetados finales para distribución.</li>
+        </ul>
+        <hr>
+        <h2>6. STACK TECNOLÓGICO</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Tecnología</th>
+                    <th>Versión</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Framework principal</strong></td>
+                    <td>React Native (Expo)</td>
+                    <td>SDK 55</td>
+                </tr>
+                <tr>
+                    <td><strong>Lenguaje</strong></td>
+                    <td>TypeScript</td>
+                    <td>^5.3.3</td>
+                </tr>
+                <tr>
+                    <td><strong>Routing/Navegación</strong></td>
+                    <td>expo-router (file-based)</td>
+                    <td>~55.0.14</td>
+                </tr>
+                <tr>
+                    <td><strong>Gráficos vectoriales</strong></td>
+                    <td>react-native-svg</td>
+                    <td>15.15.3</td>
+                </tr>
+                <tr>
+                    <td><strong>Animaciones</strong></td>
+                    <td>react-native-reanimated</td>
+                    <td>4.2.1</td>
+                </tr>
+                <tr>
+                    <td><strong>Fuentes</strong></td>
+                    <td>expo-font + Google Fonts</td>
+                    <td>~55.0.7</td>
+                </tr>
+                <tr>
+                    <td><strong>Bundler</strong></td>
+                    <td>Metro</td>
+                    <td>Integrado Expo</td>
+                </tr>
+                <tr>
+                    <td><strong>Transpilación</strong></td>
+                    <td>Babel (babel-preset-expo)</td>
+                    <td>^7.25.2</td>
+                </tr>
+                <tr>
+                    <td><strong>Plataformas destino</strong></td>
+                    <td>Android, iOS, Web</td>
+                    <td>Multiplataforma</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>6.1 Justificación del Stack</h3>
+        <ul>
+            <li><strong>React Native + Expo:</strong> Permite el desarrollo multiplataforma (Android, iOS y Web)
+                compartiendo una única base de código, optimizando los tiempos de desarrollo. Expo facilita la
+                configuración del entorno, la compilación y el despliegue del software.</li>
+            <li><strong>TypeScript:</strong> Incorpora tipado estático, lo cual reduce significativamente los errores en
+                tiempo de desarrollo y asegura la mantenibilidad del código a largo plazo.</li>
+            <li><strong>expo-router:</strong> Implementa el enrutamiento basado en el sistema de archivos
+                (<em>file-based routing</em>), lo que simplifica la arquitectura de navegación y facilita su
+                escalabilidad.</li>
+        </ul>
+        <hr>
+        <h2>7. CUMPLIMIENTO DE REQUERIMIENTOS</h2>
+        <p>El desarrollo de la aplicación se encuentra <strong>100% finalizado</strong>, cumpliendo satisfactoriamente
+            con la totalidad de los requerimientos funcionales y no funcionales establecidos al inicio del proyecto.</p>
+        <h3>7.1 Requerimientos Funcionales</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Requerimiento</th>
+                    <th>Prioridad</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RF-01</td>
+                    <td>Despliegue de una pantalla de introducción con información general sobre hemofilia y odontología
+                    </td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-02</td>
+                    <td>Integración de un flujo de onboarding educativo con slides informativos sobre hemofilia y
+                        coagulación</td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-03</td>
+                    <td>Selección del grupo de edad del paciente pediátrico (0-3, 3-5, 6-13, 14-18 años)</td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-04</td>
+                    <td>Presentación de contenido educativo personalizado según el grupo de edad seleccionado</td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-05</td>
+                    <td>Organización de temas clínicos por categorías (erupción dental, higiene oral, sangrado, trauma)
+                    </td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-06</td>
+                    <td>Integración de un diagrama dental interactivo 2D con representación anatómica de los arcos
+                        maxilar superior e inferior</td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-07</td>
+                    <td>Selección de dientes individuales con despliegue de información sobre tipo de diente y edad de
+                        erupción</td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-08</td>
+                    <td>Visualización de alertas y recomendaciones médicas con indicadores visuales de urgencia</td>
+                    <td>Media</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-09</td>
+                    <td>Navegación secuencial entre slides de contenido educativo con controles de avance y retroceso
+                    </td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-10</td>
+                    <td>Despliegue de información detallada en tarjetas con formato visual diferenciado</td>
+                    <td>Media</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-11</td>
+                    <td>Inclusión de logos institucionales (HOMI, Universidad Nacional) en la interfaz</td>
+                    <td>Media</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RF-12</td>
+                    <td>Soporte nativo para contenido multimedia (imágenes clínicas, ilustraciones educativas)</td>
+                    <td>Alta</td>
+                    <td>Cumplido</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>7.2 Requerimientos No Funcionales</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Requerimiento</th>
+                    <th>Categoría</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RNF-01</td>
+                    <td>Ejecución nativa en Android e iOS utilizando una única base de código</td>
+                    <td>Portabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-02</td>
+                    <td>Adaptabilidad de la interfaz a diferentes tamaños de pantalla (diseño responsivo)</td>
+                    <td>Usabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-03</td>
+                    <td>Escalado proporcional de fuentes tipográficas según el ancho del dispositivo</td>
+                    <td>Usabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-04</td>
+                    <td>Carga previa de fuentes personalizadas y recursos visuales (splash screen)</td>
+                    <td>Rendimiento</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-05</td>
+                    <td>Respuesta fluida a interacciones táctiles mediante animaciones basadas en físicas</td>
+                    <td>Usabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-06</td>
+                    <td>Tipado estático estricto del código fuente para prevención de errores</td>
+                    <td>Mantenibilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-07</td>
+                    <td>Fidelidad visual estricta frente a los prototipos de diseño de Figma</td>
+                    <td>Usabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-08</td>
+                    <td>Validación clínica del contenido médico por profesionales de la salud</td>
+                    <td>Confiabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-09</td>
+                    <td>Bloqueo de orientación en modo vertical (portrait) para garantizar integridad visual</td>
+                    <td>Usabilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-10</td>
+                    <td>Reutilización de componentes gobernados por un sistema de diseño centralizado</td>
+                    <td>Mantenibilidad</td>
+                    <td>Cumplido</td>
+                </tr>
+                <tr>
+                    <td>RNF-11</td>
+                    <td>Compatibilidad integral con la nueva arquitectura de React Native</td>
+                    <td>Rendimiento</td>
+                    <td>Cumplido</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>8. ARQUITECTURA DE SOFTWARE</h2>
+        <h3>8.1 Patrón Arquitectónico (Arquitectura en Capas)</h3>
+        <p>La aplicación implementa una <strong>Arquitectura en Capas (Layered Architecture)</strong> fundamentada en el
+            modelo de componentes, estableciendo una separación estricta de responsabilidades entre la visualización, la
+            lógica de interacción y los repositorios de información clínica. Este enfoque garantiza alta cohesión y bajo
+            acoplamiento.</p>
+        <pre><code class="language-mermaid mermaid">flowchart TD
+    subgraph Capa1 [&quot;Capa de Presentación e Interfaz&quot;]
+        Router[&quot;Enrutador Declarativo (Expo Router)&quot;]
+        Screens[&quot;Vistas Dinámicas (Pantallas)&quot;]
+        UI[&quot;Componentes Reutilizables (UI)&quot;]
+        SVG[&quot;Motor de Renderizado Anatómico (SVG)&quot;]
+    end
+
+    subgraph Capa2 [&quot;Capa de Lógica de Aplicación&quot;]
+        Logic[&quot;Controladores de Interacción (Hooks)&quot;]
+        Theme[&quot;Motor de Normalización Responsiva&quot;]
+    end
+
+    subgraph Capa3 [&quot;Capa de Dominio Clínico y Datos&quot;]
+        Content[&quot;Repositorio de Contenido Educativo&quot;]
+        Anatomy[&quot;Modelo de Coordenadas Dentales (TeethPaths)&quot;]
+        Types[&quot;Modelado de Entidades Clínicas (Interfaces TS)&quot;]
+    end
+
+    Router --&gt;|Orquesta| Screens
+    Screens --&gt;|Componen| UI
+    Screens --&gt;|Implementa| SVG
+    
+    UI --&gt;|Estiliza vía| Theme
+    Screens --&gt;|Gestiona estado vía| Logic
+    
+    Logic --&gt;|Consulta| Content
+    SVG --&gt;|Consume| Anatomy
+    Content -.-&gt;|Tipificado por| Types
+    Anatomy -.-&gt;|Tipificado por| Types
+</code></pre>
+        <p>El diseño se estructura lógicamente en tres niveles:</p>
+        <ol>
+            <li><strong>Capa de Presentación e Interfaz:</strong> Responsable de la interacción con el usuario,
+                orquestada por el sistema de rutas basadas en archivos. Incluye los componentes visuales genéricos y el
+                renderizador interactivo de anatomía dental.</li>
+            <li><strong>Capa de Lógica de Aplicación:</strong> Gestiona el estado local, el procesamiento de las
+                animaciones físicas y la adaptación matemática de los estilos (escalado tipográfico responsivo).</li>
+            <li><strong>Capa de Dominio Clínico y Datos:</strong> Actúa como la fuente de verdad estática del sistema.
+                Aquí residen todas las estructuras de datos que representan el conocimiento odontológico y los metadatos
+                vectoriales del diagrama, aislados completamente de la lógica de renderizado.</li>
+        </ol>
+        <h3>8.2 Patrones de Diseño Implementados</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Patrón</th>
+                    <th>Implementación</th>
+                    <th>Ubicación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Component Pattern</strong></td>
+                    <td>Desarrollo de componentes reutilizables con propiedades tipadas</td>
+                    <td><code>src/components/</code></td>
+                </tr>
+                <tr>
+                    <td><strong>File-based Routing</strong></td>
+                    <td>Sistema de navegación declarativa basada en la jerarquía de directorios</td>
+                    <td><code>app/</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Dynamic Routing</strong></td>
+                    <td>Rutas parametrizadas dinámicamente (<code>[group]</code>, <code>[topic]</code>) para la
+                        inyección de contenido</td>
+                    <td><code>app/age/[group]/[topic].tsx</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Design Tokens</strong></td>
+                    <td>Variables de diseño para la centralización estandarizada de colores y tipografía</td>
+                    <td><code>src/theme/</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Data-Driven UI</strong></td>
+                    <td>Separación del contenido educativo de la capa de presentación mediante una estructura de datos
+                        estricta</td>
+                    <td><code>src/data/content.ts</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Slide Pattern</strong></td>
+                    <td>Sistema de renderizado polimórfico para distintos tipos de pantallas de contenido</td>
+                    <td><code>src/data/content.ts</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Compound Component</strong></td>
+                    <td>Sub-renderizadores especializados orquestados desde un componente contenedor principal</td>
+                    <td><code>app/age/[group]/[topic].tsx</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Responsive Design</strong></td>
+                    <td>Algoritmo de escalado dinámico para tipografía y espacios según la resolución del dispositivo
+                    </td>
+                    <td><code>src/theme/typography.ts</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>9. SISTEMA DE NAVEGACIÓN Y FLUJO DE USUARIO</h2>
+        <h3>9.1 Diagrama de Flujo de Navegación</h3>
+        <pre><code class="language-mermaid mermaid">flowchart TD
+    Inicio[&quot;index.tsx - Entry Point&quot;]
+    Intro[&quot;intro.tsx - Pantalla de Bienvenida&quot;]
+    Onboarding[&quot;onboarding.tsx - Induccion Educativa&quot;]
+    Selector[&quot;age-selector.tsx - Selector de Edad&quot;]
+    
+    subgraph SG1 [&quot;Rutas Dinamicas de Grupo Etario&quot;]
+        Menu03[&quot;age/0-3/index.tsx&quot;]
+        Menu35[&quot;age/3-5/index.tsx&quot;]
+        Menu613[&quot;age/6-13/index.tsx&quot;]
+        Menu1418[&quot;age/14-18/index.tsx&quot;]
+    end
+    
+    VisorTema[&quot;age/group/topic.tsx - Controlador de Tema&quot;]
+    
+    subgraph SG2 [&quot;Renderizadores Polimorficos Secuenciales&quot;]
+        SlideContent[&quot;ContentSlide - Teoria e Imagen&quot;]
+        SlideDetail[&quot;DetailSlide - Tarjeta de Detalle&quot;]
+        SlideInfo[&quot;InfoSlide - Modal de Alerta Medica&quot;]
+        SlideDiagram[&quot;DiagramSlide - Diagrama Interactivo&quot;]
+    end
+
+    Inicio --&gt;|Redireccion Automatica| Intro
+    Intro --&gt;|Boton Empezar| Onboarding
+    Onboarding --&gt;|Finalizar Slides| Selector
+    
+    Selector --&gt;|Selecciona 0-3| Menu03
+    Selector --&gt;|Selecciona 3-5| Menu35
+    Selector --&gt;|Selecciona 6-13| Menu613
+    Selector --&gt;|Selecciona 14-18| Menu1418
+    
+    Menu03 --&gt;|Selecciona Tema| VisorTema
+    Menu35 --&gt;|Selecciona Tema| VisorTema
+    Menu613 --&gt;|Selecciona Tema| VisorTema
+    Menu1418 --&gt;|Selecciona Tema| VisorTema
+    
+    VisorTema -. &quot;Renderiza segun indice&quot; .-&gt; SlideContent
+    VisorTema -. &quot;Renderiza segun indice&quot; .-&gt; SlideDetail
+    VisorTema -. &quot;Renderiza segun indice&quot; .-&gt; SlideInfo
+    VisorTema -. &quot;Renderiza segun indice&quot; .-&gt; SlideDiagram
+    
+    VisorTema --&gt;|Boton Volver| Menu03
+    VisorTema --&gt;|Boton Inicio| Selector
+    Menu03 --&gt;|Boton Volver| Selector
+</code></pre>
+        <h3>9.2 Flujo Principal del Usuario</h3>
+        <ol>
+            <li><strong>Pantalla de Inicio (intro.tsx):</strong> Presentación del título principal de la aplicación
+                junto a un llamado a la acción para iniciar la experiencia.</li>
+            <li><strong>Inducción (onboarding.tsx):</strong> Despliegue de pantallas informativas introductorias que
+                explican la relación clínica básica entre la hemofilia y el cuidado dental.</li>
+            <li><strong>Selector de Edad (age-selector.tsx):</strong> Interfaz para la selección del grupo etario del
+                paciente, lo cual determina el alcance y la profundidad del material didáctico.</li>
+            <li><strong>Menú de Temas (age/[group]/index.tsx):</strong> Visualización de los temas educativos
+                disponibles para el grupo seleccionado, organizados mediante tarjetas de navegación.</li>
+            <li><strong>Contenido del Tema (age/[group]/[topic].tsx):</strong> Consumo interactivo del material a través
+                de una navegación secuencial entre distintos formatos de presentación (texto descriptivo, diagramas
+                anatómicos y alertas médicas).</li>
+        </ol>
+        <hr>
+        <h2>10. ARQUITECTURA DE INTERFAZ Y COMPONENTES</h2>
+        <p>Para garantizar la mantenibilidad y consistencia visual de la aplicación sin comprometer el rendimiento, la
+            interfaz de usuario se construyó sobre un sistema de componentes reutilizables con responsabilidades bien
+            delimitadas.</p>
+        <p>Se desarrollaron componentes genéricos (<code>Button</code>, <code>NextButton</code>,
+            <code>AlertBanner</code>, <code>TopicCard</code>, etc.) que encapsulan la lógica visual (colores,
+            tipografías normalizadas para múltiples pantallas y espaciados). Esto asegura que el código de las pantallas
+            principales se enfoque exclusivamente en la orquestación del flujo de navegación y en el modelo de datos
+            clínico.
+        </p>
+
+        <h3>10.1 Visual de la Interfaz</h3>
+        <p>A continuación se presenta evidencia de la implementación de la interfaz gráfica, demostrando la fidelidad
+            del diseño frente a los requerimientos de usabilidad pediátrica y la integración anatómica interactiva:</p>
+
+        <div class="gallery">
+            <figure>
+                <img src="assets/mockups/MockupsCartilla_page-0002.jpg" alt="Pantalla de Inicio">
+                <figcaption>Figura 1. Pantalla de Bienvenida y Onboarding</figcaption>
+            </figure>
+            <figure>
+                <img src="assets/mockups/MockupsCartilla_page-0008.jpg" alt="Información">
+                <figcaption>Figura 2. Tarjetas de Información</figcaption>
+            </figure>
+            <figure>
+                <img src="assets/mockups/MockupsCartilla_page-0012.jpg" alt="Alerta Médica">
+                <figcaption>Figura 3. Tarjetas de Alertas Médicas</figcaption>
+            </figure>
+        </div>
+        <hr>
+        <h2>11. ESTRUCTURA DEL CONTENIDO EDUCATIVO</h2>
+        <p>Toda la estructura temática, así como el contenido clínico y educativo de cada módulo, es provisto a través
+            de la colaboración investigativa con López Aguirre y González Bejarano [6], quienes conceptualizaron la base
+            pediátrica y odontológica que esta aplicación implementa de forma interactiva.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Grupo</th>
+                    <th>Temas</th>
+                    <th>Total Slides</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>0-3 años</strong></td>
+                    <td>Erupción dental, Higiene oral, Sangrado, Trauma dental</td>
+                    <td>19 slides</td>
+                </tr>
+                <tr>
+                    <td><strong>3-5 años</strong></td>
+                    <td>Higiene oral, Alimentación saludable, Manejo de golpes</td>
+                    <td>6 slides</td>
+                </tr>
+                <tr>
+                    <td><strong>6-13 años</strong></td>
+                    <td>Recambio dental, Higiene y ortodoncia, Cuidado en deportes</td>
+                    <td>6 slides</td>
+                </tr>
+                <tr>
+                    <td><strong>14-18 años</strong></td>
+                    <td>Muelas del juicio, Hábitos saludables, Ortodoncia</td>
+                    <td>6 slides</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>12. CONSIDERACIONES FINALES DE USABILIDAD</h2>
+        <p>El producto final garantiza una experiencia de usuario óptima mediante la implementación efectiva de los
+            siguientes principios:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Principio</th>
+                    <th>Implementación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Personalización por edad</strong></td>
+                    <td>Contenido adaptado a 4 grupos etarios con lenguaje y temáticas acordes a su desarrollo</td>
+                </tr>
+                <tr>
+                    <td><strong>Navegación progresiva</strong></td>
+                    <td>Flujo lineal e intuitivo desde el onboarding hasta la selección de contenido, facilitando su
+                        comprensión y uso sin requerir conocimientos técnicos previos</td>
+                </tr>
+                <tr>
+                    <td><strong>Feedback visual</strong></td>
+                    <td>Incorporación de animaciones físicas fluidas y estados de selección claros para confirmar las
+                        acciones del usuario</td>
+                </tr>
+                <tr>
+                    <td><strong>Accesibilidad tipográfica</strong></td>
+                    <td>Escalado responsivo de fuentes garantizado, asegurando legibilidad en una amplia gama de
+                        resoluciones móviles</td>
+                </tr>
+                <tr>
+                    <td><strong>Señalización de urgencia</strong></td>
+                    <td>Uso de modales diferenciados visualmente con iconografía estandarizada para destacar alertas
+                        médicas críticas</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>13. CONCLUSIONES DEL DESARROLLO TÉCNICO</h2>
+        <p>El ciclo de desarrollo de la aplicación móvil se ha concluido con éxito, entregando un producto de software
+            completamente funcional, estable y listo para su distribución clínica y educativa. </p>
+        <ol>
+            <li>
+                <p><strong>Arquitectura sólida orientada a la mantenibilidad:</strong> La aplicación consolida una
+                    arquitectura escalable basada en componentes modulares, estableciendo una separación estricta entre
+                    la lógica de presentación, la persistencia de datos estáticos y el sistema de diseño.</p>
+            </li>
+            <li>
+                <p><strong>Tipado estricto como garantía de integridad:</strong> La adopción de TypeScript con
+                    interfaces polimórficas asegura un modelado de datos robusto que elimina ambigüedades en tiempo de
+                    compilación, resultando en un sistema con alta tolerancia a fallos.</p>
+            </li>
+            <li>
+                <p><strong>Interactividad aplicada a objetivos educativos:</strong> La programación de componentes
+                    interactivos a medida demuestra una alta destreza técnica para representar interfaces anatómicas
+                    complejas de forma táctil, enriqueciendo significativamente el valor pedagógico de la herramienta
+                    para usuarios no técnicos.</p>
+            </li>
+            <li>
+                <p><strong>Escalabilidad del dominio clínico:</strong> La implementación del patrón <em>Data-Driven
+                        UI</em> centraliza la gestión de la información, permitiendo que futuros administradores
+                    extiendan los grupos de edad o los temas clínicos sin necesidad de alterar la lógica estructural de
+                    la aplicación.</p>
+            </li>
+            <li>
+                <p><strong>Preparación multiplataforma moderna:</strong> La correcta configuración y utilización de Expo
+                    SDK 55, operando bajo la nueva arquitectura de React Native, certifica un rendimiento nativo
+                    sobresaliente y asegura la viabilidad técnica a largo plazo del proyecto frente a las constantes
+                    actualizaciones de Android e iOS.</p>
+            </li>
+        </ol>
+
+        <hr>
+        <h2>14. REFERENCIAS BIBLIOGRÁFICAS</h2>
+        <ol>
+            <li>Ashemadrid. Tratamiento dental en pacientes infantiles con Hemofilia A [Internet]. Madrid: Ashemadrid;
+                2022 Nov 3 [citado 2026 Jun 24]. Disponible en:
+                https://ashemadrid.org/2022/11/03/tratamiento-dental-en-pacientesinfantiles-con-hemofilia-a/</li>
+            <li>Nicklaus Children's Hospital. Salud dental en niños con hemofilia [Internet]. Miami: Nicklaus Children's
+                Hospital; [citado 2026 Jun 24]. Disponible en:
+                https://www.nicklauschildrens.org/recursos-para-pacientes/informacion-de-salud/salud-dental-enninos-con-hemofilia
+            </li>
+            <li>Bravo L, Muñoz D. Consideraciones en el tratamiento odontológico de pacientes pediátricos con Hemofilia.
+                Reporte de un caso clínico. J Oral Res [Internet]. 2012 [citado 2026 Jun 24];1(2):86-89. Disponible en:
+                https://joralres.com</li>
+            <li>Avendaño Córdova KB, Rueda Ventura MA, Isidro Olán LB. Manejo estomatológico del paciente pediátrico con
+                hemofilia: reporte de casos. Multidiscip Health Res [Internet]. 2020 [citado 2026 Jun 24];5(1).
+                Disponible en: https://revistas.ujat.mx/index.php/MHR</li>
+            <li>Grandas Ramírez AL. Niños con hemofilia y su atención odontológica por estomatología pediátrica [Trabajo
+                de grado en Internet]. Bogotá: Universidad Nacional de Colombia; 2016 [citado 2026 Jun 24]. Disponible
+                en: https://repositorio.unal.edu.co/</li>
+            <li>López Aguirre PA, González Bejarano LY. Diseño de una app para el cuidado oral del paciente pediátrico
+                con hemofilia. Rev Odontopediatría [Internet]. 2025 Sep 12 [citado 2026 Jun 24]. Disponible en:
+                https://congreso.revistaodontopediatria.org/index.php/alop/article/view/469</li>
+            <li>Pfizer Inc. HemMobile [Aplicación móvil en Internet]. Google Play Store; [citado 2026 Jun 24].
+                Disponible en: https://play.google.com/store/apps/details?id=com.pfizer.hemo&amp;hl=es_419</li>
+            <li>STTP. SOS Hemofilia [Aplicación móvil en Internet]. Google Play Store; [citado 2026 Jun 24]. Disponible
+                en: https://play.google.com/store/apps/details?id=com.hemofilia.sttp&amp;hl=es_CO</li>
+            <li>Microhealth. Microhealth Bleeding Disorders [Aplicación móvil en Internet]. Google Play Store; [citado
+                2026 Jun 24]. Disponible en:
+                https://play.google.com/store/apps/details?id=com.microhealth.hemophilia&amp;hl=es&amp;gl=US</li>
+            <li>Gasca Mantilla MC, Camargo Ariza LL, Medina Delgado B. Metodología para el desarrollo de aplicaciones
+                móviles. Rev Tecnura [Internet]. 2014 [citado 2026 Jun 24];18(40):20-28. Disponible en:
+                http://www.scielo.org.co/scielo.php?script=sci_arttext&amp;pid=S0123921X2014000200003</li>
+            <li>Alonso-Arévalo J, Mirón-Canelo JA. Aplicaciones móviles en salud: potencial, normativa de seguridad y
+                regulación. Rev Cubana Inf Cienc Salud [Internet]. 2017 [citado 2026 Jun 24];28(3):1-13. Disponible en:
+                http://scielo.sld.cu/scielo.php?script=sci_arttext&amp;pid=S230721132017000300005</li>
+        </ol>
+    </div>
+
+    <!-- Botón de Exportación a PDF -->
+    <button class="export-btn no-print" onclick="window.print()" title="Exportar a PDF">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Exportar a PDF
+    </button>
+
+    <script>
+        document.querySelectorAll('pre code.language-mermaid').forEach(function (el) {
+            var newDiv = document.createElement('div');
+            newDiv.className = 'mermaid';
+            newDiv.textContent = el.textContent;
+            el.parentNode.parentNode.insertBefore(newDiv, el.parentNode);
+            el.parentNode.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>

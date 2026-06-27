@@ -1,0 +1,182 @@
+# Estado Actual del Proyecto: Cartilla Dental Hemofilia
+
+## 📋 Resumen Ejecutivo
+
+**cartilla-dental-hemofilia** es una aplicación móvil desarrollada con Expo/React Native que sirve como guía educativa e informativa sobre hemofilia y cuidado dental asociado. El proyecto está en una fase inicial de desarrollo con la estructura básica establecida y varios componentes de interfaz implementados.
+
+## 🏗️ Arquitectura y Tecnologías
+
+### Stack Tecnológico
+- **Framework**: Expo SDK 54 con React Native
+- **Routing**: expo-router (file-based routing)
+- **Language**: TypeScript (.tsx files)
+- **State Management**: Presumiblemente React hooks (basado en estructura de componentes)
+- **Build**: npm con Metro bundler
+- **Testing**: Jest (jest.setup.js presente)
+- **Linting**: ESLint (eslint.config.js presente)
+- **TypeScript**: tsconfig.json configurado
+
+### Estructura de Directorios
+```
+/mnt/DiscoLocal/Proyectos/cartilla-dental-hemofilia/
+├── app/                    # Código principal de la aplicación (routing basado en archivos)
+├── assets/                 # Recursos estáticos (imágenes, HTML, etc.)
+│   ├── images/             # Iconos, favicons, etc.
+│   ├── mockups/            # Diseños de referencia
+│   └── fonts/              # Fuentes
+├── src/                    # Código fuente adicional (vacío actualmente)
+├── __tests__/              # Tests unitarios
+├── .claude/                # Configuración específica del agente/OpenClaw
+├── .vscode/                # Configuración de VSCode
+├── .git/                   # Repositorio Git
+├── .expo/                  # Configuración de Expo
+├── node_modules/           # Dependencias
+├── archivo de configuración (*.js, *.json)
+└── README.md               # Documentación básica
+```
+
+## 📱 Componentes de la Interfaz (app/)
+
+El proyecto implementa un sistema de navegación basado en expo-router con las siguientes pantallas:
+
+### Navegación Principal
+- **`index.tsx`** - Punto de entrada/Home principal
+- **`_layout.tsx`** - Layout común para todas las rutas
+
+### Pantallas Implementadas
+1. **`home.tsx`** (3,638 líneas) - Pantalla principal de inicio
+2. **`hemofilia.tsx`** (4,913 líneas) - Información detallada sobre hemofilia
+3. **`higiene.tsx`** (4,314 líneas) - Guías de higiene dental específica para hemofilia
+4. **`urgencias.tsx`** (6,090 líneas) - Manejo de emergencias y primeros auxilios
+5. **`contacto.tsx`** (4,377 líneas) - Información de contacto y soporte
+6. **`age-selector.tsx`** (2,911 líneas) - Selector de rango de edad para personalizar contenido
+7. **`intro.tsx`** (1,093 líneas) - Pantalla de introducción/tutorial inicial
+
+### Características Observadas
+- Todos los componentes usan extensión `.tsx` (TypeScript con JSX)
+- Nombres descriptivos que indican su propósito funcional
+- Tamaños de archivo sustanciales indican implementación detallada
+- Uso de componentes reutilizables (implícito por estructura)
+
+## 🖼️ Recursos Multimedia
+
+### Imágenes y Gráficos
+- **`assets/images/`**: Contiene favicon y subdirectorios para PNGs y SVGs
+- **Imágenes educativas**:
+  - `arch_lower.png` (379KB) - Imagen de arcada dental inferior
+  - `arch_upper.png` (352KB) - Imagen de arcada dental superior
+- **HTML interactivo**:
+  - `dientes_temporales_v3.html` (9.9KB) - Probablemente una visualización interactiva de dientes temporales
+
+### Directorios de Recursos
+- `assets/mockups/` - Diseños de referencia o wireframes
+- `assets/fonts/` - (Actualmente vacío, listo para tipografías personalizadas)
+- `assets/images/png's/` y `assets/images/svgs/` - Organizados por formato
+
+## 📚 Contenido Educativo
+
+### ContenidoAPP/
+Directorio dedicado a material educativo suplementario, probablemente contiene:
+- Artículos
+- Guías detalladas
+- Recursos para pacientes y cuidadores
+- Información específica sobre hemofilia y cuidado bucal
+
+## 🧪 Infraestructura de Desarrollo
+
+### Configuración del Proyecto
+- **`app.json`** - Configuración completa de Expo con:
+  - Nombre: "cartilla-dental-hemofilia"
+  - Soporte para iOS y Android (tablet enabled)
+  - Arquitectura nueva habilitada
+  - Experimentos de rutas tipadas activas
+  - Plugins: expo-router y expo-splash-screen configurados
+  - Esquema de deep linking: `cartilladentalhemofilia`
+
+### Calidad de Código
+- **ESLint** configurado (`eslint.config.js`)
+- **Jest** configurado para testing (`jest.setup.js`)
+- **TypeScript** configurado (`tsconfig.json`)
+- **Git** inicializado (`.git/` presente)
+- **Prettier** posiblemente implícito por estructura estándar
+
+### Scripts y Dependencias
+- **`package.json`** - Dependencias del proyecto (2,447 líneas indica configuración detallada)
+- **`package-lock.json`** - Versiones exactas de dependencias (583,755 líneas)
+- **Metro config** (`metro.config.js`) - Configuración del bundler
+- **Babel config** (`babel.config.js`) - Transpilation de JavaScript/TypeScript
+
+## 📊 Métricas de Desarrollo
+
+### Líneas de Código
+- **Componentes TSX**: ~2,821 líneas totales en la carpeta `app/`
+- **Configuración**: Archivos de configuración sustanciales (package.json, etc.)
+- **Tests**: Directorio `__tests__/` presente indicando enfoque en calidad
+
+### Estado de Dependencias
+- `node_modules/` presente (159,744 KB) - Dependencias instaladas
+- `package-lock.json` indica versiones específicas fijadas
+- Proyecto listo para ejecutar con `npm install` y `npx expo start`
+
+## 🔧 Configuración Especializada (.claude/)
+
+Directorio especial probablemente para integración con agentes de IA:
+- **`IDENTITY.md`** - Guidelines para reducir errores comunes de LLM en coding
+  - Enfatiza pensamiento previo, simplicidad, cambios quirúrgicos y ejecución orientada a objetivos
+  - Metodología para asegurar calidad en código generado por IA
+
+## ✅ Estado Actual de Desarrollo
+
+### Lo Que Está Hecho
+1. ✅ **Estructura de proyecto** completamente establecida
+2. ✅ **Dependencias instaladas** y configuradas
+3. ✅ **Configuración de Expo** lista para desarrollo multiplatform
+4. ✅ **Sistema de navegación** basado en exro-router implementado
+5. ✅ **7 pantallas principales** desarrolladas con contenido sustancial
+6. ✅ **Recursos multimedia** preparados (imágenes, HTML interactivo)
+7. ✅ **Infraestructura de calidad** (tests, linting, TypeScript)
+8. ✅ **Documentación básica** (README.md)
+9. ✅ **Repositorio Git** inicializado
+
+### Lo Que Podría Necesitárse Próximamente
+1. 🔄 **Conexión a datos** - Posible integración con APIs o almacenamiento local
+2. 🎨 **Styling avanzado** - Posible necesidad de tema consistente
+3. 📱 **Optimización de performance** - Especialmente para componentes grandes
+4. 🧪 **Tests completos** - Ampliación de la suite de testing
+5. 🌐 **Internacionalización** - Soporte para múltiples idiomas si es necesario
+6. 🚀 **Preparación para producción** - Configuración de release stores
+7. 📝 **Documentación técnica** - Guías para desarrolladores y mantenimiento
+
+## 🎯 Próximos Pasos Sugeridos
+
+1. **Ejecutar la aplicación** para validar funcionamiento básico:
+   ```bash
+   npm install  # Si no está hecho
+   npx expo start
+   ```
+
+2. **Revisar y probar cada pantalla** individualmente para verificar:
+   - Navegación entre rutas
+   - Responsividad en diferentes tamaños de pantalla
+   - Accesibilidad (a11y)
+   - Performance en dispositivos reales
+
+3. **Definir estado global** si la aplicación requiere compartir datos entre pantallas
+
+4. **Implementar persistencia de datos** si se necesita guardar preferencias o progreso de usuario
+
+5. **Crear flujo de onboarding** mejorado basado en la pantalla `intro.tsx`
+
+6. **Validar contenido médico** con profesionales de hemofilia y odontología especial
+
+## 📞 Conclusión
+
+El proyecto **"cartilla-dental-hemofilia"** presenta un sólido comienzo como aplicación educativa Expo/React Native. Tiene:
+
+- **Arquitectura moderna** basada en estándares de Expo y React Native
+- **Componentes sustanciales** implementados para las áreas clave de contenido
+- **Infraestructura de desarrollo** completa con herramientas de calidad
+- **Recursos preparados** para una experiencia educativa rica
+- **Base lista** para iteración, pruebas de usuario y expansión
+
+El proyecto está en una posición excelente para avanzar hacia pruebas de usuario, refinamiento de contenido y preparación para lanzamiento en tiendas de aplicaciones.

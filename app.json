@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Cartilla Dental Hemofilia",
+    "slug": "cartilla-dental-hemofilia",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/adaptive-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#003d5b"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tesis.cartillahemofilia"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#003d5b"
+      },
+      "package": "com.tesis.cartillahemofilia"
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-asset"
+    ],
+    "scheme": "cartilladentalhemofilia",
+    "newArchEnabled": true,
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ca2975b4-1511-4c78-a364-bca0c833f71a"
+      }
+    }
+  }
+}
