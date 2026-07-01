@@ -1,3 +1,4 @@
+import { DynamicImage } from './DynamicImage';
 import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, useWindowDimensions,
@@ -17,8 +18,8 @@ import { BackButton } from './BackButton';
 import { InteractiveDentalDiagram } from './InteractiveDentalDiagram';
 
 const ContentSlideView = ({
-  slide, groupTitle, onNext, onBack, isLast,
-}: { slide: ContentSlide; groupTitle: string; onNext: () => void; onBack: () => void; isLast: boolean }) => {
+  slide, groupTitle, onNext, onBack, isLast, onNavigate
+}: { slide: ContentSlide; groupTitle: string; onNext: () => void; onBack: () => void; isLast: boolean; onNavigate?: (targetId: string) => void }) => {
   const { width } = useWindowDimensions();
   const toothSize = Math.min(width * 0.45, 220);
   const isLeft = slide.toothPosition === 'left';
@@ -30,13 +31,45 @@ const ContentSlideView = ({
         showBack={true}
         onBack={onBack}
       />
-      <View style={styles.slideBody}>
+      {slide.subtitle && (
+        <Text style={styles.detailSubtitle}>{slide.subtitle}</Text>
+      )}
+      <View style={[styles.slideBody, slide.subtitle ? { paddingTop: 10 } : undefined]}>
         <View style={styles.navyCard}>
           <Text style={styles.navyCardText}>{slide.text}</Text>
+          {slide.photo && (
+            <DynamicImage 
+              source={slide.photo} 
+              style={{ width: '100%', height: 180, borderRadius: 15, marginTop: 15, borderWidth: 2, borderColor: '#000' }} 
+              resizeMode="cover" 
+            />
+          )}
+          {slide.buttons && slide.buttons.map((btn, i) => (
+            <TouchableOpacity 
+              key={i} 
+              style={styles.slideButton} 
+              activeOpacity={0.8}
+              onPress={() => onNavigate && onNavigate(btn.targetId)}
+            >
+              {btn.imagePosition === 'left' && (
+                <View style={styles.slideButtonImgWrap}>
+                  <DynamicImage source={btn.image} style={styles.slideButtonImg} resizeMode="contain" />
+                </View>
+              )}
+              <View style={styles.slideButtonInnerBlue}>
+                <Text style={styles.slideButtonText}>{btn.text}</Text>
+              </View>
+              {btn.imagePosition === 'right' && (
+                <View style={styles.slideButtonImgWrap}>
+                  <DynamicImage source={btn.image} style={styles.slideButtonImg} resizeMode="contain" />
+                </View>
+              )}
+            </TouchableOpacity>
+          ))}
         </View>
         <View style={styles.charRow}>
           <View style={styles.charImageContainer}>
-            <Image 
+            <DynamicImage 
               source={slide.image} 
               style={{ width: toothSize, height: toothSize, alignSelf: isLeft ? 'flex-start' : 'center' }} 
               resizeMode="contain" 
@@ -108,7 +141,7 @@ const InfoSlideView = ({
               <View style={[styles.excl, styles.exclR]}><Text style={styles.exclText}>!</Text></View>
             </>
           )}
-          <Image source={slide.photo} style={[styles.infoPhoto, { width: photoW, height: photoH }]} resizeMode="cover" />
+          <DynamicImage source={slide.photo} style={[styles.infoPhoto, { width: photoW, height: photoH }]} resizeMode="cover" />
           <Text style={styles.infoText}>{slide.alertText}</Text>
         </View>
       </ScrollView>
@@ -141,8 +174,8 @@ const DiagramSlideView = ({
 );
 
 export function SlidesRunner({
-  slides, groupTitle, onFinish,
-}: { slides: Slide[]; groupTitle: string; onFinish: () => void }) {
+  slides, groupTitle, onFinish, onNavigate
+}: { slides: Slide[]; groupTitle: string; onFinish: () => void; onNavigate?: (targetId: string) => void }) {
   const [idx, setIdx] = useState(0);
   const current = slides[idx];
   
@@ -193,7 +226,7 @@ export function SlidesRunner({
       return <DiagramSlideView groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} />;
     }
   }
-  return <ContentSlideView slide={current as ContentSlide} groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} />;
+  return <ContentSlideView slide={current as ContentSlide} groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} onNavigate={onNavigate} />;
 }
 
 const styles = StyleSheet.create({
@@ -246,4 +279,43 @@ const styles = StyleSheet.create({
   infoIconCircle: { width: 50, height: 50, borderRadius: 25, borderWidth: 3, borderColor: Colors.blue, alignItems: 'center', justifyContent: 'center' },
   infoIconText: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 24, color: Colors.blue },
   footerDetail: { flexDirection: 'row', paddingHorizontal: 20, paddingBottom: 12, alignItems: 'center', justifyContent: 'space-between', gap: 12 },
+  slideButton: {
+    flexDirection: 'row',
+    backgroundColor: '#C8C8C8',
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#000',
+    padding: 8,
+    marginTop: 12,
+    alignItems: 'center',
+    gap: 8,
+  },
+  slideButtonInnerBlue: {
+    flex: 1,
+    backgroundColor: Colors.navy,
+    borderRadius: 10,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slideButtonText: {
+    fontFamily: Typography.fonts.unkempt,
+    fontSize: Typography.sizes.body,
+    color: Colors.white,
+    textAlign: 'center',
+  },
+  slideButtonImgWrap: {
+    width: 60,
+    height: 60,
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+  slideButtonImg: {
+    width: 50,
+    height: 50,
+  }
 });

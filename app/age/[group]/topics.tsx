@@ -1,3 +1,4 @@
+import { DynamicImage } from '../../../src/components/DynamicImage';
 import React from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, useWindowDimensions,
@@ -44,7 +45,7 @@ export default function TopicMenuScreen() {
             >
               {isEven ? (
                 <>
-                  <Image source={topic.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
+                  <DynamicImage source={topic.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                   <View style={styles.cardTextBox}>
                     <Text style={styles.cardText}>{topic.title}</Text>
                   </View>
@@ -54,7 +55,7 @@ export default function TopicMenuScreen() {
                   <View style={styles.cardTextBox}>
                     <Text style={styles.cardText}>{topic.title}</Text>
                   </View>
-                  <Image source={topic.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
+                  <DynamicImage source={topic.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                 </>
               )}
             </TouchableOpacity>

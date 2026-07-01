@@ -1,3 +1,4 @@
+import { DynamicImage } from './DynamicImage';
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View, Image, ImageSourcePropType } from 'react-native';
 import { Colors } from '../theme/colors';
@@ -16,7 +17,7 @@ export const TopicCard = ({ title, image, icon = 'document-text-outline', onPres
     <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
       <View style={styles.leftSection}>
         {image ? (
-          <Image source={image} style={styles.image} resizeMode="contain" />
+          <DynamicImage source={image} style={styles.image} resizeMode="contain" />
         ) : (
           <View style={styles.iconContainer}>
             <Ionicons name={icon} size={32} color={Colors.white} />
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    fontFamily: Typography.fonts.font2, // Unkempt
+    fontFamily: Typography.fonts.unkempt, // Unkempt
     fontSize: Typography.sizes.subtitle,
     color: Colors.white,
   },

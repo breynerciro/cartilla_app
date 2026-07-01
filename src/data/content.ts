@@ -3,10 +3,20 @@ export type AgeGroup = '0-3' | '3-5' | '6-13' | '14-18';
 
 // ─── Slide types ──────────────────────────────────────────────────────────────
 
+export interface SlideButton {
+  text: string;
+  image: any;
+  targetId: string;
+  imagePosition: 'left' | 'right';
+}
+
 export interface ContentSlide {
   text: string;
   image: any;
   toothPosition: 'left' | 'right';
+  subtitle?: string;
+  photo?: any;
+  buttons?: SlideButton[];
 }
 
 export interface InfoSlide {
@@ -57,32 +67,63 @@ export interface AgeGroupData {
   introSlides: ContentSlide[];  // 0a3_1..5 info slides before topic menu
   topics: TopicData[];
 }
-
 // ─── Image refs ───────────────────────────────────────────────────────────────
+// All images are real downloaded assets from assets/images/png's/
+// Semantic names describe WHAT the image shows.
 
 const IMG = {
-  tooth1:     require('../../assets/images/png\'s/Tooth1.png'),
-  tooth2:     require('../../assets/images/png\'s/Tooth2.png'),
-  tooth3:     require('../../assets/images/png\'s/Tooth3.png'),
-  tooth4:     require('../../assets/images/png\'s/Tooth4.png'),
-  encia:      require('../../assets/images/png\'s/Encia.png'),
-  sangre:     require('../../assets/images/png\'s/Sangre.png'),
-  boca:       require('../../assets/images/png\'s/boca1.png'),
-  nino:       require('../../assets/images/png\'s/niño.png'),
-  toothGray:  require('../../assets/images/png\'s/tooth_gray.png'),
+  // ── Diente mágico: 4 poses distintas del personaje principal ─────────────
+  toothWand: require("../../assets/images/png's/Tooth1.png"),   // varita mágica
+  toothNeutral: require("../../assets/images/png's/Tooth2.png"),   // pose neutra
+  toothBrush: require("../../assets/images/png's/Tooth3.png"),   // con cepillo
+  toothTrauma: require("../../assets/images/png's/Tooth4.png"),   // con explorador
+  toothGray: require("../../assets/images/png's/tooth_gray.png"),
+
+  // ── Iconos de menú ilustrados ─────────────────────────────────────────────
+  enciaIcon: require("../../assets/images/png's/Encia.png"),    // diente en encía → Erupción
+  bloodCells: require("../../assets/images/png's/Sangre.png"),   // glóbulos → Trauma
+  dienteCarie: require("../../assets/images/png's/icon_caries.png"),
+
+  // ── Fotos clínicas reales (modales de alerta) ─────────────────────────────
+  enciaFoto: require("../../assets/images/png's/boca1.jpeg"),
+  sangradoFoto: require("../../assets/images/png's/sangrado.png"),
+  traumaFoto1: require("../../assets/images/png's/trauma_1.jpeg"),
+  traumaFoto2: require("../../assets/images/png's/trauma_2.jpeg"),
+  traumaFoto3: require("../../assets/images/png's/trauma_3.png"),
+  caries1: require("../../assets/images/png's/caries_1.jpeg"),
+  caries2: require("../../assets/images/png's/caries_2.jpeg"),
+  caries3: require("../../assets/images/png's/caries_3.png"),
+  gingivitis1: require("../../assets/images/png's/gingivitis_1.png"),
+  gingivitis2: require("../../assets/images/png's/gingivitis_2.png"),
+  cordalesFoto: require("../../assets/images/png's/cordales.png"),
+
+  // ── Ilustraciones de personajes ───────────────────────────────────────────
+  bebeEnfermo: require("../../assets/images/png's/niño.png"),
+  cepilladoBebe: require("../../assets/images/png's/cepillado_bebe.jpeg"),
+  medicamentos: require("../../assets/images/png's/medicamento.jpeg"),
+  mordedor: require("../../assets/images/png's/mordedor.jpeg"),
+
+  // ── Ilustraciones de objetos ──────────────────────────────────────────────
+  cepillo: require("../../assets/images/png's/cepillo.jpeg"),
+  crema1: require("../../assets/images/png's/crema1.jpeg"),
+  posicionCepillado: require("../../assets/images/png's/posicion_cepillado.jpeg"),
+
+  // ── UI ────────────────────────────────────────────────────────────────────
+  fondo: require("../../assets/images/png's/fondo.png"),
 };
+
 
 // ─── SHARED SLIDE FACTORIES ───────────────────────────────────────────────────
 
 const traumaCommonSlides = (groupNote?: string): Slide[] => [
   {
     text: 'Si tras una caída o golpe observas sangrado en la boca, puede ser ocasionado por un corte en la lengua o mucosas, incluso por una fractura dental o del hueso.',
-    image: IMG.tooth3,
+    image: IMG.toothTrauma,
     toothPosition: 'left',
   } as ContentSlide,
   {
-    text: 'En algunos casos, sin presentar sangrado aparente, pueden existir fracturas o hematomas que deben ser atendidos con urgencia.',
-    image: IMG.tooth3,
+    text: 'Y en algunos casos, sin presentar sangrado aparente, pueden existir fracturas o hematomas que deben ser atendidos con urgencia.',
+    image: IMG.toothTrauma,
     toothPosition: 'right',
   } as ContentSlide,
   {
@@ -93,19 +134,24 @@ const traumaCommonSlides = (groupNote?: string): Slide[] => [
   } as DetailSlide,
   {
     type: 'modal',
-    photo: IMG.boca,
+    photo: IMG.traumaFoto1,
     alertText: 'Si hay sangrado, retire los coágulos para evitar broncoaspiración, haga presión con una gasa durante 15 minutos sobre la zona, y en caso de tener a la mano ácido tranexámico, aplicarlo de forma tópica.',
     showExclamation: true,
   } as InfoSlide,
   {
+    text: 'Es necesario que el odontólogo revise detalladamente al paciente y le realice las radiografías necesarias para determinar el tratamiento.',
+    image: IMG.toothTrauma,
+    toothPosition: 'left',
+  } as ContentSlide,
+  {
     type: 'detail',
-    subtitle: 'LO QUE DEBES SABER:',
-    bodyText: 'Es necesario que el odontólogo revise detalladamente al paciente y le realice las radiografías necesarias para determinar el tratamiento.',
+    subtitle: '',
+    bodyText: 'En la dentición temporal los tratamientos van encaminados a detener el sangrado, preservar la integridad del diente permanente en camino y evitar infecciones.',
     showInfoIcon: true,
   } as DetailSlide,
   {
     type: 'modal',
-    photo: IMG.tooth4,
+    photo: IMG.traumaFoto2,
     alertText: 'Si el diente se desaloja de su cavidad: recójalo tomándolo por la corona, enjuáguelo con agua y guárdelo en una gasa húmeda para que el odontólogo lo reposicione.',
     showExclamation: true,
   } as InfoSlide,
@@ -113,28 +159,28 @@ const traumaCommonSlides = (groupNote?: string): Slide[] => [
 
 const cariesSlides: Slide[] = [
   {
-    text: 'Las caries son lesiones producidas por ácidos de bacterias que destruyen el esmalte. En pacientes con hemofilia, el tratamiento debe planificarse con el hematólogo.',
-    image: IMG.tooth1,
+    text: 'Al retirar la placa bacteriana se previene la caries y los problemas que puede traer, como dolor agudo, infecciones o extracciones prematuras que a su vez pueden provocar sangrado abundante o una situación de urgencia.',
+    image: IMG.toothBrush,
     toothPosition: 'left',
   } as ContentSlide,
   {
-    type: 'detail',
-    subtitle: 'PREVENCIÓN DE CARIES:',
-    bodyText: 'Cepilla los dientes después de cada comida. Usa pasta con flúor. Evita azúcares entre comidas. Visita al odontólogo cada 6 meses para revisión y aplicación de sellantes si es necesario.',
-    showInfoIcon: true,
-  } as DetailSlide,
+    text: 'Contrario de la creencia popular, los dientes de leche son muy importantes para la salud de los niños.',
+    image: IMG.toothBrush,
+    toothPosition: 'right',
+    photo: IMG.caries1,
+  } as ContentSlide,
   {
-    type: 'modal',
-    photo: IMG.boca,
-    alertText: 'Ante cualquier tratamiento odontológico que pueda generar sangrado (extracciones, exodoncias), el hematólogo debe evaluar y elevar el factor de coagulación previamente.',
-    showExclamation: true,
-  } as InfoSlide,
+    text: 'Los dientes de leche pueden presentar manchas o cavidades, lo cual indica caries dental.',
+    image: IMG.toothBrush,
+    toothPosition: 'left',
+    photo: IMG.caries2,
+  } as ContentSlide,
 ];
 
 const gingivitisSlides: Slide[] = [
   {
     text: 'La gingivitis es la inflamación de las encías causada por la placa bacteriana. Se caracteriza por encías rojas, hinchadas y que sangran al cepillarse.',
-    image: IMG.encia,
+    image: IMG.gingivitis1,
     toothPosition: 'left',
   } as ContentSlide,
   {
@@ -145,7 +191,7 @@ const gingivitisSlides: Slide[] = [
   } as DetailSlide,
   {
     type: 'modal',
-    photo: IMG.encia,
+    photo: IMG.enciaFoto,
     alertText: 'Si el sangrado de encías no se detiene en 10 minutos con presión, o es recurrente, consulta al odontólogo y al hematólogo de inmediato.',
     showExclamation: true,
   } as InfoSlide,
@@ -158,142 +204,206 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     title: 'DE 0 A 3 AÑOS',
     introSlides: [
       {
-        text: 'En esta etapa ocurren transiciones muy importantes en el desarrollo general y aspecto dental de los niños.',
-        image: IMG.tooth1,
+        text: 'En esta etapa ocurren transiciones muy importantes en el desarrollo general y aspecto dental de los niños, como:',
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
-        text: 'La erupción de los dientes temporales, más conocidos como "dientes de leche", es el evento más importante de esta etapa.',
-        image: IMG.tooth2,
+        text: 'La erupción de los dientes temporales, más conocidos como "dientes de leche"',
+        image: IMG.toothWand,
         toothPosition: 'right',
       },
       {
-        text: 'La higiene oral debe comenzar desde antes de erupcionar el primer diente, limpiando las encías con una gasa húmeda.',
-        image: IMG.tooth1,
+        text: 'La forma en que se realiza la higiene oral, cuando los niños pasan de no tener dientes a tener su primer diente erupcionado',
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
-        text: 'Cuando aparezca el primer diente, usa un cepillo suave para bebés con pasta sin flúor del tamaño de un grano de arroz.',
-        image: IMG.tooth2,
+        text: 'Aprenden a caminar y a interactuar con el mundo; esto les hace susceptibles a caídas que pueden causar lesiones en su lengua, mucosas, encias o dientes.',
+        image: IMG.toothWand,
         toothPosition: 'right',
-      },
-      {
-        text: 'Recuerda: el cepillado debe hacerse dos veces al día y siempre con supervisión de un adulto.',
-        image: IMG.tooth1,
-        toothPosition: 'left',
       },
     ],
     topics: [
       {
         id: 'erupcion',
-        title: '¿A qué edad sale cada diente?',
-        menuImage: IMG.tooth1,
-        slides: [
+        title: '¿Qué cuidados tener durante la erupción dental?',
+        menuImage: IMG.toothNeutral,
+        subtopics: [
           {
-            text: 'Erupción de los dientes temporales, más conocidos como "dientes de leche". Este proceso es completamente normal.',
-            image: IMG.tooth1,
-            toothPosition: 'left',
-          } as ContentSlide,
+            id: 'erupcionOption1',
+            title: '¿A qué edad sale cada diente?',
+            menuImage: IMG.toothNeutral,
+            slides: [
+              { type: 'diagram', ageGroup: '0-3' } as DiagramSlide
+            ]
+          },
           {
-            type: 'detail',
-            subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
-            bodyText: 'Este proceso causa normalmente: irritabilidad, cambios en los ciclos de sueño, aumento de la salivación y sensación de "picazón" en las encías.\n\nTambién puede presentarse fiebre ligera. Solo en caso de fiebre alta, sangrado que no para o dolor intenso, es necesario administrar medicamentos.',
-            showInfoIcon: true,
-          } as DetailSlide,
+            id: 'erupcionOption2',
+            title: '¿Es normal que se inflame?',
+            menuImage: IMG.enciaIcon,
+            slides: [
+              {
+                type: 'detail',
+                subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
+                bodyText: 'Poco antes de erupcionar el diente; debido al flujo de sangre, las encías pueden hincharse e incluso tomar un color azulado. Sin embargo, esto no tiene nada que ver con la hemofilia y suele resolverse por sí solo.',
+                showInfoIcon: true,
+              } as DetailSlide,
+              {
+                type: 'modal',
+                photo: IMG.enciaFoto,
+                alertText: 'Usar los conocidos "mordedores" puede causar sangrado al momento de ser mordido. No está indicado para los bebés con hemofilia.',
+                showExclamation: true,
+              } as InfoSlide,
+            ]
+          },
           {
-            type: 'modal',
-            photo: IMG.nino,
-            alertText: 'No dejes objetos duros o juguetes a su alcance sin supervisión. Los bebés introducen objetos en su boca para morder, los cuales pueden causar sangrado de importancia.',
-            showExclamation: true,
-          } as InfoSlide,
+            id: 'erupcionOption3',
+            title: '¿Le debo dar medicamentos al bebé?',
+            menuImage: IMG.bebeEnfermo,
+            slides: [
+              {
+                type: 'detail',
+                subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
+                bodyText: 'Este proceso causa normalmente: irritabilidad, cambios en los ciclos de sueño, aumento de la salivación y sensación de "picazón" en las encías.\n\nTambién puede presentarse fiebre ligera, pero esto sucede por un cambio en el tipo de bacterias en la boca del bebé. Solo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
+                showInfoIcon: true,
+              } as DetailSlide,
+              {
+                type: 'modal',
+                photo: IMG.medicamentos,
+                alertText: 'Recuerda: NO automediques a tu bebé, los medicamentos deben ser formulados por tu médico u odontólogo.',
+                showExclamation: true,
+              } as InfoSlide,
+            ]
+          },
           {
-            type: 'detail',
-            subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
-            bodyText: 'Poco antes de erupcionar el diente, debido al flujo de sangre, las encías pueden hincharse e incluso tomar un color azulado. Esto no tiene nada que ver con la hemofilia y suele resolverse por sí solo.',
-            showInfoIcon: true,
-          } as DetailSlide,
-          {
-            type: 'modal',
-            photo: IMG.boca,
-            alertText: 'Usar los conocidos "mordedores" puede causar sangrado al momento de ser mordido. No está indicado para los bebés con hemofilia.',
-            showExclamation: true,
-          } as InfoSlide,
-          { type: 'diagram', ageGroup: '0-3' } as DiagramSlide,
+            id: 'erupcionOption4',
+            title: '¿Es normal que sangre?',
+            menuImage: IMG.bloodCells,
+            slides: [
+              {
+                type: 'detail',
+                subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
+                bodyText: 'La erupción dental rara vez provoca hemorragias, pero si las encías presentan sangrado leve que no para, es necesario acudir a consulta odontológica..',
+                showInfoIcon: true,
+              } as DetailSlide,
+              {
+                type: 'modal',
+                photo: IMG.mordedor,
+                alertText: 'No dejes objetos duros o juguetes a su alcance sin supervisión, y que, en busca de aliviar las molestias en sus encías, los bebés introducen objetos en su boca para moder, los cuales pueden causar sangrado de importancia.',
+                showExclamation: true,
+              } as InfoSlide,
+            ]
+          }
         ],
       },
       {
         id: 'higiene',
-        title: 'Higiene Oral',
-        menuImage: IMG.encia,
+        title: '¿Cómo se debe realizar la higiene oral?',
+        menuImage: IMG.toothBrush,
+        slides: [
+          {
+            text: 'En esta estapa, la forma de realizar la higiene se divide en dos:',
+            image: IMG.toothWand,
+            toothPosition: 'left',
+          } as ContentSlide,
+          {
+            text: '- Limpieza de las encías, cuando no hay ningun diente presente. \n\n- Limpieza de los dientes tan pronto erupcionan.',
+            image: IMG.toothWand,
+            toothPosition: 'right',
+          } as ContentSlide,
+          {
+            text: 'Se diferencian en cuanto a la técnica, pero la finalidad es la misma: remover la placa bacteriana presente, que es la responsable de distintas enfermedades de la cavidad oral.',
+            image: IMG.toothWand,
+            toothPosition: 'left',
+          } as ContentSlide,
+        ],
         subtopics: [
           {
-            id: 'higiene-general',
-            title: 'Higiene General',
-            menuImage: IMG.tooth2,
-            slides: [
-              {
-                text: 'Antes de que aparezca el primer diente, limpia las encías del bebé con una gasa húmeda después de cada toma.',
-                image: IMG.tooth2,
-                toothPosition: 'left',
-              } as ContentSlide,
-              {
-                text: 'Cuando erupcione el primer diente, cepíllalo con un cepillo de dientes suave para bebés y pasta dental sin flúor.',
-                image: IMG.tooth2,
-                toothPosition: 'right',
-              } as ContentSlide,
-              {
-                type: 'detail',
-                subtitle: 'HIGIENE ORAL EN BEBÉS:',
-                bodyText: 'El cepillado debe realizarse dos veces al día: en la mañana y antes de dormir.\n\nEvita que el bebé se duerma tomando leche o jugo, ya que el azúcar en la boca durante la noche puede causar caries.',
-                showInfoIcon: true,
-              } as DetailSlide,
-            ],
-          },
-          {
             id: 'encias',
-            title: 'Encías',
-            menuImage: IMG.encia,
+            title: 'Higiene Oral en Encías',
+            menuImage: IMG.enciaIcon,
             slides: [
               {
-                text: 'Las encías del bebé son sensibles y pueden irritarse durante la erupción. Una buena higiene desde el inicio previene problemas futuros.',
-                image: IMG.encia,
+                text: 'Se cree que si el bebé no tiene dientes, no es necesario limpiarle las encías. ¡Esto es falso!',
+                image: IMG.toothWand,
                 toothPosition: 'left',
               } as ContentSlide,
               {
-                text: 'Masajea suavemente las encías con una gasa limpia y húmeda para aliviar las molestias de la erupción.',
-                image: IMG.encia,
+                text: 'Es importante mantenerlo libre de placa para que esté saludable, además de acostumbrarle al ejercicio de limpiar su boca.',
+                image: IMG.toothWand,
                 toothPosition: 'right',
               } as ContentSlide,
               {
                 type: 'detail',
                 subtitle: 'CUIDADO DE LAS ENCÍAS:',
-                bodyText: 'Las encías sanas son de color rosa pálido y firmes. Si notas encías muy rojas, hinchadas o con sangrado frecuente, consulta al odontólogo.',
+                bodyText: 'La limpieza se puede realizar con un cepillo dental de dedo o con una gasa húmeda, pasándolos por todas las superficies de las encías con el fin de retirar placa excepto en el paladar ya que pude causarle ganas de vomitar..',
                 showInfoIcon: true,
               } as DetailSlide,
               {
                 type: 'modal',
-                photo: IMG.encia,
-                alertText: 'En pacientes con hemofilia, el sangrado de encías puede ser más difícil de controlar. Ante cualquier sangrado persistente, consulta de inmediato al médico u odontólogo.',
+                photo: IMG.cepilladoBebe,
+                alertText: 'Recuerda que puedes iniciar este tipo de higiene a los 5 mese de edad. Hazlo con mucha suavidad, para no causar lesiones y sangrado que pueda agravarse.',
                 showExclamation: true,
               } as InfoSlide,
             ],
           },
           {
             id: 'dientes',
-            title: 'Dientes',
-            menuImage: IMG.tooth1,
+            title: 'Higiene Oral en Dientes',
+            menuImage: IMG.toothNeutral,
+            slides: [
+              {
+                text: 'Se realiza desde que podamos ver que el primer diente está saliendo.',
+                image: IMG.toothWand,
+                toothPosition: 'right',
+                buttons: [
+                  {
+                    text: 'Prevenir las Caries',
+                    image: IMG.dienteCarie,
+                    targetId: 'caries',
+                    imagePosition: 'left'
+                  },
+                  {
+                    text: 'Cepillado',
+                    image: IMG.toothBrush,
+                    targetId: 'cepillado',
+                    imagePosition: 'right'
+                  }
+                ]
+              } as ContentSlide,
+            ],
             subtopics: [
               {
                 id: 'caries',
-                title: 'Caries',
-                menuImage: IMG.tooth1,
+                title: 'Prevenir las Caries',
+                menuImage: IMG.traumaFoto2,
                 slides: cariesSlides,
               },
               {
-                id: 'gingivitis',
-                title: 'Gingivitis',
-                menuImage: IMG.encia,
-                slides: gingivitisSlides,
+                id: 'cepillado',
+                title: 'Cepillado',
+                menuImage: IMG.toothBrush,
+                slides: [
+                  {
+                    text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
+                    image: IMG.toothBrush,
+                    toothPosition: 'right',
+                    photo: IMG.cepillo
+                  } as ContentSlide,
+                  {
+                    text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                    image: IMG.toothBrush,
+                    toothPosition: 'right',
+                    photo: IMG.crema1
+                  } as ContentSlide,
+                  {
+                    text: 'Posición adecuada para el cepillado.',
+                    image: IMG.toothBrush,
+                    toothPosition: 'right',
+                    photo: IMG.posicionCepillado
+                  } as ContentSlide,
+                ]
               },
             ],
           },
@@ -301,8 +411,8 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       },
       {
         id: 'trauma',
-        title: 'Trauma Dental',
-        menuImage: IMG.sangre,
+        title: '¿Qué hacer en caso de trauma?',
+        menuImage: IMG.toothTrauma,
         slides: traumaCommonSlides('0-3'),
       },
     ],
@@ -313,22 +423,22 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     introSlides: [
       {
         text: 'En esta etapa el niño ya tiene todos sus dientes temporales y empieza a desarrollar hábitos que influirán en su salud oral a largo plazo.',
-        image: IMG.tooth1,
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
         text: 'El niño puede comenzar a cepillarse solo, pero siempre bajo supervisión de un adulto. Usa pasta con flúor del tamaño de un chícharo.',
-        image: IMG.tooth2,
+        image: IMG.toothNeutral,
         toothPosition: 'right',
       },
       {
         text: 'Limita los alimentos azucarados y ácidos. Prefiere frutas, verduras y lácteos que fortalecen el esmalte dental.',
-        image: IMG.tooth1,
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
         text: 'Los niños de esta edad son muy activos. Los traumatismos dentales son frecuentes. Ante cualquier golpe fuerte, consulta al odontólogo.',
-        image: IMG.tooth3,
+        image: IMG.toothTrauma,
         toothPosition: 'right',
       },
     ],
@@ -336,16 +446,16 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'higiene',
         title: 'Higiene Oral',
-        menuImage: IMG.tooth2,
+        menuImage: IMG.toothBrush,
         subtopics: [
           {
             id: 'higiene-general',
             title: 'Higiene General',
-            menuImage: IMG.tooth2,
+            menuImage: IMG.toothBrush,
             slides: [
               {
                 text: 'A esta edad el niño puede comenzar a cepillarse solo, pero siempre bajo supervisión. Use pasta con flúor del tamaño de un chícharo.',
-                image: IMG.tooth2,
+                image: IMG.toothBrush,
                 toothPosition: 'left',
               } as ContentSlide,
               {
@@ -356,7 +466,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               } as DetailSlide,
               {
                 text: 'Visita al odontólogo cada 6 meses para revisiones preventivas. La detección temprana de caries evita tratamientos más complejos.',
-                image: IMG.tooth2,
+                image: IMG.toothNeutral,
                 toothPosition: 'right',
               } as ContentSlide,
             ],
@@ -364,13 +474,13 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
           {
             id: 'caries',
             title: 'Caries',
-            menuImage: IMG.tooth1,
+            menuImage: IMG.caries1,
             slides: cariesSlides,
           },
           {
             id: 'gingivitis',
             title: 'Gingivitis',
-            menuImage: IMG.encia,
+            menuImage: IMG.gingivitis1,
             slides: gingivitisSlides,
           },
         ],
@@ -378,7 +488,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'trauma',
         title: 'Trauma Dental',
-        menuImage: IMG.sangre,
+        menuImage: IMG.bloodCells,
         slides: traumaCommonSlides('3-5'),
       },
     ],
@@ -389,22 +499,22 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     introSlides: [
       {
         text: 'En esta etapa ocurre el recambio dental: los dientes temporales son reemplazados por los permanentes.',
-        image: IMG.tooth1,
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
         text: 'Alrededor de los 6 años empiezan a caerse los dientes de leche. Este proceso es normal y no debería causar sangrado prolongado.',
-        image: IMG.tooth2,
+        image: IMG.toothNeutral,
         toothPosition: 'right',
       },
       {
         text: 'En niños con hemofilia, si un diente sangra al caerse y no se detiene en 15 minutos con presión, consulta al médico.',
-        image: IMG.tooth1,
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
         text: 'Con los dientes permanentes es fundamental el uso correcto del cepillo y el hilo dental.',
-        image: IMG.tooth2,
+        image: IMG.toothBrush,
         toothPosition: 'right',
       },
     ],
@@ -412,49 +522,49 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'erupcion',
         title: 'Erupción Dental',
-        menuImage: IMG.tooth1,
+        menuImage: IMG.enciaIcon,
         slides: [
           {
             text: 'Es normal que los dientes permanentes salgan torcidos al principio. El maxilar crece y los dientes se van alineando solos en muchos casos.',
-            image: IMG.tooth1,
+            image: IMG.toothWand,
             toothPosition: 'left',
           } as ContentSlide,
           {
             text: 'Si la desalineación es marcada, el odontólogo puede recomendar ortodoncia interceptiva para guiar el crecimiento.',
-            image: IMG.tooth2,
+            image: IMG.toothNeutral,
             toothPosition: 'right',
           } as ContentSlide,
           {
             type: 'detail',
             subtitle: 'DIENTES TORCIDOS:',
-            bodyText: 'La maloclusión puede tener causas genéticas o funcionales (hábitos como chupar dedo, uso prolongado de biberón). La evaluación temprana por un ortodoncista es recomendada.',
+            bodyText: 'La malooclusión puede tener causas genéticas o funcionales (hábitos como chupar dedo, uso prolongado de biberón). La evaluación temprana por un ortodoncista es recomendada.',
             showInfoIcon: true,
           } as DetailSlide,
           {
             type: 'modal',
-            photo: IMG.nino,
+            photo: IMG.bebeEnfermo,
             alertText: 'En pacientes con hemofilia, cualquier procedimiento de ortodoncia debe coordinarse con el hematólogo para prevenir sangrados durante los ajustes.',
             showExclamation: true,
           } as InfoSlide,
           {
             text: 'El cambio dental (recambio) es el proceso por el cual los dientes de leche caen para dar paso a los permanentes.',
-            image: IMG.tooth2,
+            image: IMG.toothWand,
             toothPosition: 'left',
           } as ContentSlide,
           {
             type: 'modal',
-            photo: IMG.boca,
+            photo: IMG.enciaFoto,
             alertText: 'En niños con hemofilia, el proceso de caída de dientes de leche debe vigilarse. Si hay sangrado excesivo que no cede en 15 minutos, consulta al médico.',
             showExclamation: true,
           } as InfoSlide,
           {
             text: 'Los dientes permanentes son más grandes y tienen que ocupar el espacio correcto. Este proceso puede durar hasta los 13 años.',
-            image: IMG.tooth3,
+            image: IMG.toothTrauma,
             toothPosition: 'right',
           } as ContentSlide,
           {
             type: 'modal',
-            photo: IMG.tooth4,
+            photo: IMG.traumaFoto2,
             alertText: 'Los dientes permanentes no son reemplazados: cuídalos toda la vida. Una caries en un diente permanente debe tratarse de inmediato.',
             showExclamation: true,
           } as InfoSlide,
@@ -464,16 +574,16 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'higiene',
         title: 'Higiene Oral',
-        menuImage: IMG.encia,
+        menuImage: IMG.toothBrush,
         subtopics: [
           {
             id: 'higiene-general',
             title: 'Higiene General',
-            menuImage: IMG.tooth2,
+            menuImage: IMG.toothBrush,
             slides: [
               {
                 text: 'Con los dientes permanentes es fundamental el uso correcto del cepillo y el hilo dental para prevenir caries y enfermedades de las encías.',
-                image: IMG.tooth2,
+                image: IMG.toothBrush,
                 toothPosition: 'left',
               } as ContentSlide,
               {
@@ -484,7 +594,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               } as DetailSlide,
               {
                 text: 'Si hay aparatos ortopédicos, el cuidado debe ser aún más minucioso. Usa cepillos interdentales para limpiar alrededor de los brackets.',
-                image: IMG.tooth2,
+                image: IMG.toothNeutral,
                 toothPosition: 'right',
               } as ContentSlide,
             ],
@@ -492,13 +602,13 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
           {
             id: 'caries',
             title: 'Caries',
-            menuImage: IMG.tooth1,
+            menuImage: IMG.caries1,
             slides: cariesSlides,
           },
           {
             id: 'gingivitis',
             title: 'Gingivitis',
-            menuImage: IMG.encia,
+            menuImage: IMG.gingivitis1,
             slides: gingivitisSlides,
           },
         ],
@@ -506,7 +616,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'trauma',
         title: 'Trauma Dental',
-        menuImage: IMG.sangre,
+        menuImage: IMG.bloodCells,
         slides: traumaCommonSlides('6-13'),
       },
     ],
@@ -517,27 +627,27 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     introSlides: [
       {
         text: 'En la adolescencia aparecen nuevos retos para la salud oral: los terceros molares, los hábitos de higiene autónomos y los tratamientos de ortodoncia definitivos.',
-        image: IMG.tooth1,
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
         text: 'Las muelas del juicio (cordales) suelen erupcionar entre los 17 y 25 años. En pacientes con hemofilia, su extracción requiere preparación especial.',
-        image: IMG.tooth2,
+        image: IMG.toothNeutral,
         toothPosition: 'right',
       },
       {
         text: 'El tabaco, el alcohol y el piercing oral son especialmente peligrosos en pacientes con hemofilia.',
-        image: IMG.tooth3,
+        image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
         text: 'Mantén una dieta balanceada, baja en azúcares, y visita al odontólogo cada 6 meses.',
-        image: IMG.tooth1,
+        image: IMG.toothWand,
         toothPosition: 'right',
       },
       {
         text: 'La ortodoncia en pacientes con hemofilia es posible, pero requiere coordinación entre el ortodoncista y el hematólogo.',
-        image: IMG.tooth2,
+        image: IMG.toothBrush,
         toothPosition: 'left',
       },
     ],
@@ -545,16 +655,16 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'cordales',
         title: 'Cordales (Muelas del Juicio)',
-        menuImage: IMG.tooth1,
+        menuImage: IMG.cordalesFoto,
         slides: [
           {
             text: 'Las muelas del juicio suelen erupcionar entre los 17 y 25 años. Pueden salir en posición incorrecta (impactadas) y causar dolor e infección.',
-            image: IMG.tooth1,
+            image: IMG.cordalesFoto,
             toothPosition: 'left',
           } as ContentSlide,
           {
             text: 'En pacientes con hemofilia, la extracción de cordales es un procedimiento de alto riesgo que requiere coordinación con el hematólogo.',
-            image: IMG.tooth2,
+            image: IMG.medicamentos,
             toothPosition: 'right',
           } as ContentSlide,
           {
@@ -568,16 +678,16 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'higiene',
         title: 'Higiene Oral',
-        menuImage: IMG.encia,
+        menuImage: IMG.toothBrush,
         subtopics: [
           {
             id: 'higiene-general',
             title: 'Higiene General',
-            menuImage: IMG.tooth2,
+            menuImage: IMG.toothBrush,
             slides: [
               {
                 text: 'En la adolescencia, la autonomía en la higiene oral es clave. Cepilla después de cada comida y usa hilo dental diariamente.',
-                image: IMG.tooth2,
+                image: IMG.toothBrush,
                 toothPosition: 'left',
               } as ContentSlide,
               {
@@ -591,13 +701,13 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
           {
             id: 'caries',
             title: 'Caries',
-            menuImage: IMG.tooth1,
+            menuImage: IMG.caries1,
             slides: cariesSlides,
           },
           {
             id: 'gingivitis',
             title: 'Gingivitis',
-            menuImage: IMG.encia,
+            menuImage: IMG.gingivitis1,
             slides: gingivitisSlides,
           },
         ],
@@ -605,7 +715,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'trauma',
         title: 'Trauma Dental',
-        menuImage: IMG.sangre,
+        menuImage: IMG.bloodCells,
         slides: traumaCommonSlides('14-18'),
       },
     ],

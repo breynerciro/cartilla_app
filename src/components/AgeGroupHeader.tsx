@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
   },
   subtitle: {
-    fontFamily: Typography.fonts.font1,
+    fontFamily: Typography.fonts.ubuntu,
     fontSize: Typography.sizes.base,
     color: Colors.blue2,
     marginBottom: 4,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   title: {
-    fontFamily: Typography.fonts.font2,
+    fontFamily: Typography.fonts.unkempt,
     fontSize: Typography.sizes.heading,
     color: Colors.white,
   },

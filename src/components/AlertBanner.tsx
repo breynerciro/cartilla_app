@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    fontFamily: Typography.fonts.font1,
+    fontFamily: Typography.fonts.ubuntu,
     fontSize: Typography.sizes.base,
     lineHeight: 22,
   }

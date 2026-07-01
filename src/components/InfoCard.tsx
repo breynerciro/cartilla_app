@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   cardText: {
-    fontFamily: Typography.fonts.font1,
+    fontFamily: Typography.fonts.ubuntu,
     fontSize: Typography.sizes.subtitle,
     color: Colors.white,
     textAlign: 'center',

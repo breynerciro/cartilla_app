@@ -1,25 +1,25 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
+import LogoUnal from '../../assets/images/svgs/logo_UNAL.svg';
+// Eliminamos HomiLogo como SVG porque contiene una imagen PNG incrustada que no soporta fill
 
-export const FooterLogos = () => {
+interface FooterLogosProps {
+  color?: 'white' | 'black';
+}
+
+export const FooterLogos = ({ color = 'black' }: FooterLogosProps) => {
+  const iconColor = color === 'white' ? '#FFFFFF' : '#000000';
+  const dividerColor = color === 'white' ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.2)';
+
   return (
     <View style={styles.container}>
       <Image 
         source={require('../../assets/images/png\'s/homi_logo.png')} 
-        style={styles.homiLogo} 
+        style={[styles.homiLogo, { tintColor: iconColor }]} 
         resizeMode="contain"
       />
-      <View style={styles.divider} />
-      <Image 
-        // We will use a fallback or require the SVG with react-native-svg, but for now let's use the SVG component or PNG if available.
-        // Wait, logo_UNAL is only available as SVG in assets/images/svgs/logo_UNAL.svg. 
-        // Let's create a generic wrapper or just use the local SVG.
-        // For simplicity right now we'll use an Image wrapper or require the SVG directly if metro-config is set up for it.
-        // Let's use react-native-svg for the UNAL logo or an image if we can transform it.
-        source={require('../../assets/images/adaptive-icon.png')} // Fallback until SVG is configured
-        style={styles.unalLogo} 
-        resizeMode="contain"
-      />
+      <View style={[styles.divider, { backgroundColor: dividerColor }]} />
+      <LogoUnal width={120} height={40} fill={iconColor} style={styles.unalLogo} />
     </View>
   );
 };
@@ -29,23 +29,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
+    paddingVertical: 15,
     width: '100%',
+    opacity: 0.8,
   },
   homiLogo: {
-    height: 40,
-    width: '40%',
-    maxWidth: 100,
+    height: 35,
+    width: '35%',
+    maxWidth: 90,
   },
   divider: {
     width: 1,
-    height: 30,
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    height: 25,
     marginHorizontal: 15,
   },
   unalLogo: {
-    height: 40,
-    width: '40%',
-    maxWidth: 100,
+    // Style applied to SVG wrapper if needed
   },
 });
+

@@ -1,3 +1,4 @@
+import { DynamicImage } from '../../../../src/components/DynamicImage';
 import React from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, useWindowDimensions,
@@ -44,7 +45,7 @@ function SubtopicMenuScreen({
             >
               {isEven ? (
                 <>
-                  <Image source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
+                  <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                   <View style={styles.cardTextBox}>
                     <Text style={styles.cardText}>{sub.title}</Text>
                   </View>
@@ -54,7 +55,7 @@ function SubtopicMenuScreen({
                   <View style={styles.cardTextBox}>
                     <Text style={styles.cardText}>{sub.title}</Text>
                   </View>
-                  <Image source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
+                  <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                 </>
               )}
             </TouchableOpacity>
@@ -78,30 +79,46 @@ export default function TopicScreen() {
   const { group, topic } = useLocalSearchParams();
   const router = useRouter();
 
+  // State to track if we've finished showing intro slides for this topic
+  const [introFinished, setIntroFinished] = React.useState(false);
+
   const ageGroup = group as AgeGroup;
   const data = ageGroupData[ageGroup];
   const topicData = data?.topics.find((t) => t.id === topic);
 
   if (!data || !topicData) return null;
 
-  // If topic has subtopics → show sub-menu
-  if (topicData.subtopics && topicData.subtopics.length > 0) {
+  const hasSlides = topicData.slides && topicData.slides.length > 0;
+  const hasSubtopics = topicData.subtopics && topicData.subtopics.length > 0;
+  const hasInlineButtons = topicData.slides?.some(s => 'buttons' in s && (s as any).buttons?.length > 0);
+
+  // 1. If topic has slides and they haven't finished yet → show slides
+  if (hasSlides && !introFinished) {
+    return (
+      <SlidesRunner
+        slides={topicData.slides!}
+        groupTitle={data.title}
+        onNavigate={(targetId) => router.push(`/age/${group}/${topic}/${targetId}`)}
+        onFinish={() => {
+          if (hasSubtopics && !hasInlineButtons) {
+            // If it has subtopics and no inline buttons, move to the fallback menu
+            setIntroFinished(true);
+          } else {
+            // Otherwise, go back
+            router.back();
+          }
+        }}
+      />
+    );
+  }
+
+  // 2. If topic has subtopics (and slides are either done or don't exist) → show menu
+  if (hasSubtopics && !hasInlineButtons) {
     return (
       <SubtopicMenuScreen
         group={group as string}
         topic={topic as string}
         data={topicData}
-      />
-    );
-  }
-
-  // If topic has slides directly → run slides
-  if (topicData.slides && topicData.slides.length > 0) {
-    return (
-      <SlidesRunner
-        slides={topicData.slides}
-        groupTitle={data.title}
-        onFinish={() => router.back()}
       />
     );
   }

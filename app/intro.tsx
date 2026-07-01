@@ -19,23 +19,26 @@ export default function IntroScreen() {
     >
       <StatusBar style="light" />
       <SafeAreaView style={styles.safeArea}>
-        {/* Título centrado verticalmente en la mitad superior */}
-        <View style={styles.titleBlock}>
-          <Text style={styles.title} adjustsFontSizeToFit numberOfLines={1}>HEMOFILIA Y</Text>
-          <Text style={styles.title} adjustsFontSizeToFit numberOfLines={1}>ODONTOLOGÍA</Text>
+        <View style={styles.spacerTop} />
+        
+        <View style={styles.titleContainer}>
+          <Text style={styles.title} adjustsFontSizeToFit numberOfLines={2}>
+            HEMOFILIA Y{'\n'}ODONTOLOGÍA
+          </Text>
           <Text style={styles.subtitle}>Todo lo que debes saber</Text>
         </View>
 
-        {/* Botón y logos en la parte inferior */}
+        <View style={styles.spacerMiddle} />
+
         <View style={styles.bottomSection}>
           <Button
             title="Empezar"
             variant="primary"
             onPress={() => router.push('/onboarding')}
             style={styles.button}
-            textStyle={{ color: Colors.navy }}
+            textStyle={styles.buttonText}
           />
-          <FooterLogos />
+          <FooterLogos color="white" />
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -50,29 +53,36 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    justifyContent: 'space-between',
   },
-  titleBlock: {
-    flex: 1,
+  spacerTop: {
+    flex: 1.5,
+  },
+  titleContainer: {
+    width: '100%',
+    backgroundColor: Colors.navy,
+    paddingVertical: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    marginTop: 60,
   },
   title: {
-    fontFamily: Typography.fonts.ubuntuBold,  // Figma: Ubuntu Sans 700
-    fontSize: Typography.sizes.display,        // Figma: display size
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 36,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: Typography.sizes.display * 1.1,
-    letterSpacing: 1,
+    lineHeight: 43,
+    letterSpacing: 2,
+    paddingHorizontal: 20,
   },
   subtitle: {
-    fontFamily: Typography.fonts.ubuntu,      // Figma: Ubuntu Sans 400
-    fontSize: Typography.sizes.subtitle,
+    fontFamily: Typography.fonts.ubuntu,
+    fontSize: 24,
     color: Colors.white,
     marginTop: 15,
     textAlign: 'center',
+    lineHeight: 28,
+  },
+  spacerMiddle: {
+    flex: 3,
   },
   bottomSection: {
     paddingHorizontal: 30,
@@ -80,10 +90,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: '100%',
-    maxWidth: 300,
-    marginBottom: 40,
-    // Figma: botón blanco con texto oscuro
+    width: 222,
+    height: 65,
     backgroundColor: Colors.white,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 40,
+    borderColor: 'transparent',
+    borderWidth: 0,
+  },
+  buttonText: {
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 24,
+    color: Colors.navy,
+    textAlign: 'center',
+    lineHeight: 29,
   },
 });
