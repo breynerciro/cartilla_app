@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Pressable, Animated } from 'react-native';
+import { StyleSheet, Pressable, Animated, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
 
@@ -34,15 +34,23 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
       onPressOut={handlePressOut}
     >
       <Animated.View style={[
-        styles.button, 
-        isLast && styles.buttonLast,
+        styles.container,
         { transform: [{ scale: scaleAnim }] }
       ]}>
+        {/* Layer decorativo trasero (sombra/borde lavanda) */}
         <Ionicons 
-          name={isLast ? "checkmark" : "arrow-forward"} 
-          size={32} 
-          color={Colors.white} 
-          style={!isLast ? { marginLeft: 2 } : undefined}
+          name="play"
+          size={82} 
+          color={Colors.lavender} 
+          style={styles.borderLayer}
+        />
+        
+        {/* Layer frontal interactivo (navy) */}
+        <Ionicons 
+          name="play"
+          size={82} 
+          color={Colors.navy} 
+          style={styles.frontLayer}
         />
       </Animated.View>
     </Pressable>
@@ -50,23 +58,20 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
 };
 
 const styles = StyleSheet.create({
-  button: {
-    width: 64,
-    height: 64,
-    borderRadius: 32, // Circular
-    backgroundColor: Colors.navy,
-    alignItems: 'center',
+  container: {
+    width: 82,
+    height: 82, // Usamos un contenedor cuadrado para el ícono
     justifyContent: 'center',
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8, // Sombra rica en Android
-    borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.15)', // Reflejo sutil
+    alignItems: 'center',
   },
-  buttonLast: {
-    backgroundColor: Colors.blue,
-    shadowColor: Colors.blue,
+  borderLayer: {
+    position: 'absolute',
+    top: 4,
+    left: -2, // Offset para simular el borde tridimensional inferior-izquierdo
+  },
+  frontLayer: {
+    position: 'absolute',
+    top: 0,
+    left: 2, // Ajuste para centrar respecto a la sombra
   }
 });
