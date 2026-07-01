@@ -39,7 +39,7 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
       ]}>
         {/* Layer decorativo trasero (sombra/borde lavanda) */}
         <Ionicons 
-          name="play"
+          name={isLast ? "checkmark-circle" : "play"}
           size={82} 
           color={Colors.lavender} 
           style={styles.borderLayer}
@@ -47,7 +47,7 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
         
         {/* Layer frontal interactivo (navy) */}
         <Ionicons 
-          name="play"
+          name={isLast ? "checkmark-circle" : "play"}
           size={82} 
           color={Colors.navy} 
           style={styles.frontLayer}

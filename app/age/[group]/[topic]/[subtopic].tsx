@@ -102,6 +102,7 @@ export default function SubtopicScreen() {
 
   // 1. If subtopic has slides and they haven't finished yet → show slides
   if (hasSlides && !introFinished) {
+    const isTerminal = !(hasSubtopics && !hasInlineButtons);
     return (
       <SlidesRunner 
         slides={subtopicData.slides!}
@@ -114,6 +115,8 @@ export default function SubtopicScreen() {
             router.back();
           }
         }}
+        onBackOut={() => router.back()}
+        hideNextOnLast={isTerminal}
       />
     );
   }

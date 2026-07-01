@@ -1,7 +1,7 @@
 import { DynamicImage } from './DynamicImage';
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, useWindowDimensions,
+  View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Image as RNImage,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,25 +17,9 @@ import { NextButton } from './NextButton';
 import { BackButton } from './BackButton';
 import { InteractiveDentalDiagram } from './InteractiveDentalDiagram';
 
-// ─── LAYOUT SYSTEM ────────────────────────────────────────────────────────────
-// All slides use the same 3-zone structure:
-//
-//   [SafeAreaView flex:1]
-//     [ZONE 1] Header          → fixed height, always on top
-//     [ZONE 2] Body flex:1     → fills remaining space
-//       [navyCard]             → flexGrow:1 flexShrink:1 (grows to fill space,
-//                                shrinks if content is small — NOT forced full height)
-//     [ZONE 3] Footer          → fixed height, ALWAYS visible at bottom
-//
-// This ensures:
-//  • Short text → card is content-sized, centered, doesn't bloat
-//  • Long text  → card grows to fill available space, text scales with adjustsFontSizeToFit
-//  • Buttons are ALWAYS in footer zone, never pushed off-screen
-// ─────────────────────────────────────────────────────────────────────────────
-
 // ─── ContentSlideView ─────────────────────────────────────────────────────────
 const ContentSlideView = ({
-  slide, groupTitle, onNext, onBack, isLast, onNavigate,
+  slide, groupTitle, onNext, onBack, isLast, onNavigate, hideNext,
 }: {
   slide: ContentSlide;
   groupTitle: string;
@@ -43,10 +27,26 @@ const ContentSlideView = ({
   onBack: () => void;
   isLast: boolean;
   onNavigate?: (targetId: string) => void;
+  hideNext?: boolean;
 }) => {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const toothSize = Math.min(width * 0.36, 170);
   const isLeft = slide.toothPosition === 'left';
+  
+  const availableWidth = width - 72; // Screen width minus padding
+  const maxPhotoHeight = height * 0.45; // Reserve 45% of screen height max for photos
+
+  let photoAspectRatio = 1.5;
+  if (slide.photo) {
+    const sourceInfo = RNImage.resolveAssetSource(slide.photo);
+    if (sourceInfo && sourceInfo.width && sourceInfo.height) {
+      photoAspectRatio = sourceInfo.width / sourceInfo.height;
+    }
+  }
+
+  // Calculate exact bounds so the container tightly hugs the image
+  const calculatedWidth = Math.min(availableWidth, maxPhotoHeight * photoAspectRatio);
+  const calculatedHeight = calculatedWidth / photoAspectRatio;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,13 +61,13 @@ const ContentSlideView = ({
       {/* ZONE 2 */}
       <View style={styles.body}>
         <View style={styles.navyCard}>
-          <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.4} numberOfLines={20}>
+          <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={20}>
             {slide.text}
           </Text>
           {slide.photo && (
             <DynamicImage
               source={slide.photo}
-              style={styles.cardPhoto}
+              style={[styles.cardPhoto, { width: calculatedWidth, height: calculatedHeight }]}
               resizeMode="cover"
             />
           )}
@@ -96,20 +96,21 @@ const ContentSlideView = ({
             </TouchableOpacity>
           ))}
         </View>
+
+        <View style={[styles.mascotWrap, { alignItems: isLeft ? 'flex-start' : 'center', marginTop: 10 }]}>
+          <DynamicImage
+            source={slide.image}
+            style={{ width: toothSize, height: toothSize }}
+            resizeMode="contain"
+          />
+        </View>
       </View>
 
       {/* ZONE 3 */}
       <View style={styles.footer}>
-        <View style={styles.footerRow}>
+        <View style={[styles.footerRow, { justifyContent: 'space-between' }]}>
           <BackButton onPress={onBack} />
-          <View style={styles.mascotWrap}>
-            <DynamicImage
-              source={slide.image}
-              style={{ width: toothSize, height: toothSize }}
-              resizeMode="contain"
-            />
-          </View>
-          {!isLast ? (
+          {!hideNext ? (
             <NextButton onPress={onNext} isLast={isLast} />
           ) : (
             <View style={{ width: 82 }} /> 
@@ -123,7 +124,7 @@ const ContentSlideView = ({
 
 // ─── DetailSlideView ──────────────────────────────────────────────────────────
 const DetailSlideView = ({
-  slide, groupTitle, onBack, onNext, onInfo, isLast,
+  slide, groupTitle, onBack, onNext, onInfo, isLast, hideNext,
 }: {
   slide: DetailSlide;
   groupTitle: string;
@@ -131,6 +132,7 @@ const DetailSlideView = ({
   onNext: () => void;
   onInfo: () => void;
   isLast: boolean;
+  hideNext?: boolean;
 }) => (
   <SafeAreaView style={styles.container}>
     {/* ZONE 1 */}
@@ -142,7 +144,7 @@ const DetailSlideView = ({
     {/* ZONE 2 */}
     <View style={styles.body}>
       <View style={styles.navyCard}>
-        <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.4} numberOfLines={20}>
+        <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={20}>
           {slide.bodyText}
         </Text>
         {slide.showInfoIcon && (
@@ -159,7 +161,7 @@ const DetailSlideView = ({
     <View style={styles.footer}>
       <View style={[styles.footerRow, { justifyContent: 'space-between' }]}>
         <BackButton onPress={onBack} />
-        {!isLast && <NextButton onPress={onNext} isLast={isLast} />}
+        {!hideNext && <NextButton onPress={onNext} isLast={isLast} />}
       </View>
       <FooterLogos />
     </View>
@@ -178,8 +180,19 @@ const InfoSlideView = ({
 }) => {
   const { width, height } = useWindowDimensions();
   const modalW = width - 32;
-  // Photo height: at most 38% of screen so text + footer always fit
-  const photoH = Math.min(height * 0.32, 220);
+  const maxPhotoHeight = height * 0.45;
+  const availableWidth = modalW - 32;
+  
+  let photoAspectRatio = 1.5;
+  if (slide.photo) {
+    const sourceInfo = RNImage.resolveAssetSource(slide.photo);
+    if (sourceInfo && sourceInfo.width && sourceInfo.height) {
+      photoAspectRatio = sourceInfo.width / sourceInfo.height;
+    }
+  }
+
+  const calculatedWidth = Math.min(availableWidth, maxPhotoHeight * photoAspectRatio);
+  const calculatedHeight = calculatedWidth / photoAspectRatio;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -196,10 +209,10 @@ const InfoSlideView = ({
               <Ionicons name="warning" size={20} color="#FC5939" />
             </View>
           )}
-          <View style={[styles.infoPhotoContainer, { height: photoH, width: modalW - 32 }]}>
-            <DynamicImage source={slide.photo} style={styles.infoPhoto} resizeMode="contain" />
+          <View style={[styles.infoPhotoContainer, { width: calculatedWidth, height: calculatedHeight }]}>
+            <DynamicImage source={slide.photo} style={styles.infoPhoto} resizeMode="cover" />
           </View>
-          <Text style={styles.infoText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={8}>
+          <Text style={styles.infoText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={8}>
             {slide.alertText}
           </Text>
         </View>
@@ -217,12 +230,14 @@ const InfoSlideView = ({
 
 // ─── DiagramSlideView ─────────────────────────────────────────────────────────
 const DiagramSlideView = ({
-  groupTitle, onNext, onBack, isLast,
+  slide, groupTitle, onNext, onBack, isLast, hideNext,
 }: {
+  slide: DiagramSlide;
   groupTitle: string;
   onNext: () => void;
   onBack: () => void;
   isLast: boolean;
+  hideNext?: boolean;
 }) => (
   <SafeAreaView style={styles.container}>
     {/* ZONE 1 */}
@@ -230,14 +245,14 @@ const DiagramSlideView = ({
 
     {/* ZONE 2 */}
     <View style={styles.body}>
-      <InteractiveDentalDiagram />
+      <InteractiveDentalDiagram ageGroup={slide.ageGroup} />
     </View>
 
     {/* ZONE 3 */}
     <View style={styles.footer}>
       <View style={[styles.footerRow, { justifyContent: 'space-between' }]}>
         <BackButton onPress={onBack} />
-        {!isLast && <NextButton onPress={onNext} isLast={isLast} />}
+        {!hideNext && <NextButton onPress={onNext} isLast={isLast} />}
       </View>
     </View>
   </SafeAreaView>
@@ -245,12 +260,14 @@ const DiagramSlideView = ({
 
 // ─── SlidesRunner orchestrator ────────────────────────────────────────────────
 export function SlidesRunner({
-  slides, groupTitle, onFinish, onNavigate,
+  slides, groupTitle, onFinish, onBackOut, onNavigate, hideNextOnLast,
 }: {
   slides: Slide[];
   groupTitle: string;
   onFinish: () => void;
+  onBackOut?: () => void;
   onNavigate?: (targetId: string) => void;
+  hideNextOnLast?: boolean;
 }) {
   const [idx, setIdx] = useState(0);
   const current = slides[idx];
@@ -267,6 +284,7 @@ export function SlidesRunner({
   };
 
   const isLast = getNextNormalIdx(idx) >= slides.length;
+  const normalSlidesCount = slides.filter(s => !('type' in s) || (s as any).type !== 'modal').length;
 
   const goNext = () => {
     const isModal = 'type' in current && (current as any).type === 'modal';
@@ -278,8 +296,12 @@ export function SlidesRunner({
   const goPrev = () => {
     const isModal = 'type' in current && (current as any).type === 'modal';
     const prev = isModal ? getPrevNormalIdx(idx) : (idx > 0 ? getPrevNormalIdx(idx) : -1);
-    if (prev >= 0) setIdx(prev);
-    else onFinish();
+    if (prev >= 0) {
+      setIdx(prev);
+    } else {
+      if (onBackOut) onBackOut();
+      else onFinish(); // Fallback
+    }
   };
 
   const openModal = () => {
@@ -291,14 +313,19 @@ export function SlidesRunner({
   if (!current) return null;
 
   const type = 'type' in current ? (current as any).type : null;
+  
+  // Hide the Next button if it's explicitly terminal AND it's a 1-slide flow 
+  // (because in a 1-slide flow, Back and Next both go to the same place: the menu)
+  const shouldHideNext = isLast && hideNextOnLast && normalSlidesCount === 1;
+
   if (type === 'detail')
-    return <DetailSlideView slide={current as DetailSlide} groupTitle={groupTitle} onBack={goPrev} onNext={goNext} onInfo={openModal} isLast={isLast} />;
+    return <DetailSlideView slide={current as DetailSlide} groupTitle={groupTitle} onBack={goPrev} onNext={goNext} onInfo={openModal} isLast={isLast} hideNext={shouldHideNext} />;
   if (type === 'modal')
     return <InfoSlideView slide={current as InfoSlide} groupTitle={groupTitle} onBack={goPrev} onNext={goNext} isLast={isLast} />;
   if (type === 'diagram')
-    return <DiagramSlideView groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} />;
+    return <DiagramSlideView slide={current as DiagramSlide} groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} hideNext={shouldHideNext} />;
 
-  return <ContentSlideView slide={current as ContentSlide} groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} onNavigate={onNavigate} />;
+  return <ContentSlideView slide={current as ContentSlide} groupTitle={groupTitle} onNext={goNext} onBack={goPrev} isLast={isLast} onNavigate={onNavigate} hideNext={shouldHideNext} />;
 }
 
 // ─── STYLES — shared across all slide types ───────────────────────────────────
@@ -339,7 +366,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     lineHeight: Typography.sizes.card * 1.25,
-    flexShrink: 1,
+    // REMOVED flexShrink: 1 to ensure text always demands the space it needs to be readable
   },
 
   // ZONE 3 — footer always at bottom
@@ -354,7 +381,6 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   mascotWrap: {
-    flex: 1,
     alignItems: 'center',
   },
 
@@ -386,12 +412,14 @@ const styles = StyleSheet.create({
 
   // Photo inside content card
   cardPhoto: {
-    width: '100%',
-    height: 150,
+    alignSelf: 'center',
     borderRadius: 12,
     marginTop: 12,
     borderWidth: 2,
     borderColor: '#000',
+    backgroundColor: '#FFF',
+    overflow: 'hidden',
+    flexShrink: 1, // Image yields space to the text if the screen is cramped
   },
 
   // Inline subtopic buttons
@@ -473,6 +501,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
+    flexShrink: 1, // Image yields space to the text if the screen is cramped
   },
   infoPhoto: {
     width: '100%',

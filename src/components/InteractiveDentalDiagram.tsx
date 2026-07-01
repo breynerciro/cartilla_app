@@ -8,7 +8,7 @@ import {
   Animated,
 } from 'react-native';
 import Svg, { Circle, Path, G, Defs, RadialGradient, Stop, Image as SvgImage } from 'react-native-svg';
-import { upperArchPaths, lowerArchPaths, ToothData } from '../data/teethPaths';
+import { upperArchPaths, lowerArchPaths, upperPermanentArchPaths, lowerPermanentArchPaths, ToothData } from '../data/teethPaths';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 
@@ -17,24 +17,37 @@ const TOOTH_COLORS: Record<string, string> = {
   ic: '#F48FB1', // Rosa (Incisivo central)
   il: '#FFD54F', // Amarillo (Incisivo lateral)
   ca: '#4DB6AC', // Cyan (Canino)
-  pm: '#64B5F6', // Azul (Primer Molar)
-  sm: '#BA68C8', // Morado (Segundo Molar)
+  pm: '#64B5F6', // Azul (Primer Molar Temporal / Primer Premolar)
+  sm: '#BA68C8', // Morado (Segundo Molar Temporal / Segundo Premolar)
+  pm1: '#64B5F6',
+  pm2: '#BA68C8',
+  m1: '#FF8A65', // Naranja
+  m2: '#81C784', // Verde Claro
+  m3: '#A1887F', // Marrón
 };
 
 const TOOTH_NAMES: Record<string, string> = {
   ic: 'Incisivo central',
   il: 'Incisivo lateral',
   ca: 'Canino',
-  pm: 'Primer molar',
-  sm: 'Segundo molar',
+  pm: 'Primer molar', // Temporal
+  sm: 'Segundo molar', // Temporal
+  pm1: 'Primer premolar',
+  pm2: 'Segundo premolar',
+  m1: 'Primer molar',
+  m2: 'Segundo molar',
+  m3: 'Tercer molar (Cordal)',
 };
+
+const DECIDUOUS_KEYS = ['ic', 'il', 'ca', 'pm', 'sm'];
+const PERMANENT_KEYS = ['ic', 'il', 'ca', 'pm1', 'pm2', 'm1', 'm2', 'm3'];
 
 // ─── COORDENADAS Y RUTAS VECTORIALES (Sincronizadas al pixel de 890x682) ───
 // Extraídas matemáticamente de la imagen para asegurar hitbox perfecto.
 const upperArch = upperArchPaths;
 const lowerArch = lowerArchPaths;
 
-export const InteractiveDentalDiagram = () => {
+export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: string }) => {
   const { width } = useWindowDimensions();
   const [activeArch, setActiveArch] = useState<'upper' | 'lower'>('upper');
   const [activeSpot, setActiveSpot] = useState<ToothData | null>(null);
@@ -55,15 +68,18 @@ export const InteractiveDentalDiagram = () => {
 
   // width - 32 (paddingHorizontal de SlidesRunner) - 8 de margen de seguridad
   const diagramSize = width - 40;
-  const teethData = activeArch === 'upper' ? upperArch : lowerArch;
+  const isPermanent = ageGroup === '6-13';
+  const teethData = isPermanent 
+    ? (activeArch === 'upper' ? upperPermanentArchPaths : lowerPermanentArchPaths)
+    : (activeArch === 'upper' ? upperArchPaths : lowerArchPaths);
 
   const handleToothPress = (tooth: ToothData) => {
     setActiveSpot(prev => (prev?.id === tooth.id ? null : tooth));
   };
 
   // Cargamos las imágenes locales
-  const upperImage = require('../../assets/arch_upper.png');
-  const lowerImage = require('../../assets/arch_lower.png');
+  const upperImage = isPermanent ? require('../../assets/arch_upper_permanentes.png') : require('../../assets/arch_upper.png');
+  const lowerImage = isPermanent ? require('../../assets/arch_lower_permanentes.png') : require('../../assets/arch_lower.png');
 
   return (
     <View style={styles.container}>
@@ -94,8 +110,8 @@ export const InteractiveDentalDiagram = () => {
       </View>
 
       {/*SVG + Image integrados en el mismo ViewBox */}
-      <View style={[styles.diagramContainer, { width: diagramSize, height: diagramSize * 0.85 }]}>
-        <Svg viewBox="0 0 890 682" width="100%" height="100%">
+      <View style={[styles.diagramContainer, { width: diagramSize, height: diagramSize * (isPermanent ? 896 / 1169 : 0.85) }]}>
+        <Svg viewBox={isPermanent ? "0 0 1169 896" : "0 0 890 682"} width="100%" height="100%">
           <Defs>
             <RadialGradient id="glow" cx="50%" cy="50%" rx="50%" ry="50%">
               <Stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
@@ -103,11 +119,11 @@ export const InteractiveDentalDiagram = () => {
             </RadialGradient>
           </Defs>
 
-          {/* La imagen rasterizada se renderiza nativamente dentro del SVG, anclada al viewBox de 890x682 */}
+          {/* La imagen rasterizada se renderiza nativamente dentro del SVG, anclada al viewBox exacto de cada resolución */}
           <SvgImage
             href={activeArch === 'upper' ? upperImage : lowerImage}
-            width="890"
-            height="682"
+            width={isPermanent ? "1169" : "890"}
+            height={isPermanent ? "896" : "682"}
             x="0"
             y="0"
             preserveAspectRatio="xMidYMid slice"
@@ -205,10 +221,10 @@ export const InteractiveDentalDiagram = () => {
       {/* Solo mostramos la leyenda si no hay un diente seleccionado para ahorrar espacio vertical */}
       {!activeSpot && (
         <View style={styles.legend}>
-          {(Object.entries(TOOTH_NAMES) as [string, string][]).map(([key, label]) => (
+          {(isPermanent ? PERMANENT_KEYS : DECIDUOUS_KEYS).map(key => (
             <View key={key} style={styles.legendItem}>
               <View style={[styles.legendDot, { backgroundColor: TOOTH_COLORS[key] }]} />
-              <Text style={styles.legendText}>{label}</Text>
+              <Text style={styles.legendText}>{TOOTH_NAMES[key]}</Text>
             </View>
           ))}
         </View>
