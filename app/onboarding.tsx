@@ -37,18 +37,19 @@ export default function OnboardingScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Decoración superior unificada */}
       <CornerDecoration position="bottom-left" />
 
-      <View style={styles.content}>
-        {/* Tarjeta navy con texto*/}
+      {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
+      <View style={styles.body}>
         <View style={styles.card}>
-          <Text style={styles.cardText}>
+          <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={15}>
             {slides[currentSlide].text}
           </Text>
         </View>
+      </View>
 
-        {/* Sección inferior: diente + botón */}
+      {/* ZONE 3: Footer — always visible */}
+      <View style={styles.footer}>
         <View style={styles.characterSection}>
           <Image
             source={slides[currentSlide].image}
@@ -57,9 +58,8 @@ export default function OnboardingScreen() {
           />
           <NextButton onPress={nextSlide} isLast={isLast} />
         </View>
+        <FooterLogos />
       </View>
-
-      <FooterLogos />
     </SafeAreaView>
   );
 }
@@ -68,40 +68,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    justifyContent: 'space-between',
   },
-  content: {
+  body: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingTop: 60,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 60,
   },
   card: {
     backgroundColor: Colors.navy,
-    borderRadius: 27,           // Figma: 27px
-    padding: 30,
+    borderRadius: 27,
+    padding: 28,
     width: '100%',
+    flexShrink: 1,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 5,
-    marginBottom: 40,
+    justifyContent: 'center',
   },
   cardText: {
-    fontFamily: Typography.fonts.unkempt,   // Figma: Unkempt 400
-    fontSize: Typography.sizes.card,         // Figma: 36px → adapt for readability
+    fontFamily: Typography.fonts.unkempt,
+    fontSize: Typography.sizes.card,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: Typography.sizes.card * Typography.lineHeight.normal,
+    lineHeight: Typography.sizes.card * 1.25,
+  },
+  footer: {
+    paddingHorizontal: 16,
+    paddingBottom: 8,
   },
   characterSection: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 10,
+    paddingHorizontal: 4,
+    paddingVertical: 8,
   },
-  // character: dynamic via useWindowDimensions (see render)
 });

@@ -36,15 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
       {hasLeftDeco && <CornerDecoration position="bottom-left" />}
       {hasRightDeco && <CornerDecoration position="bottom-right" />}
 
-      {showBack && (
-        <TouchableOpacity style={styles.backBtn} onPress={handleBack} activeOpacity={0.8}>
-          <Ionicons 
-            name="arrow-back" 
-            size={28} 
-            color={hasLeftDeco ? Colors.white : Colors.navy} 
-          />
-        </TouchableOpacity>
-      )}
+      {/* Back button removed as per user request to avoid redundancy */}
 
       {title && (
         <Text 

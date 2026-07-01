@@ -30,10 +30,7 @@ function SubtopicMenuScreen({
         onBack={() => router.back()}
       />
 
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={styles.body}>
         {data.subtopics!.map((sub, index) => {
           const isEven = index % 2 === 0;
           return (
@@ -47,13 +44,13 @@ function SubtopicMenuScreen({
                 <>
                   <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                   <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText}>{sub.title}</Text>
+                    <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={3}>{sub.title}</Text>
                   </View>
                 </>
               ) : (
                 <>
                   <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText}>{sub.title}</Text>
+                    <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={3}>{sub.title}</Text>
                   </View>
                   <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                 </>
@@ -61,7 +58,7 @@ function SubtopicMenuScreen({
             </TouchableOpacity>
           );
         })}
-      </ScrollView>
+      </View>
 
       <View style={styles.footer}>
         <BackButton onPress={() => router.back()} />
@@ -130,11 +127,11 @@ export default function TopicScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.white },
-  scrollContent: {
+  body: {
     paddingHorizontal: 12,
-    paddingTop: 16,
-    paddingBottom: 120,
-    gap: 16,
+    paddingTop: 8,
+    flex: 1,
+    gap: 10,
   },
   card: {
     flexDirection: 'row',
@@ -143,17 +140,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     minHeight: 120,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    gap: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    gap: 12,
   },
   cardTextBox: {
     flex: 1,
     backgroundColor: Colors.navy,
     borderRadius: 16,
-    padding: 14,
+    padding: 16,
     justifyContent: 'center',
-    minHeight: 80,
+    minHeight: 90,
   },
   cardText: {
     fontFamily: Typography.fonts.unkempt,
@@ -164,9 +161,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: 20,
-    paddingBottom: 12,
+    paddingBottom: 10,
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   finishButton: {
     backgroundColor: Colors.navy,

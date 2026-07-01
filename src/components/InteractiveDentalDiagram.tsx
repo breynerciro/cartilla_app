@@ -53,7 +53,8 @@ export const InteractiveDentalDiagram = () => {
     }
   }, [activeSpot]);
 
-  const diagramSize = width - 20;
+  // width - 32 (paddingHorizontal de SlidesRunner) - 8 de margen de seguridad
+  const diagramSize = width - 40;
   const teethData = activeArch === 'upper' ? upperArch : lowerArch;
 
   const handleToothPress = (tooth: ToothData) => {
@@ -200,16 +201,18 @@ export const InteractiveDentalDiagram = () => {
           <Text style={styles.hintText}>Toca cualquier diente en la imagen</Text>
         </View>
       )}
-
-      {/* Leyenda Mapeada Exactamente */}
-      <View style={styles.legend}>
-        {(Object.entries(TOOTH_NAMES) as [string, string][]).map(([key, label]) => (
-          <View key={key} style={styles.legendItem}>
-            <View style={[styles.legendDot, { backgroundColor: TOOTH_COLORS[key] }]} />
-            <Text style={styles.legendText}>{label}</Text>
-          </View>
-        ))}
-      </View>
+      
+      {/* Solo mostramos la leyenda si no hay un diente seleccionado para ahorrar espacio vertical */}
+      {!activeSpot && (
+        <View style={styles.legend}>
+          {(Object.entries(TOOTH_NAMES) as [string, string][]).map(([key, label]) => (
+            <View key={key} style={styles.legendItem}>
+              <View style={[styles.legendDot, { backgroundColor: TOOTH_COLORS[key] }]} />
+              <Text style={styles.legendText}>{label}</Text>
+            </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -218,18 +221,10 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    paddingVertical: 20,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 28,
-    marginVertical: 10,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 2,
+    paddingVertical: 12,
   },
   headerContainer: {
-    marginBottom: 20,
+    marginBottom: 8,
     alignItems: 'center',
   },
   title: {
@@ -251,13 +246,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F2F8',
     borderRadius: 30,
     padding: 4,
-    marginBottom: 24,
+    marginBottom: 12,
     alignSelf: 'stretch',
     marginHorizontal: 16,
   },
   tab: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 8,
     alignItems: 'center',
     borderRadius: 26,
     justifyContent: 'center',
@@ -279,24 +274,16 @@ const styles = StyleSheet.create({
     color: Colors.navy,
   },
   diagramContainer: {
-    backgroundColor: '#FDF8F7',
-    borderRadius: 24,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    elevation: 3,
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'hidden',
   },
   infoBox: {
     flexDirection: 'row',
     width: '90%',
     backgroundColor: Colors.white,
     borderRadius: 16,
-    padding: 18,
-    marginTop: 20,
+    padding: 14,
+    marginTop: 12,
     borderLeftWidth: 6,
     shadowColor: Colors.navy,
     shadowOffset: { width: 0, height: 8 },
@@ -331,14 +318,14 @@ const styles = StyleSheet.create({
   },
   closeText: { fontSize: 14, color: Colors.navy, fontFamily: Typography.fonts.ubuntuBold },
   hintBox: {
-    flexDirection: 'row', alignItems: 'center', marginTop: 20, paddingVertical: 12,
+    flexDirection: 'row', alignItems: 'center', marginTop: 12, paddingVertical: 10,
     paddingHorizontal: 20, backgroundColor: '#F0F2F8', borderRadius: 14, gap: 10
   },
   hintIcon: { fontSize: 18 },
   hintText: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 13, color: Colors.navy, flex: 1 },
   legend: {
-    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 24,
-    paddingHorizontal: 8, borderTopWidth: 1, borderTopColor: '#EAECEF', paddingTop: 16, width: '100%'
+    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8, marginTop: 12,
+    paddingHorizontal: 8, borderTopWidth: 1, borderTopColor: '#EAECEF', paddingTop: 10, width: '100%'
   },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   legendDot: { width: 12, height: 12, borderRadius: 6, borderWidth: 1, borderColor: '#1A1A1A' },

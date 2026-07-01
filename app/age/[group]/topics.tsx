@@ -30,10 +30,7 @@ export default function TopicMenuScreen() {
         onBack={() => router.back()}
       />
 
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={styles.body}>
         {data.topics.map((topic, index) => {
           const isEven = index % 2 === 0;
           return (
@@ -47,13 +44,13 @@ export default function TopicMenuScreen() {
                 <>
                   <DynamicImage source={topic.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                   <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText}>{topic.title}</Text>
+                    <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={3}>{topic.title}</Text>
                   </View>
                 </>
               ) : (
                 <>
                   <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText}>{topic.title}</Text>
+                    <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={3}>{topic.title}</Text>
                   </View>
                   <DynamicImage source={topic.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
                 </>
@@ -61,7 +58,7 @@ export default function TopicMenuScreen() {
             </TouchableOpacity>
           );
         })}
-      </ScrollView>
+      </View>
 
       <View style={styles.footer}>
         <TouchableOpacity
@@ -79,11 +76,11 @@ export default function TopicMenuScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.white },
-  scrollContent: {
+  body: {
     paddingHorizontal: 12,
-    paddingTop: 16,
-    paddingBottom: 120,
-    gap: 16,
+    paddingTop: 8,
+    flex: 1,
+    gap: 10,
   },
   card: {
     flexDirection: 'row',
@@ -91,16 +88,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0E0E0',
     borderRadius: 20,
     overflow: 'hidden',
-    minHeight: 130,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    gap: 10,
+    minHeight: 120,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    gap: 12,
   },
   cardTextBox: {
     flex: 1,
     backgroundColor: Colors.navy,
     borderRadius: 16,
-    padding: 14,
+    padding: 16,
     justifyContent: 'center',
     minHeight: 90,
   },
@@ -113,9 +110,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: 20,
-    paddingBottom: 12,
+    paddingBottom: 10,
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   finishButton: {
     backgroundColor: Colors.navy,
