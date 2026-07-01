@@ -10,6 +10,11 @@ export interface SlideButton {
   imagePosition: 'left' | 'right';
 }
 
+export interface SpeechBubble {
+  text: string;
+  targetId: string;
+}
+
 export interface ContentSlide {
   text: string;
   image: any;
@@ -17,6 +22,7 @@ export interface ContentSlide {
   subtitle?: string;
   photo?: any;
   buttons?: SlideButton[];
+  speechBubble?: SpeechBubble;
 }
 
 export interface InfoSlide {
@@ -371,14 +377,12 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                     image: IMG.dienteCarie,
                     targetId: 'caries',
                     imagePosition: 'left'
-                  },
-                  {
-                    text: 'Cepillado',
-                    image: IMG.toothBrush,
-                    targetId: 'cepillado',
-                    imagePosition: 'right'
                   }
-                ]
+                ],
+                speechBubble: {
+                  text: '¡HAZ CLICK AQUÍ PARA VER TÉCNICA DE CEPILLADO!',
+                  targetId: 'cepillado'
+                }
               } as ContentSlide,
             ],
             subtopics: [
@@ -458,7 +462,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
           } as ContentSlide,
           {
             text: 'Es importante por varias razones entre ellas:',
-            image: IMG.toothBrush,
+            image: IMG.toothWand,
             toothPosition: 'right',
             buttons: [
               {
@@ -468,12 +472,16 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 imagePosition: 'left'
               },
               {
-                text: 'Prevenir la gingivitis',
+                text: 'Prevenir la Gingivitis',
                 image: IMG.enciaIcon,
                 targetId: 'gingivitis',
                 imagePosition: 'right'
               }
-            ]
+            ],
+            speechBubble: {
+              text: '¡HAZ CLICK AQUÍ PARA VER TÉCNICA DE CEPILLADO!',
+              targetId: 'cepillado'
+            }
           } as ContentSlide,
         ],
         subtopics: [
@@ -488,6 +496,31 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             title: 'Gingivitis',
             menuImage: IMG.enciaIcon,
             slides: gingivitisSlides,
+          },
+          {
+            id: 'cepillado',
+            title: 'Cepillado',
+            menuImage: IMG.toothBrush,
+            slides: [
+              {
+                text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.cepillo
+              } as ContentSlide,
+              {
+                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                image: IMG.toothBrush,
+                toothPosition: 'right',
+                photo: IMG.crema1
+              } as ContentSlide,
+              {
+                text: 'Posición adecuada para el cepillado.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.posicionCepillado
+              } as ContentSlide,
+            ]
           },
         ],
       },
@@ -523,7 +556,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       {
         id: 'erupcion',
         title: '¿Qué cuidados tener durante el recambio dental?',
-        menuImage: IMG.enciaIcon,
+        menuImage: IMG.toothNeutral,
         subtopics: [
           {
             id: 'torcidos',
@@ -568,12 +601,13 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             slides: [
               {
                 type: 'detail',
-                bodyText: 'La erupción del diente permanente como tal rara vez provoca hemorragias, pero el diente temporal al ser retirado si genera sangrado leve. \nPor eso, es recomendado que al aflojarse un diente sea retirado por el odontólogo después de haber administrado el factor, para evitar complicaciones si se hace en casa.',
+                bodyText: 'La erupción del diente permanente como tal rara vez provoca hemorragias, pero el diente temporal al ser retirado si genera sangrado leve.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
                 type: 'modal',
                 photo: IMG.sangradoFoto,
+                alertText: 'Es recomendado que al aflojarse un diente sea retirado por el odontólogo después de haber administrado el factor, para evitar complicaciones si se hace en casa.',
                 showExclamation: true,
               } as InfoSlide,
             ]
@@ -590,32 +624,39 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       },
       {
         id: 'higiene',
-        title: 'Higiene Oral',
+        title: '¿Cómo se debe realizar la higiene oral?',
         menuImage: IMG.toothBrush,
-        subtopics: [
+        slides: [
           {
-            id: 'higiene-general',
-            title: 'Higiene General',
-            menuImage: IMG.toothBrush,
-            slides: [
+            text: 'Este se realiza siempre en compañia de una adulto hasta que el niño desarrolle la habilidad para hacerlo solo.',
+            image: IMG.toothWand,
+            toothPosition: 'left',
+          } as ContentSlide,
+          {
+            text: 'Es importante por varias razones entre ellas:',
+            image: IMG.toothWand,
+            toothPosition: 'right',
+            buttons: [
               {
-                text: 'Con los dientes permanentes es fundamental el uso correcto del cepillo y el hilo dental para prevenir caries y enfermedades de las encías.',
-                image: IMG.toothBrush,
-                toothPosition: 'left',
-              } as ContentSlide,
+                text: 'Prevenir las Caries',
+                image: IMG.dienteCarie,
+                targetId: 'caries',
+                imagePosition: 'left'
+              },
               {
-                type: 'detail',
-                subtitle: 'HIGIENE ORAL 6-13 AÑOS:',
-                bodyText: 'Cepilla los dientes 3 veces al día (después de cada comida). Usa hilo dental una vez al día. Los enjuagues con flúor son recomendados para fortalecer el esmalte de los dientes permanentes.',
-                showInfoIcon: true,
-              } as DetailSlide,
-              {
-                text: 'Si hay aparatos ortopédicos, el cuidado debe ser aún más minucioso. Usa cepillos interdentales para limpiar alrededor de los brackets.',
-                image: IMG.toothNeutral,
-                toothPosition: 'right',
-              } as ContentSlide,
+                text: 'Prevenir la Gingivitis',
+                image: IMG.enciaIcon,
+                targetId: 'gingivitis',
+                imagePosition: 'right'
+              }
             ],
-          },
+            speechBubble: {
+              text: '¡HAZ CLICK AQUÍ PARA VER TÉCNICA DE CEPILLADO!',
+              targetId: 'cepillado'
+            }
+          } as ContentSlide,
+        ],
+        subtopics: [
           {
             id: 'caries',
             title: 'Caries',
@@ -628,12 +669,37 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             menuImage: IMG.gingivitis1,
             slides: gingivitisSlides,
           },
+          {
+            id: 'cepillado',
+            title: 'Cepillado',
+            menuImage: IMG.toothBrush,
+            slides: [
+              {
+                text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.cepillo
+              } as ContentSlide,
+              {
+                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                image: IMG.toothBrush,
+                toothPosition: 'right',
+                photo: IMG.crema1
+              } as ContentSlide,
+              {
+                text: 'Posición adecuada para el cepillado.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.posicionCepillado
+              } as ContentSlide,
+            ]
+          },
         ],
       },
       {
         id: 'trauma',
-        title: 'Trauma Dental',
-        menuImage: IMG.bloodCells,
+        title: '¿Qúe hacer en caso de trauma?',
+        menuImage: IMG.toothTrauma,
         slides: traumaCommonSlides('6-13'),
       },
     ],
@@ -643,78 +709,75 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     title: 'DE 14 A 18 AÑOS',
     introSlides: [
       {
-        text: 'En la adolescencia aparecen nuevos retos para la salud oral: los terceros molares, los hábitos de higiene autónomos y los tratamientos de ortodoncia definitivos.',
+        text: 'En esta etapa normalmente ya se tiene la dentición permanente completa (excepto las cordales). Por ello es importante:',
         image: IMG.toothWand,
         toothPosition: 'left',
       },
       {
-        text: 'Las muelas del juicio (cordales) suelen erupcionar entre los 17 y 25 años. En pacientes con hemofilia, su extracción requiere preparación especial.',
+        text: '-El cuidado y la higiene de los dientes permanentes para evitar diferentes enfermedades. \n\n-Monitoreo constante a la posición y erupción de las cordales.',
         image: IMG.toothNeutral,
         toothPosition: 'right',
       },
       {
-        text: 'El tabaco, el alcohol y el piercing oral son especialmente peligrosos en pacientes con hemofilia.',
+        text: 'Los jóvenes tienen interacción con otros jóvenes usualmente en el entorno deportivo o peleas. Es importante saber qué se debe hacer en caso de una lesión en la cavidad oral.',
         image: IMG.toothWand,
-        toothPosition: 'left',
-      },
-      {
-        text: 'Mantén una dieta balanceada, baja en azúcares, y visita al odontólogo cada 6 meses.',
-        image: IMG.toothWand,
-        toothPosition: 'right',
-      },
-      {
-        text: 'La ortodoncia en pacientes con hemofilia es posible, pero requiere coordinación entre el ortodoncista y el hematólogo.',
-        image: IMG.toothBrush,
         toothPosition: 'left',
       },
     ],
     topics: [
       {
         id: 'cordales',
-        title: 'Cordales (Muelas del Juicio)',
-        menuImage: IMG.cordalesFoto,
+        title: '¿Qué cuidados tener si erupcionan las cordales?',
+        menuImage: IMG.toothNeutral,
         slides: [
           {
-            text: 'Las muelas del juicio suelen erupcionar entre los 17 y 25 años. Pueden salir en posición incorrecta (impactadas) y causar dolor e infección.',
-            image: IMG.cordalesFoto,
+            text: 'Su erupción empieza por lo general a la edad de 17 años. Al salir, estos dientes cortan las encías, causando en algunas ocasiones hemorragias prolongadas en jóvenes hemofílicos. Si esto sucede, es necesario acudir al servicio de urgencias.',
+            image: IMG.toothWand,
             toothPosition: 'left',
           } as ContentSlide,
           {
-            text: 'En pacientes con hemofilia, la extracción de cordales es un procedimiento de alto riesgo que requiere coordinación con el hematólogo.',
-            image: IMG.medicamento1,
+            text: 'Cuando los dientes no se encuentran en buena posición, podría ser necesario extraerlos. Este procedimiento debe ser coordinado con el programa institucional de oncohematología.',
+            image: IMG.toothNeutral,
+            photo: IMG.cordalesFoto,
             toothPosition: 'right',
           } as ContentSlide,
-          {
-            type: 'detail',
-            subtitle: 'CORDALES Y HEMOFILIA:',
-            bodyText: 'Antes de cualquier extracción, incluyendo las muelas del juicio, el hematólogo debe evaluar al paciente y definir si se necesita elevar el factor de coagulación.\n\nLa cirugía debe hacerse en un centro especializado.',
-            showInfoIcon: true,
-          } as DetailSlide,
         ],
       },
       {
         id: 'higiene',
-        title: 'Higiene Oral',
+        title: '¿Cómo se debe realizar la higiene oral?',
         menuImage: IMG.toothBrush,
-        subtopics: [
+        slides: [
           {
-            id: 'higiene-general',
-            title: 'Higiene General',
-            menuImage: IMG.toothBrush,
-            slides: [
+            text: 'Este se realiza siempre en compañia de una adulto hasta que el niño desarrolle la habilidad para hacerlo solo.',
+            image: IMG.toothWand,
+            toothPosition: 'left',
+          } as ContentSlide,
+          {
+            text: 'Es recomendado realizarla 3 veces al día. Es imporante por varias razones entre ellas:',
+            image: IMG.toothWand,
+            toothPosition: 'right',
+            buttons: [
               {
-                text: 'En la adolescencia, la autonomía en la higiene oral es clave. Cepilla después de cada comida y usa hilo dental diariamente.',
-                image: IMG.toothBrush,
-                toothPosition: 'left',
-              } as ContentSlide,
+                text: 'Prevenir las Caries',
+                image: IMG.dienteCarie,
+                targetId: 'caries',
+                imagePosition: 'left'
+              },
               {
-                type: 'detail',
-                subtitle: 'HIGIENE ORAL ADOLESCENTE:',
-                bodyText: 'El tabaco y el alcohol deterioran las encías y dificultan la coagulación natural. Evítalos. Los piercing orales pueden causar sangrados difíciles de controlar en pacientes con hemofilia.',
-                showInfoIcon: true,
-              } as DetailSlide,
+                text: 'Prevenir la Gingivitis',
+                image: IMG.enciaIcon,
+                targetId: 'gingivitis',
+                imagePosition: 'right'
+              }
             ],
-          },
+            speechBubble: {
+              text: '¡HAZ CLICK AQUÍ PARA VER TÉCNICA DE CEPILLADO!',
+              targetId: 'cepillado'
+            }
+          } as ContentSlide,
+        ],
+        subtopics: [
           {
             id: 'caries',
             title: 'Caries',
@@ -726,6 +789,31 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             title: 'Gingivitis',
             menuImage: IMG.gingivitis1,
             slides: gingivitisSlides,
+          },
+          {
+            id: 'cepillado',
+            title: 'Cepillado',
+            menuImage: IMG.toothBrush,
+            slides: [
+              {
+                text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.cepillo
+              } as ContentSlide,
+              {
+                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                image: IMG.toothBrush,
+                toothPosition: 'right',
+                photo: IMG.crema1
+              } as ContentSlide,
+              {
+                text: 'Posición adecuada para el cepillado.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.posicionCepillado
+              } as ContentSlide,
+            ]
           },
         ],
       },

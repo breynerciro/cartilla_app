@@ -1,20 +1,19 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Pressable, Animated, Text } from 'react-native';
+import { StyleSheet, Pressable, Animated, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
-import { Typography } from '../theme/typography';
 
 interface BackButtonProps {
   onPress: () => void;
   label?: string;
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({ onPress, label = "Volver" }) => {
+export const BackButton: React.FC<BackButtonProps> = ({ onPress }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
-      toValue: 0.92,
+      toValue: 0.88,
       useNativeDriver: true,
     }).start();
   };
@@ -34,35 +33,42 @@ export const BackButton: React.FC<BackButtonProps> = ({ onPress, label = "Volver
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
     >
-      <Animated.View style={[styles.button, { transform: [{ scale: scaleAnim }] }]}>
-        <Ionicons name="arrow-back" size={24} color={Colors.navy} />
-        <Text style={styles.text}>{label}</Text>
+      <Animated.View style={[
+        styles.container,
+        { transform: [{ scale: scaleAnim }] }
+      ]}>
+        <Ionicons 
+          name="play"
+          size={82} 
+          color={Colors.lavender} 
+          style={[styles.borderLayer, { transform: [{ rotate: '180deg' }] }]}
+        />
+        <Ionicons 
+          name="play"
+          size={82} 
+          color={Colors.navy} 
+          style={[styles.frontLayer, { transform: [{ rotate: '180deg' }] }]}
+        />
       </Animated.View>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  container: {
+    width: 82,
+    height: 82,
     justifyContent: 'center',
-    backgroundColor: Colors.white,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 24,
-    gap: 6,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 6,
-    elevation: 6,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 14, 85, 0.1)', // Borde sutil navy
+    alignItems: 'center',
   },
-  text: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 16,
-    color: Colors.navy,
+  borderLayer: {
+    position: 'absolute',
+    top: 4,
+    left: 2, // Sombra hacia la derecha (hacia el centro)
   },
+  frontLayer: {
+    position: 'absolute',
+    top: 0,
+    left: -2, // Frente hacia la izquierda
+  }
 });

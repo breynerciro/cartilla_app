@@ -83,26 +83,54 @@ const ContentSlideView = ({
                   <DynamicImage source={btn.image} style={styles.slideButtonImg} resizeMode="contain" />
                 </View>
               )}
-              <View style={styles.slideButtonInnerBlue}>
-                <Text style={styles.slideButtonText} adjustsFontSizeToFit minimumFontScale={0.6} numberOfLines={2}>
+              
+              <View style={styles.slideButtonTextWrap}>
+                <Text style={styles.slideButtonText} adjustsFontSizeToFit minimumFontScale={0.7} numberOfLines={2}>
                   {btn.text}
                 </Text>
               </View>
+              
               {btn.imagePosition === 'right' && (
                 <View style={styles.slideButtonImgWrap}>
                   <DynamicImage source={btn.image} style={styles.slideButtonImg} resizeMode="contain" />
                 </View>
               )}
+
+              <Ionicons name="chevron-forward" size={24} color={Colors.blue} />
             </TouchableOpacity>
           ))}
         </View>
 
         <View style={[styles.mascotWrap, { alignItems: isLeft ? 'flex-start' : 'center', marginTop: 10 }]}>
-          <DynamicImage
-            source={slide.image}
-            style={{ width: toothSize, height: toothSize }}
-            resizeMode="contain"
-          />
+          <View style={[styles.mascotAndBubbleContainer, { flexDirection: 'row' }]}>
+            {!isLeft && slide.speechBubble && (
+              <TouchableOpacity 
+                style={[styles.speechBubbleFlex, { marginRight: 15 }]}
+                activeOpacity={0.8}
+                onPress={() => onNavigate && onNavigate(slide.speechBubble!.targetId)}
+              >
+                <View style={[styles.speechBubblePointer, styles.pointerRightToothFlex]} />
+                <Text style={styles.speechBubbleText}>{slide.speechBubble.text}</Text>
+              </TouchableOpacity>
+            )}
+            
+            <DynamicImage
+              source={slide.image}
+              style={{ width: toothSize, height: toothSize, zIndex: 2 }}
+              resizeMode="contain"
+            />
+
+            {isLeft && slide.speechBubble && (
+              <TouchableOpacity 
+                style={[styles.speechBubbleFlex, { marginLeft: 15 }]}
+                activeOpacity={0.8}
+                onPress={() => onNavigate && onNavigate(slide.speechBubble!.targetId)}
+              >
+                <View style={[styles.speechBubblePointer, styles.pointerLeftToothFlex]} />
+                <Text style={styles.speechBubbleText}>{slide.speechBubble.text}</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
 
@@ -349,24 +377,24 @@ const styles = StyleSheet.create({
   //   This prevents the "giant empty card" problem while still using space well
   navyCard: {
     backgroundColor: Colors.navy,
-    borderRadius: 24,
-    padding: 20,
+    borderRadius: 32,
+    paddingVertical: 24,
+    paddingHorizontal: 20,
     width: '100%',
     flexShrink: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 5,
+    shadowColor: Colors.navy,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 6,
     justifyContent: 'center',
   },
   navyCardText: {
-    fontFamily: Typography.fonts.unkempt,
-    fontSize: Typography.sizes.card,
+    fontFamily: Typography.fonts.ubuntu,
+    fontSize: 19,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: Typography.sizes.card * 1.25,
-    // REMOVED flexShrink: 1 to ensure text always demands the space it needs to be readable
+    lineHeight: 19 * 1.4,
   },
 
   // ZONE 3 — footer always at bottom
@@ -382,6 +410,52 @@ const styles = StyleSheet.create({
   },
   mascotWrap: {
     alignItems: 'center',
+    width: '100%',
+  },
+  mascotAndBubbleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  speechBubbleFlex: {
+    backgroundColor: '#FFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 20,
+    maxWidth: 160,
+    shadowColor: Colors.navy,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 8,
+    position: 'relative',
+    justifyContent: 'center',
+  },
+  speechBubbleText: {
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 15,
+    color: Colors.navy,
+    textAlign: 'center',
+  },
+  speechBubblePointer: {
+    position: 'absolute',
+    width: 0,
+    height: 0,
+    borderTopWidth: 8,
+    borderBottomWidth: 8,
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent',
+    top: '50%',
+    marginTop: -8,
+  },
+  pointerRightToothFlex: {
+    right: -10,
+    borderLeftWidth: 10,
+    borderLeftColor: '#FFF',
+  },
+  pointerLeftToothFlex: {
+    left: -10,
+    borderRightWidth: 10,
+    borderRightColor: '#FFF',
   },
 
   // Subtitle below header
@@ -413,66 +487,62 @@ const styles = StyleSheet.create({
   // Photo inside content card
   cardPhoto: {
     alignSelf: 'center',
-    borderRadius: 12,
-    marginTop: 12,
-    borderWidth: 2,
-    borderColor: '#000',
+    borderRadius: 16,
+    marginTop: 16,
     backgroundColor: '#FFF',
     overflow: 'hidden',
-    flexShrink: 1, // Image yields space to the text if the screen is cramped
+    flexShrink: 1,
   },
 
   // Inline subtopic buttons
   slideButton: {
     flexDirection: 'row',
-    backgroundColor: '#C8C8C8',
-    borderRadius: 14,
-    borderWidth: 2,
-    borderColor: '#000',
-    padding: 6,
-    marginTop: 8,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginTop: 12,
     alignItems: 'center',
-    gap: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
+    gap: 12,
   },
-  slideButtonInnerBlue: {
+  slideButtonTextWrap: {
     flex: 1,
-    backgroundColor: Colors.navy,
-    borderRadius: 10,
-    padding: 8,
     justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: Colors.white,
   },
   slideButtonText: {
-    fontFamily: Typography.fonts.unkempt,
-    fontSize: Typography.sizes.body,
-    color: Colors.white,
-    textAlign: 'center',
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 16,
+    color: Colors.navy,
   },
   slideButtonImgWrap: {
-    width: 54,
-    height: 54,
-    backgroundColor: Colors.white,
-    borderRadius: 10,
+    width: 48,
+    height: 48,
+    backgroundColor: '#F0F4F8',
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#000',
   },
   slideButtonImg: {
-    width: 44,
-    height: 44,
+    width: 36,
+    height: 36,
   },
 
   // Info/Modal slide
   infoModal: {
     backgroundColor: Colors.lavender,
-    borderWidth: 2,
-    borderColor: Colors.white,
-    borderRadius: 28,
-    padding: 16,
+    borderRadius: 32,
+    padding: 24,
     alignItems: 'center',
+    shadowColor: Colors.lavender,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 6,
   },
   alertHeader: {
     flexDirection: 'row',
@@ -480,10 +550,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
     backgroundColor: 'rgba(255,255,255,0.4)',
-    paddingVertical: 6,
+    paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 20,
-    marginBottom: 10,
+    marginBottom: 16,
     width: '100%',
   },
   alertHeaderText: {
@@ -491,28 +561,32 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#FC5939',
     letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   infoPhotoContainer: {
     backgroundColor: Colors.white,
     borderRadius: 16,
-    borderWidth: 2,
-    borderColor: 'rgba(0,0,0,0.15)',
-    marginBottom: 10,
+    marginBottom: 16,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    flexShrink: 1, // Image yields space to the text if the screen is cramped
+    flexShrink: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 3,
   },
   infoPhoto: {
     width: '100%',
     height: '100%',
   },
   infoText: {
-    fontFamily: Typography.fonts.unkempt,
-    fontSize: Typography.sizes.body,
+    fontFamily: Typography.fonts.ubuntu,
+    fontSize: 18,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: Typography.sizes.body * 1.2,
+    lineHeight: 18 * 1.4,
     paddingHorizontal: 8,
   },
 });

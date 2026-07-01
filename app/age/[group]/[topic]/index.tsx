@@ -12,6 +12,7 @@ import { ageGroupData, AgeGroup, TopicData } from '../../../../src/data/content'
 import { FooterLogos } from '../../../../src/components/FooterLogos';
 import { Header } from '../../../../src/components/Header';
 import { BackButton } from '../../../../src/components/BackButton';
+import { TopicCard } from '../../../../src/components/TopicCard';
 
 // ─── Sub-menu screen (for topics with subtopics) ─────────
 function SubtopicMenuScreen({
@@ -32,30 +33,14 @@ function SubtopicMenuScreen({
 
       <View style={styles.body}>
         {data.subtopics!.map((sub, index) => {
-          const isEven = index % 2 === 0;
           return (
-            <TouchableOpacity
+            <TopicCard 
               key={sub.id}
-              style={styles.card}
+              title={sub.title}
+              image={sub.menuImage}
+              imagePosition={index % 2 === 0 ? 'left' : 'right'}
               onPress={() => router.push(`/age/${group}/${topic}/${sub.id}`)}
-              activeOpacity={0.85}
-            >
-              {isEven ? (
-                <>
-                  <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
-                  <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={3}>{sub.title}</Text>
-                  </View>
-                </>
-              ) : (
-                <>
-                  <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={3}>{sub.title}</Text>
-                  </View>
-                  <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
-                </>
-              )}
-            </TouchableOpacity>
+            />
           );
         })}
       </View>
@@ -131,36 +116,9 @@ export default function TopicScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.white },
   body: {
-    paddingHorizontal: 12,
-    paddingTop: 8,
+    paddingHorizontal: 16,
+    paddingTop: 16,
     flex: 1,
-    gap: 10,
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#E0E0E0',
-    borderRadius: 20,
-    overflow: 'hidden',
-    minHeight: 120,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    gap: 12,
-  },
-  cardTextBox: {
-    flex: 1,
-    backgroundColor: Colors.navy,
-    borderRadius: 16,
-    padding: 16,
-    justifyContent: 'center',
-    minHeight: 90,
-  },
-  cardText: {
-    fontFamily: Typography.fonts.unkempt,
-    fontSize: 18,
-    color: Colors.white,
-    textAlign: 'center',
-    lineHeight: 24,
   },
   footer: {
     paddingHorizontal: 20,
@@ -176,8 +134,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   finishButtonText: {
-    fontFamily: Typography.fonts.unkempt,
-    fontSize: Typography.sizes.title,
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: Typography.sizes.title - 2,
     color: Colors.white,
   },
 });

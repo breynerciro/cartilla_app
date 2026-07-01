@@ -11,6 +11,7 @@ import { ageGroupData, AgeGroup, SubtopicData } from '../../../../src/data/conte
 import { FooterLogos } from '../../../../src/components/FooterLogos';
 import { Header } from '../../../../src/components/Header';
 import { BackButton } from '../../../../src/components/BackButton';
+import { TopicCard } from '../../../../src/components/TopicCard';
 import { SlidesRunner } from '../../../../src/components/SlidesRunner';
 
 // ─── Nested Sub-menu screen (for subtopics that have further subtopics) ──────
@@ -35,32 +36,14 @@ function NestedSubtopicMenuScreen({
         showsVerticalScrollIndicator={false}
       >
         {data.subtopics!.map((sub, index) => {
-          const isEven = index % 2 === 0;
           return (
-            <TouchableOpacity
+            <TopicCard 
               key={sub.id}
-              style={styles.card}
-              // It goes to a deeper route, or we can just render it if we have a [nested] route.
-              // Wait, expo router will need a route for this!
+              title={sub.title}
+              image={sub.menuImage}
+              imagePosition={index % 2 === 0 ? 'left' : 'right'}
               onPress={() => router.push(`/age/${group}/${topic}/${sub.id}`)}
-              activeOpacity={0.85}
-            >
-              {isEven ? (
-                <>
-                  <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
-                  <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText}>{sub.title}</Text>
-                  </View>
-                </>
-              ) : (
-                <>
-                  <View style={styles.cardTextBox}>
-                    <Text style={styles.cardText}>{sub.title}</Text>
-                  </View>
-                  <DynamicImage source={sub.menuImage} style={{ width: cardImgSize, height: cardImgSize }} resizeMode="contain" />
-                </>
-              )}
-            </TouchableOpacity>
+            />
           );
         })}
       </ScrollView>
@@ -139,36 +122,9 @@ export default function SubtopicScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.white },
   scrollContent: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 120,
-    gap: 16,
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#E0E0E0',
-    borderRadius: 20,
-    overflow: 'hidden',
-    minHeight: 120,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    gap: 10,
-  },
-  cardTextBox: {
-    flex: 1,
-    backgroundColor: Colors.navy,
-    borderRadius: 16,
-    padding: 14,
-    justifyContent: 'center',
-    minHeight: 80,
-  },
-  cardText: {
-    fontFamily: Typography.fonts.unkempt,
-    fontSize: 18,
-    color: Colors.white,
-    textAlign: 'center',
-    lineHeight: 24,
   },
   footer: {
     paddingHorizontal: 20,

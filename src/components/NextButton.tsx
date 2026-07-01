@@ -37,15 +37,12 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
         styles.container,
         { transform: [{ scale: scaleAnim }] }
       ]}>
-        {/* Layer decorativo trasero (sombra/borde lavanda) */}
         <Ionicons 
           name={isLast ? "checkmark-circle" : "play"}
           size={82} 
           color={Colors.lavender} 
           style={styles.borderLayer}
         />
-        
-        {/* Layer frontal interactivo (navy) */}
         <Ionicons 
           name={isLast ? "checkmark-circle" : "play"}
           size={82} 
@@ -60,18 +57,18 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
 const styles = StyleSheet.create({
   container: {
     width: 82,
-    height: 82, // Usamos un contenedor cuadrado para el ícono
+    height: 82,
     justifyContent: 'center',
     alignItems: 'center',
   },
   borderLayer: {
     position: 'absolute',
     top: 4,
-    left: -2, // Offset para simular el borde tridimensional inferior-izquierdo
+    left: -2,
   },
   frontLayer: {
     position: 'absolute',
     top: 0,
-    left: 2, // Ajuste para centrar respecto a la sombra
+    left: 2,
   }
 });

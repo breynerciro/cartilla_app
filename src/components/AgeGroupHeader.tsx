@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   title: {
-    fontFamily: Typography.fonts.unkempt,
+    fontFamily: Typography.fonts.ubuntuBold,
     fontSize: Typography.sizes.heading,
     color: Colors.white,
   },
