@@ -112,11 +112,22 @@ const IMG = {
   medicamento1: require("../../assets/images/png's/medicamento.jpeg"),
   medicamento2: require("../../assets/images/png's/medicamento1.jpeg"),
   mordedor: require("../../assets/images/png's/mordedor.jpeg"),
+  tecnica1: require("../../assets/images/png's/tecnica1.jpeg"),
+  tecnica2: require("../../assets/images/png's/tecnica2.jpeg"),
+  tecnica3: require("../../assets/images/png's/tecnica3.jpeg"),
+  tecnica4: require("../../assets/images/png's/tecnica4.jpeg"),
+  tecnica5: require("../../assets/images/png's/tecnica5.jpeg"),
+  tecnica6: require("../../assets/images/png's/tecnica6.jpeg"),
+  tecnica61: require("../../assets/images/png's/tecnica61.jpeg"),
+
 
   // ── Ilustraciones de objetos ──────────────────────────────────────────────
   cepillo: require("../../assets/images/png's/cepillo.jpeg"),
   crema1: require("../../assets/images/png's/crema1.jpeg"),
+  crema2: require("../../assets/images/png's/crema2.jpeg"),
+  crema3: require("../../assets/images/png's/crema3.jpeg"),
   posicionCepillado: require("../../assets/images/png's/posicion_cepillado.jpeg"),
+  posicionCepillado1: require("../../assets/images/png's/posicion_cepillado1.jpeg"),
 
   // ── UI ────────────────────────────────────────────────────────────────────
   fondo: require("../../assets/images/png's/fondo.png"),
@@ -162,15 +173,9 @@ const traumaCommonSlides = (groupNote?: string): Slide[] => [
     bodyText: 'Estos tratamientos van desde suturas en tejidos blandos. pasando por pulpectomia (quitar la pulpa dañada) y extracción del diente. En algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
     showInfoIcon: true,
   } as DetailSlide,
-  {
-    type: 'modal',
-    photo: IMG.traumaFoto2,
-    alertText: 'Si el diente se desaloja de su cavidad: recójalo tomándolo por la corona, enjuáguelo con agua y guárdelo en una gasa húmeda para que el odontólogo lo reposicione.',
-    showExclamation: true,
-  } as InfoSlide,
 ];
 
-const cariesSlides: Slide[] = [
+const cariesSlides0_5: Slide[] = [
   {
     text: 'Al retirar la placa bacteriana se previene la caries y los problemas que puede traer, como dolor agudo, infecciones o extracciones prematuras que a su vez pueden provocar sangrado abundante o una situación de urgencia.',
     image: IMG.toothBrush,
@@ -187,6 +192,21 @@ const cariesSlides: Slide[] = [
     image: IMG.toothBrush,
     toothPosition: 'left',
     photo: IMG.caries2,
+  } as ContentSlide,
+];
+
+const cariesSlides6_18: Slide[] = [
+  {
+    text: 'Al retirar la placa bacteriana se previene la caries y los problemas que puede traer, como dolor agudo, infecciones o extracciones prematuras que ponen en una situación de urgencia y un sangrado que podría agravarse.',
+    image: IMG.toothBrush,
+    photo: IMG.caries1,
+    toothPosition: 'left',
+  } as ContentSlide,
+  {
+    text: 'Cuando aparece en dientes permanentes también puede llevar a tratamiento de conductos.',
+    image: IMG.toothBrush,
+    photo: IMG.caries3,
+    toothPosition: 'right',
   } as ContentSlide,
 ];
 
@@ -279,7 +299,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 type: 'detail',
                 subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
-                bodyText: 'Este proceso causa normalmente: irritabilidad, cambios en los ciclos de sueño, aumento de la salivación y sensación de "picazón" en las encías.\n\nTambién puede presentarse fiebre ligera, pero esto sucede por un cambio en el tipo de bacterias en la boca del bebé. Solo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
+                bodyText: 'Este proceso causa normalmente: irritabilidad, cambios en los ciclos de sueño, aumento de la salivación y sensación de "picazón" en las encías. También puede presentarse fiebre ligera, pero esto sucede por un cambio en el tipo de bacterias en la boca del bebé. Solo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -298,7 +318,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 type: 'detail',
                 subtitle: 'LO QUE DEBES SABER SOBRE LA ERUPCIÓN DENTAL:',
-                bodyText: 'La erupción dental rara vez provoca hemorragias, pero si las encías presentan sangrado leve que no para, es necesario acudir a consulta odontológica..',
+                bodyText: 'La erupción dental rara vez provoca hemorragias, pero si las encías presentan sangrado leve que no para, es necesario acudir a consulta odontológica.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -317,14 +337,9 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'En esta estapa, la forma de realizar la higiene se divide en dos:',
+            text: 'En esta estapa, la forma de realizar la higiene se divide en dos: \n\n* Limpieza de las encías, cuando no hay ningun diente presente. \n\n* Limpieza de los dientes tan pronto erupcionan.',
             image: IMG.toothWand,
             toothPosition: 'left',
-          } as ContentSlide,
-          {
-            text: '- Limpieza de las encías, cuando no hay ningun diente presente. \n\n- Limpieza de los dientes tan pronto erupcionan.',
-            image: IMG.toothWand,
-            toothPosition: 'right',
           } as ContentSlide,
           {
             text: 'Se diferencian en cuanto a la técnica, pero la finalidad es la misma: remover la placa bacteriana presente, que es la responsable de distintas enfermedades de la cavidad oral.',
@@ -339,19 +354,14 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             menuImage: IMG.enciaIcon,
             slides: [
               {
-                text: 'Se cree que si el bebé no tiene dientes, no es necesario limpiarle las encías. ¡Esto es falso!',
+                text: 'Se cree que si el bebé no tiene dientes, no es necesario limpiarle las encías. ¡Esto es falso! Es importante mantenerlo libre de placa para que esté saludable, además de acostumbrarle al ejercicio de limpiar su boca.',
                 image: IMG.toothWand,
                 toothPosition: 'left',
               } as ContentSlide,
               {
-                text: 'Es importante mantenerlo libre de placa para que esté saludable, además de acostumbrarle al ejercicio de limpiar su boca.',
-                image: IMG.toothWand,
-                toothPosition: 'right',
-              } as ContentSlide,
-              {
                 type: 'detail',
                 subtitle: 'CUIDADO DE LAS ENCÍAS:',
-                bodyText: 'La limpieza se puede realizar con un cepillo dental de dedo o con una gasa húmeda, pasándolos por todas las superficies de las encías con el fin de retirar placa excepto en el paladar ya que pude causarle ganas de vomitar..',
+                bodyText: 'La limpieza se puede realizar con un cepillo dental de dedo o con una gasa húmeda, pasándolos por todas las superficies de las encías con el fin de retirar placa excepto en el paladar ya que pude causarle ganas de vomitar.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -368,7 +378,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             menuImage: IMG.toothNeutral,
             slides: [
               {
-                text: 'Se realiza desde que podamos ver que el primer diente está saliendo.',
+                text: 'Se realiza desde que podamos ver que el primer diente está saliendo. \n\nLa higiene es muy importante por varias razones, entre ellas:',
                 image: IMG.toothWand,
                 toothPosition: 'right',
                 buttons: [
@@ -390,7 +400,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 id: 'caries',
                 title: 'Prevenir las Caries',
                 menuImage: IMG.traumaFoto2,
-                slides: cariesSlides,
+                slides: cariesSlides0_5,
               },
               {
                 id: 'cepillado',
@@ -400,20 +410,47 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                   {
                     text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
                     image: IMG.toothBrush,
-                    toothPosition: 'left',
                     photo: IMG.cepillo
                   } as ContentSlide,
                   {
                     text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
                     image: IMG.toothBrush,
-                    toothPosition: 'right',
                     photo: IMG.crema1
                   } as ContentSlide,
                   {
                     text: 'Posición adecuada para el cepillado.',
                     image: IMG.toothBrush,
-                    toothPosition: 'left',
                     photo: IMG.posicionCepillado
+                  } as ContentSlide,
+                  {
+                    text: 'Paso 1: Coloca las cerdas a 45 grados hacia la encía.',
+                    image: IMG.toothBrush,
+                    photo: IMG.tecnica1,
+                  } as ContentSlide,
+                  {
+                    text: 'Paso 2: realiza pequeños movimientos vibratorios circulares, suavemente.',
+                    image: IMG.toothBrush,
+                    photo: IMG.tecnica2,
+                  } as ContentSlide,
+                  {
+                    text: 'Paso 3: limpia hacia abajo/ arriba (barrido), cubriendo de la encía al borde del diente.',
+                    image: IMG.toothBrush,
+                    photo: IMG.tecnica3,
+                  } as ContentSlide,
+                  {
+                    text: 'Paso 4: repite el movimiento de vibraciones y barrido en la cara interna de todos los dientes.',
+                    image: IMG.toothBrush,
+                    photo: IMG.tecnica4,
+                  } as ContentSlide,
+                  {
+                    text: 'Paso 5: limpia las superficies de masticación con movimientos de vaivén.',
+                    image: IMG.toothBrush,
+                    photo: IMG.tecnica5,
+                  } as ContentSlide,
+                  {
+                    text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
+                    image: IMG.toothBrush,
+                    photo: IMG.tecnica6,
                   } as ContentSlide,
                 ]
               },
@@ -425,7 +462,15 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         id: 'trauma',
         title: '¿Qué hacer en caso de trauma?',
         menuImage: IMG.toothTrauma,
-        slides: traumaCommonSlides('0-3'),
+        slides: [
+          ...traumaCommonSlides('0-3'),
+          {
+            type: 'modal',
+            photo: IMG.traumaFoto2,
+            alertText: 'Si el diente se cae, no lo vuelva a introducir en el espacio que lo alojaba. Esto puede dañar al diente permanente que viene en camino.',
+            showExclamation: true,
+          } as InfoSlide,
+        ],
       },
     ],
   },
@@ -456,12 +501,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'Este se realiza siempre en compañia de un adulto.',
-            image: IMG.toothWand,
-            toothPosition: 'left',
-          } as ContentSlide,
-          {
-            text: 'Es importante por varias razones entre ellas:',
+            text: 'Este se realiza siempre en compañia de un adulto. \nEs importante por varias razones entre ellas:',
             image: IMG.toothWand,
             toothPosition: 'right',
             buttons: [
@@ -489,7 +529,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'caries',
             title: 'Caries',
             menuImage: IMG.dienteCarie,
-            slides: cariesSlides,
+            slides: cariesSlides0_5,
           },
           {
             id: 'gingivitis',
@@ -505,20 +545,47 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
                 image: IMG.toothBrush,
-                toothPosition: 'left',
                 photo: IMG.cepillo
               } as ContentSlide,
               {
                 text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
                 image: IMG.toothBrush,
-                toothPosition: 'right',
-                photo: IMG.crema1
+                photo: IMG.crema2
               } as ContentSlide,
               {
                 text: 'Posición adecuada para el cepillado.',
                 image: IMG.toothBrush,
-                toothPosition: 'left',
-                photo: IMG.posicionCepillado
+                photo: IMG.posicionCepillado1
+              } as ContentSlide,
+              {
+                text: 'Paso 1: Coloca las cerdas a 45 grados hacia la encía.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica1,
+              } as ContentSlide,
+              {
+                text: 'Paso 2: realiza pequeños movimientos vibratorios circulares, suavemente.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica2,
+              } as ContentSlide,
+              {
+                text: 'Paso 3: limpia hacia abajo/ arriba (barrido), cubriendo de la encía al borde del diente.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica3,
+              } as ContentSlide,
+              {
+                text: 'Paso 4: repite el movimiento de vibraciones y barrido en la cara interna de todos los dientes.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica4,
+              } as ContentSlide,
+              {
+                text: 'Paso 5: limpia las superficies de masticación con movimientos de vaivén.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica5,
+              } as ContentSlide,
+              {
+                text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica6,
               } as ContentSlide,
             ]
           },
@@ -528,7 +595,15 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         id: 'trauma',
         title: '¿Qué hacer en caso de trauma?',
         menuImage: IMG.toothTrauma,
-        slides: traumaCommonSlides('3-5'),
+        slides: [
+          ...traumaCommonSlides('3-5'),
+          {
+            type: 'modal',
+            photo: IMG.traumaFoto2,
+            alertText: 'Si el diente se cae, no lo vuelva a introducir en el espacio que lo alojaba. Esto puede dañar al diente permanente que viene en camino.',
+            showExclamation: true,
+          } as InfoSlide,
+        ]
       },
     ],
   },
@@ -661,7 +736,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'caries',
             title: 'Caries',
             menuImage: IMG.caries1,
-            slides: cariesSlides,
+            slides: cariesSlides6_18,
           },
           {
             id: 'gingivitis',
@@ -677,20 +752,47 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
                 image: IMG.toothBrush,
-                toothPosition: 'left',
                 photo: IMG.cepillo
               } as ContentSlide,
               {
                 text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
                 image: IMG.toothBrush,
-                toothPosition: 'right',
-                photo: IMG.crema1
+                photo: IMG.crema3
               } as ContentSlide,
               {
                 text: 'Posición adecuada para el cepillado.',
                 image: IMG.toothBrush,
-                toothPosition: 'left',
-                photo: IMG.posicionCepillado
+                photo: IMG.posicionCepillado1
+              } as ContentSlide,
+              {
+                text: 'Paso 1: Coloca las cerdas a 45 grados hacia la encía.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica1,
+              } as ContentSlide,
+              {
+                text: 'Paso 2: realiza pequeños movimientos vibratorios circulares, suavemente.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica2,
+              } as ContentSlide,
+              {
+                text: 'Paso 3: limpia hacia abajo/ arriba (barrido), cubriendo de la encía al borde del diente.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica3,
+              } as ContentSlide,
+              {
+                text: 'Paso 4: repite el movimiento de vibraciones y barrido en la cara interna de todos los dientes.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica4,
+              } as ContentSlide,
+              {
+                text: 'Paso 5: limpia las superficies de masticación con movimientos de vaivén.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica5,
+              } as ContentSlide,
+              {
+                text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica61,
               } as ContentSlide,
             ]
           },
@@ -700,7 +802,15 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         id: 'trauma',
         title: '¿Qúe hacer en caso de trauma?',
         menuImage: IMG.toothTrauma,
-        slides: traumaCommonSlides('6-13'),
+        slides: [
+          ...traumaCommonSlides('6-13'),
+          {
+            type: 'modal',
+            photo: IMG.traumaFoto3,
+            alertText: 'Si el diente se desaloja de su cavidad. Recójalo tomándolo por la corona, enjuáguelo con agua y guárdelo en una gasa húmeda. Esto ayuda a conservarlo, para que el odontólogo lo reposicione.',
+            showExclamation: true,
+          } as InfoSlide,
+        ],
       },
     ],
   },
@@ -782,7 +892,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'caries',
             title: 'Caries',
             menuImage: IMG.caries1,
-            slides: cariesSlides,
+            slides: cariesSlides6_18,
           },
           {
             id: 'gingivitis',
@@ -796,22 +906,49 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             menuImage: IMG.toothBrush,
             slides: [
               {
-                text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
+                text: 'Para realizar la higiene debes usar un cepillo de dientes pequeño/mediano y suave.',
                 image: IMG.toothBrush,
-                toothPosition: 'left',
                 photo: IMG.cepillo
               } as ContentSlide,
               {
-                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                text: 'Crema de dientes con flúor (cantidad: del tamaño de una arveja) y seda dental.',
                 image: IMG.toothBrush,
-                toothPosition: 'right',
-                photo: IMG.crema1
+                photo: IMG.crema3
               } as ContentSlide,
               {
                 text: 'Posición adecuada para el cepillado.',
                 image: IMG.toothBrush,
-                toothPosition: 'left',
                 photo: IMG.posicionCepillado
+              } as ContentSlide,
+              {
+                text: 'Paso 1: Coloca las cerdas a 45 grados hacia la encía.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica1,
+              } as ContentSlide,
+              {
+                text: 'Paso 2: realiza pequeños movimientos vibratorios circulares, suavemente.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica2,
+              } as ContentSlide,
+              {
+                text: 'Paso 3: limpia hacia abajo/ arriba (barrido), cubriendo de la encía al borde del diente.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica3,
+              } as ContentSlide,
+              {
+                text: 'Paso 4: repite el movimiento de vibraciones y barrido en la cara interna de todos los dientes.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica4,
+              } as ContentSlide,
+              {
+                text: 'Paso 5: limpia las superficies de masticación con movimientos de vaivén.',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica5,
+              } as ContentSlide,
+              {
+                text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
+                image: IMG.toothBrush,
+                photo: IMG.tecnica6,
               } as ContentSlide,
             ]
           },
@@ -821,7 +958,15 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         id: 'trauma',
         title: 'Trauma Dental',
         menuImage: IMG.bloodCells,
-        slides: traumaCommonSlides('14-18'),
+        slides: [
+          ...traumaCommonSlides('14-18'),
+          {
+            type: 'modal',
+            photo: IMG.traumaFoto3,
+            alertText: 'Si el diente se desaloja de su cavidad. Recójalo tomándolo por la corona, enjuáguelo con agua y guárdelo en una gasa húmeda. Esto ayuda a conservarlo, para que el odontólogo lo reposicione.',
+            showExclamation: true,
+          } as InfoSlide,
+        ],
       },
     ],
   },
