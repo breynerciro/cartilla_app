@@ -25,10 +25,16 @@ export default function OnboardingScreen() {
   const { width } = useWindowDimensions();
   const charSize = Math.min(width * 0.46, 210);
 
-  const nextSlide = () => {
+  const nextSlide = async () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
     } else {
+      try {
+        const { scheduleDailyBrushingReminders } = require('../src/services/notifications');
+        await scheduleDailyBrushingReminders();
+      } catch (error) {
+        console.log("Notificaciones omitidas en Expo Go", error);
+      }
       router.push('/age-selector');
     }
   };

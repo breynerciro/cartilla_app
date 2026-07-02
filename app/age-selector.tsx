@@ -37,6 +37,13 @@ export default function AgeSelectorScreen() {
               style={styles.button}
             />
           ))}
+          
+          <Button
+            title="Temporizador Clínico"
+            variant="dark"
+            onPress={() => router.push('/timer')}
+            style={[styles.button, { marginTop: 10, borderWidth: 2, borderColor: Colors.navy }]}
+          />
         </View>
       </View>
 

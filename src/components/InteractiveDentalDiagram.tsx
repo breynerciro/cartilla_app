@@ -78,8 +78,8 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
   };
 
   // Cargamos las imágenes locales
-  const upperImage = isPermanent ? require('../../assets/arch_upper_permanentes.png') : require('../../assets/arch_upper.png');
-  const lowerImage = isPermanent ? require('../../assets/arch_lower_permanentes.png') : require('../../assets/arch_lower.png');
+  const upperImage = isPermanent ? require("../../assets/images/png's/arch_upper_permanentes.png") : require("../../assets/images/png's/arch_upper.png");
+  const lowerImage = isPermanent ? require("../../assets/images/png's/arch_lower_permanentes.png") : require("../../assets/images/png's/arch_lower.png");
 
   return (
     <View style={styles.container}>

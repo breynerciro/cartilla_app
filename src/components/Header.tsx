@@ -36,7 +36,11 @@ export const Header: React.FC<HeaderProps> = ({
       {hasLeftDeco && <CornerDecoration position="bottom-left" />}
       {hasRightDeco && <CornerDecoration position="bottom-right" />}
 
-      {/* Back button removed as per user request to avoid redundancy */}
+      {showBack && (
+        <TouchableOpacity style={styles.backBtn} onPress={handleBack}>
+          <Ionicons name="chevron-back" size={32} color={Colors.blue} />
+        </TouchableOpacity>
+      )}
 
       {title && (
         <Text 

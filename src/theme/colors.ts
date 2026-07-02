@@ -38,4 +38,12 @@ export const Colors = {
     background: '#798CEB',
     border: '#FFFFFF',
   },
+  timer: {
+    quadrant1: '#4ECDC4',
+    quadrant2: '#45B7D1',
+    quadrant3: '#96CEB4',
+    quadrant4: '#FFEAA7',
+    success: '#6BCB77',
+    warning: '#FC5939',
+  },
 };

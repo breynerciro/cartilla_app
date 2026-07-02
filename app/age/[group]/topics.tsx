@@ -38,7 +38,7 @@ export default function TopicMenuScreen() {
               key={topic.id}
               title={topic.title}
               image={topic.menuImage}
-              imagePosition={index % 2 === 0 ? 'left' : 'right'}
+              imagePosition={(index + 1) % 2 === 0 ? 'left' : 'right'}
               onPress={() => router.push(`/age/${group}/${topic.id}`)}
             />
           );

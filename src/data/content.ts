@@ -44,7 +44,12 @@ export interface DiagramSlide {
   ageGroup?: AgeGroup;
 }
 
-export type Slide = ContentSlide | InfoSlide | DetailSlide | DiagramSlide;
+export interface TimerSlide {
+  type: 'timer';
+  ageGroup: AgeGroup;
+}
+
+export type Slide = ContentSlide | InfoSlide | DetailSlide | DiagramSlide | TimerSlide;
 
 // ─── Subtopic data (leaf node - has slides) ───────────────────────────────────
 
