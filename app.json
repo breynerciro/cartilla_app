@@ -34,7 +34,6 @@
       "expo-asset"
     ],
     "scheme": "cartilladentalhemofilia",
-    "newArchEnabled": true,
     "extra": {
       "router": {},
       "eas": {
