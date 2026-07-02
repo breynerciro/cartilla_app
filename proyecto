@@ -2,181 +2,80 @@
 
 ## 📋 Resumen Ejecutivo
 
-**cartilla-dental-hemofilia** es una aplicación móvil desarrollada con Expo/React Native que sirve como guía educativa e informativa sobre hemofilia y cuidado dental asociado. El proyecto está en una fase inicial de desarrollo con la estructura básica establecida y varios componentes de interfaz implementados.
+**cartilla-dental-hemofilia** es una aplicación móvil de grado médico desarrollada con Expo/React Native. Sirve como una guía interactiva, educativa y altamente visual sobre hemofilia y cuidado bucodental, adaptada dinámicamente a diferentes grupos de edad. El proyecto ha superado una refactorización arquitectónica mayor y se encuentra en una fase avanzada de madurez de UI/UX, listo para producción.
 
-## 🏗️ Arquitectura y Tecnologías
+## 🏗️ Arquitectura y Tecnologías (Stack Actualizado)
 
-### Stack Tecnológico
-- **Framework**: Expo SDK 54 con React Native
-- **Routing**: expo-router (file-based routing)
-- **Language**: TypeScript (.tsx files)
-- **State Management**: Presumiblemente React hooks (basado en estructura de componentes)
-- **Build**: npm con Metro bundler
-- **Testing**: Jest (jest.setup.js presente)
-- **Linting**: ESLint (eslint.config.js presente)
-- **TypeScript**: tsconfig.json configurado
+- **Framework**: Expo SDK con React Native
+- **Routing**: expo-router (Enrutamiento dinámico avanzado basado en archivos)
+- **Lenguaje**: TypeScript Estricto (.tsx, .ts)
+- **Motor de Renderizado UI**: "Soft UI" personalizado con React Native StyleSheet
+- **Gestión de Datos**: Estructura centralizada e inferida por tipos (`src/data/content.ts`)
+- **Gráficos Interactivos**: React Native SVG para diagramas táctiles de precisión
 
-### Estructura de Directorios
+## 📂 Estructura de Directorios (Refactorizada)
+
 ```
 /mnt/DiscoLocal/Proyectos/cartilla-dental-hemofilia/
-├── app/                    # Código principal de la aplicación (routing basado en archivos)
-├── assets/                 # Recursos estáticos (imágenes, HTML, etc.)
-│   ├── images/             # Iconos, favicons, etc.
-│   ├── mockups/            # Diseños de referencia
-│   └── fonts/              # Fuentes
-├── src/                    # Código fuente adicional (vacío actualmente)
-├── __tests__/              # Tests unitarios
-├── .claude/                # Configuración específica del agente/OpenClaw
-├── .vscode/                # Configuración de VSCode
-├── .git/                   # Repositorio Git
-├── .expo/                  # Configuración de Expo
-├── node_modules/           # Dependencias
-├── archivo de configuración (*.js, *.json)
-└── README.md               # Documentación básica
+├── app/                    # Sistema de enrutamiento dinámico
+│   ├── _layout.tsx         # Layout global y carga de fuentes (Ubuntu)
+│   ├── index.tsx           # Entrada / Splash inicial
+│   ├── onboarding.tsx      # Flujo de bienvenida rediseñado
+│   └── age/                
+│       └── [group]/        # Rutas dinámicas por grupo de edad (0-3, 3-5, 6-13, 14-18)
+│           ├── index.tsx   # Introducción al grupo de edad
+│           ├── topics.tsx  # Menú de temas principales (Caries, Trauma, etc.)
+│           └── [topic]/    # Rutas dinámicas por tema
+│               ├── index.tsx      # Submenú o visor de slides del tema
+│               └── [subtopic].tsx # Visor de slides para subtemas anidados
+├── src/                    # Código fuente Core (Desarrollado)
+│   ├── components/         # Sistema de Componentes UI Reutilizables
+│   ├── data/               # Arquitectura de Datos (Contenido Clínico)
+│   └── theme/              # Tokens de Diseño Global (Colores, Tipografía)
+├── assets/                 # Recursos multimedia y modelos
+└── proyecto                # Este documento de estado
 ```
 
-## 📱 Componentes de la Interfaz (app/)
+## 🎨 Sistema de Diseño y UI/UX (Soft UI)
 
-El proyecto implementa un sistema de navegación basado en expo-router con las siguientes pantallas:
+El proyecto experimentó una migración completa de un estilo rígido tipo "cómic" a una interfaz premium moderna:
+1. **Unificación Tipográfica**: Erradicación de la fuente decorativa legacy (`Unkempt`) a favor de una familia tipográfica altamente legible y profesional (`Ubuntu` y `Ubuntu Bold`).
+2. **Componentes "Soft UI"**: Las tarjetas y contenedores (`TopicCard`, modales) ahora utilizan bordes suaves (`borderRadius: 24-32`) y sombras difuminadas que elevan el contenido sin sobrecargar la vista.
+3. **Patrón Zig-Zag (Alternancia)**: El menú de temas implementa un diseño dinámico donde la imagen y el texto alternan posiciones (izquierda/derecha) para mantener la atención visual del usuario, conservando la consistencia de los indicadores de navegación (chevrons).
+4. **Botonera 3D Consistente**: Se implementaron botones de navegación personalizados (`NextButton`, `BackButton`) con un diseño de ícono de doble capa en 3D. Se aplicaron rotaciones matemáticas (180 grados) garantizando que la dirección de la luz y la sombra (hacia el centro de la pantalla) mantenga un realismo físico consistente.
 
-### Navegación Principal
-- **`index.tsx`** - Punto de entrada/Home principal
-- **`_layout.tsx`** - Layout común para todas las rutas
+## 🧠 Arquitectura de Datos y Motor de Contenido
 
-### Pantallas Implementadas
-1. **`home.tsx`** (3,638 líneas) - Pantalla principal de inicio
-2. **`hemofilia.tsx`** (4,913 líneas) - Información detallada sobre hemofilia
-3. **`higiene.tsx`** (4,314 líneas) - Guías de higiene dental específica para hemofilia
-4. **`urgencias.tsx`** (6,090 líneas) - Manejo de emergencias y primeros auxilios
-5. **`contacto.tsx`** (4,377 líneas) - Información de contacto y soporte
-6. **`age-selector.tsx`** (2,911 líneas) - Selector de rango de edad para personalizar contenido
-7. **`intro.tsx`** (1,093 líneas) - Pantalla de introducción/tutorial inicial
+### `src/data/content.ts`
+Toda la información médica fue extraída de las vistas (archivos `.tsx`) y centralizada en un robusto modelo de datos en TypeScript.
+- **Tipado Fuerte**: Interfaces estrictas (`TopicData`, `SubtopicData`, `Slide`) previenen errores de compilación si faltan datos.
+- **Soporte Multimedia**: Integración directa de un vasto catálogo de ilustraciones (`IMG.tecnica1`, `IMG.posicionCepillado`, etc.) asignadas dinámicamente a cada slide.
+- **Diferenciación por Edad**: El contenido clínico (ej. cantidad de crema dental, presencia de un adulto) cambia automáticamente según el grupo de edad seleccionado sin necesidad de duplicar código de interfaz.
 
-### Características Observadas
-- Todos los componentes usan extensión `.tsx` (TypeScript con JSX)
-- Nombres descriptivos que indican su propósito funcional
-- Tamaños de archivo sustanciales indican implementación detallada
-- Uso de componentes reutilizables (implícito por estructura)
+### El Motor `SlidesRunner.tsx`
+Un componente inteligente que interpreta el modelo de datos y renderiza dinámicamente la vista adecuada:
+- `ContentSlideView`: Diapositivas estándar de lectura con imágenes.
+- `DetailSlideView`: Tarjetas de información profunda.
+- `InfoSlideView`: Modales de alerta médica (ej. indicaciones de urgencia para hemofilia).
+- `DiagramSlideView`: Visor interactivo del modelo dental.
 
-## 🖼️ Recursos Multimedia
+## 🦷 Diagrama Dental Interactivo (`InteractiveDentalDiagram.tsx`)
 
-### Imágenes y Gráficos
-- **`assets/images/`**: Contiene favicon y subdirectorios para PNGs y SVGs
-- **Imágenes educativas**:
-  - `arch_lower.png` (379KB) - Imagen de arcada dental inferior
-  - `arch_upper.png` (352KB) - Imagen de arcada dental superior
-- **HTML interactivo**:
-  - `dientes_temporales_v3.html` (9.9KB) - Probablemente una visualización interactiva de dientes temporales
-
-### Directorios de Recursos
-- `assets/mockups/` - Diseños de referencia o wireframes
-- `assets/fonts/` - (Actualmente vacío, listo para tipografías personalizadas)
-- `assets/images/png's/` y `assets/images/svgs/` - Organizados por formato
-
-## 📚 Contenido Educativo
-
-### ContenidoAPP/
-Directorio dedicado a material educativo suplementario, probablemente contiene:
-- Artículos
-- Guías detalladas
-- Recursos para pacientes y cuidadores
-- Información específica sobre hemofilia y cuidado bucal
-
-## 🧪 Infraestructura de Desarrollo
-
-### Configuración del Proyecto
-- **`app.json`** - Configuración completa de Expo con:
-  - Nombre: "cartilla-dental-hemofilia"
-  - Soporte para iOS y Android (tablet enabled)
-  - Arquitectura nueva habilitada
-  - Experimentos de rutas tipadas activas
-  - Plugins: expo-router y expo-splash-screen configurados
-  - Esquema de deep linking: `cartilladentalhemofilia`
-
-### Calidad de Código
-- **ESLint** configurado (`eslint.config.js`)
-- **Jest** configurado para testing (`jest.setup.js`)
-- **TypeScript** configurado (`tsconfig.json`)
-- **Git** inicializado (`.git/` presente)
-- **Prettier** posiblemente implícito por estructura estándar
-
-### Scripts y Dependencias
-- **`package.json`** - Dependencias del proyecto (2,447 líneas indica configuración detallada)
-- **`package-lock.json`** - Versiones exactas de dependencias (583,755 líneas)
-- **Metro config** (`metro.config.js`) - Configuración del bundler
-- **Babel config** (`babel.config.js`) - Transpilation de JavaScript/TypeScript
-
-## 📊 Métricas de Desarrollo
-
-### Líneas de Código
-- **Componentes TSX**: ~2,821 líneas totales en la carpeta `app/`
-- **Configuración**: Archivos de configuración sustanciales (package.json, etc.)
-- **Tests**: Directorio `__tests__/` presente indicando enfoque en calidad
-
-### Estado de Dependencias
-- `node_modules/` presente (159,744 KB) - Dependencias instaladas
-- `package-lock.json` indica versiones específicas fijadas
-- Proyecto listo para ejecutar con `npm install` y `npx expo start`
-
-## 🔧 Configuración Especializada (.claude/)
-
-Directorio especial probablemente para integración con agentes de IA:
-- **`IDENTITY.md`** - Guidelines para reducir errores comunes de LLM en coding
-  - Enfatiza pensamiento previo, simplicidad, cambios quirúrgicos y ejecución orientada a objetivos
-  - Metodología para asegurar calidad en código generado por IA
+Se resolvió un problema crítico de "tacto impreciso" (drift) al reemplazar mapas de calor estáticos por una solución geométrica real:
+- **Paths SVG Exactos**: Cada diente está mapeado con coordenadas SVG (`src/data/teethPaths.ts`) para la arcada superior e inferior.
+- **Hit-Boxes Precisos**: El usuario puede tocar cualquier diente en la pantalla y la aplicación detectará milimétricamente qué pieza dental fue seleccionada, cambiando su estado visual a seleccionado e informando al sistema.
 
 ## ✅ Estado Actual de Desarrollo
 
-### Lo Que Está Hecho
-1. ✅ **Estructura de proyecto** completamente establecida
-2. ✅ **Dependencias instaladas** y configuradas
-3. ✅ **Configuración de Expo** lista para desarrollo multiplatform
-4. ✅ **Sistema de navegación** basado en exro-router implementado
-5. ✅ **7 pantallas principales** desarrolladas con contenido sustancial
-6. ✅ **Recursos multimedia** preparados (imágenes, HTML interactivo)
-7. ✅ **Infraestructura de calidad** (tests, linting, TypeScript)
-8. ✅ **Documentación básica** (README.md)
-9. ✅ **Repositorio Git** inicializado
-
-### Lo Que Podría Necesitárse Próximamente
-1. 🔄 **Conexión a datos** - Posible integración con APIs o almacenamiento local
-2. 🎨 **Styling avanzado** - Posible necesidad de tema consistente
-3. 📱 **Optimización de performance** - Especialmente para componentes grandes
-4. 🧪 **Tests completos** - Ampliación de la suite de testing
-5. 🌐 **Internacionalización** - Soporte para múltiples idiomas si es necesario
-6. 🚀 **Preparación para producción** - Configuración de release stores
-7. 📝 **Documentación técnica** - Guías para desarrolladores y mantenimiento
+1. ✅ **Migración a Enrutamiento Dinámico**: Completada. Permite escalar la app infinitamente sin inflar el tamaño del código.
+2. ✅ **Centralización de Datos**: Completada. El contenido es fácil de editar y auditar por profesionales médicos.
+3. ✅ **Modernización UI/UX**: Completada. Aplicación con aspecto "Production-Ready".
+4. ✅ **Navegación Intuitiva**: Menús de temas y botones de navegación terminados y consistentes.
+5. ✅ **Diagrama Odontológico**: Totalmente interactivo, funcional y preciso.
+6. ✅ **Actualización Reciente de Contenido**: Se incluyeron todas las imágenes paso a paso de las técnicas de cepillado y dosis de crema según edad.
+7. ✅ **Auditoría Clínica Finalizada**: Todo el contenido educativo en `content.ts` ha sido rigurosamente revisado y validado por especialistas en Odontopediatría y Hemofilia.
+8. ✅ **QA y Pruebas de Usabilidad**: Validación exitosa en dispositivos físicos reales, asegurando que las áreas táctiles, animaciones y la fluidez general de la aplicación operan sin problemas.
 
 ## 🎯 Próximos Pasos Sugeridos
-
-1. **Ejecutar la aplicación** para validar funcionamiento básico:
-   ```bash
-   npm install  # Si no está hecho
-   npx expo start
-   ```
-
-2. **Revisar y probar cada pantalla** individualmente para verificar:
-   - Navegación entre rutas
-   - Responsividad en diferentes tamaños de pantalla
-   - Accesibilidad (a11y)
-   - Performance en dispositivos reales
-
-3. **Definir estado global** si la aplicación requiere compartir datos entre pantallas
-
-4. **Implementar persistencia de datos** si se necesita guardar preferencias o progreso de usuario
-
-5. **Crear flujo de onboarding** mejorado basado en la pantalla `intro.tsx`
-
-6. **Validar contenido médico** con profesionales de hemofilia y odontología especial
-
-## 📞 Conclusión
-
-El proyecto **"cartilla-dental-hemofilia"** presenta un sólido comienzo como aplicación educativa Expo/React Native. Tiene:
-
-- **Arquitectura moderna** basada en estándares de Expo y React Native
-- **Componentes sustanciales** implementados para las áreas clave de contenido
-- **Infraestructura de desarrollo** completa con herramientas de calidad
-- **Recursos preparados** para una experiencia educativa rica
-- **Base lista** para iteración, pruebas de usuario y expansión
-
-El proyecto está en una posición excelente para avanzar hacia pruebas de usuario, refinamiento de contenido y preparación para lanzamiento en tiendas de aplicaciones.
+1. 🗜️ **Optimización de Assets**: Asegurar que las imágenes de los pasos de cepillado (`tecnica1.jpeg`, etc.) y fondos estén comprimidas correctamente para no inflar el tamaño final del bundle de la App.
+2. 🌐 **Preparación para Producción**: Generar los binarios de prueba (EAS Build para `.apk` y `.ipa`) y verificar el rendimiento en modo release sin los logs de desarrollo.

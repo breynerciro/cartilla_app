@@ -128,6 +128,7 @@ const IMG = {
   crema3: require("../../assets/images/png's/crema3.jpeg"),
   posicionCepillado: require("../../assets/images/png's/posicion_cepillado.jpeg"),
   posicionCepillado1: require("../../assets/images/png's/posicion_cepillado1.jpeg"),
+  posicionCepillado2: require("../../assets/images/png's/posicion_cepillado2.jpeg"),
 
   // ── UI ────────────────────────────────────────────────────────────────────
   fondo: require("../../assets/images/png's/fondo.png"),
@@ -170,7 +171,7 @@ const traumaCommonSlides = (groupNote?: string): Slide[] => [
   } as ContentSlide,
   {
     type: 'detail',
-    bodyText: 'Estos tratamientos van desde suturas en tejidos blandos. pasando por pulpectomia (quitar la pulpa dañada) y extracción del diente. En algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
+    bodyText: 'Estos tratamientos van desde suturas en tejidos blandos. pasando por pulpectomia (quitar la pulpa dañada) y extracción del diente. \nEn algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
     showInfoIcon: true,
   } as DetailSlide,
 ];
@@ -548,7 +549,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 photo: IMG.cepillo
               } as ContentSlide,
               {
-                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                text: 'Crema de dientes con flúor (cantidad: del tamaño de un grano de arroz) y seda dental.',
                 image: IMG.toothBrush,
                 photo: IMG.crema2
               } as ContentSlide,
@@ -755,14 +756,14 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 photo: IMG.cepillo
               } as ContentSlide,
               {
-                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
+                text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de una arveja) y seda dental.',
                 image: IMG.toothBrush,
                 photo: IMG.crema3
               } as ContentSlide,
               {
-                text: 'Posición adecuada para el cepillado.',
+                text: 'Compañía de un adulto .',
                 image: IMG.toothBrush,
-                photo: IMG.posicionCepillado1
+                photo: IMG.posicionCepillado2
               } as ContentSlide,
               {
                 text: 'Paso 1: Coloca las cerdas a 45 grados hacia la encía.',
@@ -859,11 +860,6 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'Este se realiza siempre en compañia de una adulto hasta que el niño desarrolle la habilidad para hacerlo solo.',
-            image: IMG.toothWand,
-            toothPosition: 'left',
-          } as ContentSlide,
-          {
             text: 'Es recomendado realizarla 3 veces al día. Es imporante por varias razones entre ellas:',
             image: IMG.toothWand,
             toothPosition: 'right',
@@ -906,7 +902,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             menuImage: IMG.toothBrush,
             slides: [
               {
-                text: 'Para realizar la higiene debes usar un cepillo de dientes pequeño/mediano y suave.',
+                text: 'Para realizar la higiene debes usar un cepillo de dientes para adulto de cerdas suave.',
                 image: IMG.toothBrush,
                 photo: IMG.cepillo
               } as ContentSlide,
@@ -914,11 +910,6 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 text: 'Crema de dientes con flúor (cantidad: del tamaño de una arveja) y seda dental.',
                 image: IMG.toothBrush,
                 photo: IMG.crema3
-              } as ContentSlide,
-              {
-                text: 'Posición adecuada para el cepillado.',
-                image: IMG.toothBrush,
-                photo: IMG.posicionCepillado
               } as ContentSlide,
               {
                 text: 'Paso 1: Coloca las cerdas a 45 grados hacia la encía.',
@@ -948,7 +939,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
                 image: IMG.toothBrush,
-                photo: IMG.tecnica6,
+                photo: IMG.tecnica61,
               } as ContentSlide,
             ]
           },
