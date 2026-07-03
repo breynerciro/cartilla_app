@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/images/adaptive-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#003d5b"
+      "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
@@ -21,7 +21,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#003d5b"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.tesis.cartillahemofilia"
     },
