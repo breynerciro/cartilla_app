@@ -34,7 +34,7 @@ export default function IntroScreen() {
           <Button
             title="Empezar"
             variant="primary"
-            onPress={() => router.push('/onboarding')}
+            onPress={() => router.push('/main-menu')}
             style={styles.button}
             textStyle={styles.buttonText}
           />

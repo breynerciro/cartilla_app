@@ -7,12 +7,36 @@ export interface TimerPreset {
   bleedingFollowUp: string[];
 }
 
+export interface Song {
+  id: string;
+  title: string;
+  uri: any;
+}
+
+export const AVAILABLE_SONGS: Song[] = [
+  {
+    id: 'song1',
+    title: 'Melodía Alegre',
+    uri: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  },
+  {
+    id: 'song2',
+    title: 'Ritmo Relajante',
+    uri: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+  },
+  {
+    id: 'song3',
+    title: 'Aventura Espacial',
+    uri: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+  },
+];
+
 // Audio provisional para desarrollo
 const DUMMY_AUDIO_URL = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
 
 export const timerPreset: TimerPreset = {
-  songUri: DUMMY_AUDIO_URL, // require('../../assets/audio/cepillado.mp3')
-  songTitle: 'Melodía de acompañamiento',
+  songUri: DUMMY_AUDIO_URL,
+  songTitle: 'Melodía Alegre',
   quadrantLabels: [
     'Superior Derecho',
     'Superior Izquierdo',

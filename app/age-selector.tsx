@@ -23,6 +23,8 @@ export default function AgeSelectorScreen() {
       <Header 
         title="¿QUÉ EDAD TIENE TU NIÑO(A)?" 
         decoration="right" 
+        showBack={true}
+        onBack={() => router.replace('/main-menu')}
       />
 
       <View style={styles.content}>
@@ -37,13 +39,6 @@ export default function AgeSelectorScreen() {
               style={styles.button}
             />
           ))}
-          
-          <Button
-            title="Temporizador Clínico"
-            variant="dark"
-            onPress={() => router.push('/timer')}
-            style={[styles.button, { marginTop: 10, borderWidth: 2, borderColor: Colors.navy }]}
-          />
         </View>
       </View>
 

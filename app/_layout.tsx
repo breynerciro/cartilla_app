@@ -49,6 +49,8 @@ export default function RootLayout() {
         <Stack.Screen name="intro" />
         <Stack.Screen name="onboarding" />
         <Stack.Screen name="age-selector" />
+        <Stack.Screen name="main-menu" />
+        <Stack.Screen name="calendar" />
         <Stack.Screen name="age/[group]" />
       </Stack>
     </>

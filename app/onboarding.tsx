@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors } from '../src/theme/colors';
 import { Typography } from '../src/theme/typography';
 import { FooterLogos } from '../src/components/FooterLogos';
@@ -35,6 +36,13 @@ export default function OnboardingScreen() {
       } catch (error) {
         console.log("Notificaciones omitidas en Expo Go", error);
       }
+      
+      try {
+        await AsyncStorage.setItem('hasSeenKnowledgeIntro', 'true');
+      } catch (error) {
+        console.error("Error guardando el estado de onboarding", error);
+      }
+      
       router.push('/age-selector');
     }
   };

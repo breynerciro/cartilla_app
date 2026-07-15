@@ -6,3 +6,13 @@ export async function scheduleDailyBrushingReminders() {
   console.log("Notificaciones omitidas: Estás en Expo Go (Android). Las notificaciones requieren una Development Build.");
   return;
 }
+
+export async function scheduleAppointmentReminder(appointment: any): Promise<string | null> {
+  console.log(`Recordatorio simulado para la cita: ${appointment.title}`);
+  return "dummy-notification-id";
+}
+
+export async function cancelAppointmentReminder(notificationId: string): Promise<void> {
+  console.log(`Cancelando recordatorio: ${notificationId}`);
+}
+

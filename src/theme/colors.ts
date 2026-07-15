@@ -46,4 +46,17 @@ export const Colors = {
     success: '#6BCB77',
     warning: '#FC5939',
   },
+  calendar: {
+    today: '#3E8CF2',
+    selected: '#000E55',
+    dot: '#798CEB',
+    pastAppointment: '#D0D5E8',
+    cardBorder: {
+      odontologia: '#3E8CF2',
+      hematologia: '#FC5939',
+      ortodoncia: '#4ECDC4',
+      cirugia: '#798CEB',
+      otro: '#96CEB4',
+    },
+  },
 };

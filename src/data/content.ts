@@ -101,7 +101,7 @@ const IMG = {
   sangradoFoto: require("../../assets/images/png's/sangrado.jpeg"),
   traumaFoto1: require("../../assets/images/png's/trauma_1.jpeg"),
   traumaFoto2: require("../../assets/images/png's/trauma_2.jpeg"),
-  traumaFoto3: require("../../assets/images/png's/trauma_3.png"),
+  traumaFoto3: require("../../assets/images/png's/trauma_3.jpeg"),
   caries1: require("../../assets/images/png's/caries_1.jpeg"),
   caries2: require("../../assets/images/png's/caries_2.jpeg"),
   caries3: require("../../assets/images/png's/caries_3.png"),
@@ -176,7 +176,7 @@ const traumaCommonSlides = (groupNote?: string): Slide[] => [
   } as ContentSlide,
   {
     type: 'detail',
-    bodyText: 'Estos tratamientos van desde suturas en tejidos blandos. pasando por pulpectomia (quitar la pulpa dañada) y extracción del diente. \nEn algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
+    bodyText: 'Estos tratamientos van desde suturas en tejidos blandos, pasando por pulpectomía (quitar la pulpa dañada) y extracción del diente. \nEn algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
     showInfoIcon: true,
   } as DetailSlide,
 ];
@@ -218,7 +218,7 @@ const cariesSlides6_18: Slide[] = [
 
 const gingivitisSlides: Slide[] = [
   {
-    text: 'Al retirar la placa bacteriana se previene la inflamación de las encías o tambien conocida como gingivitis. ',
+    text: 'Al retirar la placa bacteriana se previene la inflamación de las encías o también conocida como gingivitis.',
     image: IMG.toothBrush,
     toothPosition: 'left',
   } as ContentSlide,
@@ -259,7 +259,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         toothPosition: 'left',
       },
       {
-        text: 'Aprenden a caminar y a interactuar con el mundo; esto les hace susceptibles a caídas que pueden causar lesiones en su lengua, mucosas, encias o dientes.',
+        text: 'Aprenden a caminar y a interactuar con el mundo; esto les hace susceptibles a caídas que pueden causar lesiones en su lengua, mucosas, encías o dientes.',
         image: IMG.toothWand,
         toothPosition: 'right',
       },
@@ -330,7 +330,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 type: 'modal',
                 photo: IMG.mordedor,
-                alertText: 'No dejes objetos duros o juguetes a su alcance sin supervisión, y que, en busca de aliviar las molestias en sus encías, los bebés introducen objetos en su boca para moder, los cuales pueden causar sangrado de importancia.',
+                alertText: 'No dejes objetos duros o juguetes a su alcance sin supervisión, ya que, en busca de aliviar las molestias en sus encías, los bebés introducen objetos en su boca para morder, los cuales pueden causar sangrado de importancia.',
                 showExclamation: true,
               } as InfoSlide,
             ]
@@ -343,7 +343,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'En esta estapa, la forma de realizar la higiene se divide en dos: \n\n* Limpieza de las encías, cuando no hay ningun diente presente. \n\n* Limpieza de los dientes tan pronto erupcionan.',
+            text: 'En esta etapa, la forma de realizar la higiene se divide en dos: \n\n* Limpieza de las encías, cuando no hay ningún diente presente. \n\n* Limpieza de los dientes tan pronto erupcionan.',
             image: IMG.toothWand,
             toothPosition: 'left',
           } as ContentSlide,
@@ -367,13 +367,13 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 type: 'detail',
                 subtitle: 'CUIDADO DE LAS ENCÍAS:',
-                bodyText: 'La limpieza se puede realizar con un cepillo dental de dedo o con una gasa húmeda, pasándolos por todas las superficies de las encías con el fin de retirar placa excepto en el paladar ya que pude causarle ganas de vomitar.',
+                bodyText: 'La limpieza se puede realizar con un cepillo dental de dedo o con una gasa húmeda, pasándolos por todas las superficies de las encías con el fin de retirar placa excepto en el paladar ya que puede causarle ganas de vomitar.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
                 type: 'modal',
                 photo: IMG.cepilladoBebe,
-                alertText: 'Recuerda que puedes iniciar este tipo de higiene a los 5 mese de edad. Hazlo con mucha suavidad, para no causar lesiones y sangrado que pueda agravarse.',
+                alertText: 'Recuerda que puedes iniciar este tipo de higiene a los 5 meses de edad. Hazlo con mucha suavidad, para no causar lesiones y sangrado que pueda agravarse.',
                 showExclamation: true,
               } as InfoSlide,
             ],
@@ -485,7 +485,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     title: 'DE 3 A 5 AÑOS',
     introSlides: [
       {
-        text: 'En esta etapa se espera que se hayan ercupcionado todos los dientes temporales y que no se empiecen a aflojar hasta los 6 años. Por esto es muy importante tener en cuenta:',
+        text: 'En esta etapa se espera que se hayan erupcionado todos los dientes temporales y que no se empiecen a aflojar hasta los 6 años. Por esto es muy importante tener en cuenta:',
         image: IMG.toothWand,
         toothPosition: 'left',
       },
@@ -495,7 +495,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         toothPosition: 'right',
       },
       {
-        text: 'El niño inicia su estapa escolar, donde tiene mas interacción con otros niños y el entorno. Es importante saber qué se debe hacer en caso de una lesión en la cavidad oral.',
+        text: 'El niño inicia su etapa escolar, donde tiene más interacción con otros niños y el entorno. Es importante saber qué se debe hacer en caso de una lesión en la cavidad oral.',
         image: IMG.toothWand,
         toothPosition: 'left',
       },
@@ -507,7 +507,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'Este se realiza siempre en compañia de un adulto. \nEs importante por varias razones entre ellas:',
+            text: 'Este se realiza siempre en compañía de un adulto. \nEs importante por varias razones entre ellas:',
             image: IMG.toothWand,
             toothPosition: 'right',
             buttons: [
@@ -618,7 +618,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     title: 'DE 6 A 13 AÑOS',
     introSlides: [
       {
-        text: 'En esta etapa se espera que ocurra to el recambio dental, es decir que se caigan los dientes temporales erupcionen los permanentes (exepto las cordales). Por eso es necesario tener en cuenta:',
+        text: 'En esta etapa se espera que ocurra todo el recambio dental, es decir que se caigan los dientes temporales y erupcionen los permanentes (excepto las cordales). Por eso es necesario tener en cuenta:',
         image: IMG.toothWand,
         toothPosition: 'left',
       },
@@ -628,7 +628,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         toothPosition: 'right',
       },
       {
-        text: 'El niño tiene una mayor interacción con otros niños y el entorno, jugando o practicando deportes. Es importante saber que se debe hacer en caso de una lesión en la cavidad oral.',
+        text: 'El niño tiene una mayor interacción con otros niños y el entorno, jugando o practicando deportes. Es importante saber qué se debe hacer en caso de una lesión en la cavidad oral.',
         image: IMG.toothWand,
         toothPosition: 'left',
       },
@@ -664,7 +664,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             slides: [
               {
                 type: 'detail',
-                bodyText: 'Este proceso causa normalmente: sensación de "picazón" en las encias y dolor. \n\nSolo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
+                bodyText: 'Este proceso causa normalmente: sensación de "picazón" en las encías y dolor. \n\nSolo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -682,7 +682,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             slides: [
               {
                 type: 'detail',
-                bodyText: 'La erupción del diente permanente como tal rara vez provoca hemorragias, pero el diente temporal al ser retirado si genera sangrado leve.',
+                bodyText: 'La erupción del diente permanente como tal rara vez provoca hemorragias, pero el diente temporal al ser retirado sí genera sangrado leve.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -709,7 +709,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'Este se realiza siempre en compañia de una adulto hasta que el niño desarrolle la habilidad para hacerlo solo.',
+            text: 'Este se realiza siempre en compañía de un adulto hasta que el niño desarrolle la habilidad para hacerlo solo.',
             image: IMG.toothWand,
             toothPosition: 'left',
           } as ContentSlide,
@@ -766,7 +766,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 photo: IMG.crema3
               } as ContentSlide,
               {
-                text: 'Compañía de un adulto .',
+                text: 'Compañía de un adulto.',
                 image: IMG.toothBrush,
                 photo: IMG.posicionCepillado2
               } as ContentSlide,
@@ -806,7 +806,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
       },
       {
         id: 'trauma',
-        title: '¿Qúe hacer en caso de trauma?',
+        title: '¿Qué hacer en caso de trauma?',
         menuImage: IMG.toothTrauma,
         slides: [
           ...traumaCommonSlides('6-13'),
@@ -865,7 +865,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'Es recomendado realizarla 3 veces al día. Es imporante por varias razones entre ellas:',
+            text: 'Es recomendado realizarla 3 veces al día. Es importante por varias razones entre ellas:',
             image: IMG.toothWand,
             toothPosition: 'right',
             buttons: [
@@ -907,7 +907,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             menuImage: IMG.toothBrush,
             slides: [
               {
-                text: 'Para realizar la higiene debes usar un cepillo de dientes para adulto de cerdas suave.',
+                text: 'Para realizar la higiene debes usar un cepillo de dientes para adulto de cerdas suaves.',
                 image: IMG.toothBrush,
                 photo: IMG.cepillo
               } as ContentSlide,
@@ -955,7 +955,42 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         title: 'Trauma Dental',
         menuImage: IMG.bloodCells,
         slides: [
-          ...traumaCommonSlides('14-18'),
+          {
+            text: 'Si tras una caída o golpe observas sangrado en la boca, puede ser ocasionado por un corte en la lengua o mucosas, incluso por una fractura dental o del hueso.',
+            image: IMG.toothTrauma,
+            toothPosition: 'left',
+          } as ContentSlide,
+          {
+            text: 'Y en algunos casos, sin presentar sangrado aparente, pueden existir fracturas o hematomas que deben ser atendidos con urgencia.',
+            image: IMG.toothTrauma,
+            toothPosition: 'right',
+          } as ContentSlide,
+          {
+            type: 'detail',
+            bodyText: 'Como primera medida, tras un trauma es indispensable acudir al servicio de urgencias para que se valore si hay lesiones, su severidad, se eleve el factor en caso de necesitarlo y se le dé un adecuado tratamiento.',
+            showInfoIcon: true,
+          } as DetailSlide,
+          {
+            type: 'modal',
+            photo: IMG.traumaFoto1,
+            alertText: 'Si hay sangrado, retire los coágulos para evitar broncoaspiración, haga presión con una gasa durante 15 minutos sobre la zona, y en caso de tener a la mano ácido tranexámico, aplicarlo de forma tópica.',
+            showExclamation: true,
+          } as InfoSlide,
+          {
+            text: 'Es necesario que el odontólogo revise detalladamente al paciente y le realice las radiografías necesarias para determinar el tratamiento.',
+            image: IMG.toothTrauma,
+            toothPosition: 'left',
+          } as ContentSlide,
+          {
+            text: 'En la dentición permanente los tratamientos van encaminados a detener el sangrado, preservar la integridad del diente en boca promover su desarrollo si es un diente inmaduro.',
+            image: IMG.toothTrauma,
+            toothPosition: 'right',
+          } as ContentSlide,
+          {
+            type: 'detail',
+            bodyText: 'Estos tratamientos van desde suturas en tejidos blandos, pasando por inmovilización del diente, tratamiento de conductos y extracción del diente. \nEn algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
+            showInfoIcon: true,
+          } as DetailSlide,
           {
             type: 'modal',
             photo: IMG.traumaFoto3,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Modal } from 'react-native';
 import { useAudioPlayer } from 'expo-audio';
-import { timerPreset } from '../data/timerPresets';
+import { timerPreset, AVAILABLE_SONGS, Song } from '../data/timerPresets';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 import { CircularProgress } from './CircularProgress';
@@ -20,9 +20,11 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish }) => {
   const [timeRemaining, setTimeRemaining] = useState(TOTAL_TIME);
   const [isActive, setIsActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [selectedSong, setSelectedSong] = useState<Song>(AVAILABLE_SONGS[0]);
+  const [showSongSelector, setShowSongSelector] = useState(false);
   const { height } = useWindowDimensions();
   
-  const player = useAudioPlayer(timerPreset.songUri);
+  const player = useAudioPlayer(selectedSong.uri);
 
   const circleSize = Math.min(height * 0.28, 260);
 
@@ -59,7 +61,11 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.songTitle}>{timerPreset.songTitle}</Text>
+      <TouchableOpacity onPress={() => setShowSongSelector(true)} style={styles.songSelectorBtn}>
+        <Ionicons name="musical-notes" size={20} color={Colors.lavender} />
+        <Text style={styles.songTitle}>{selectedSong.title}</Text>
+        <Ionicons name="chevron-down" size={20} color={Colors.lavender} />
+      </TouchableOpacity>
       
       <View style={styles.timerWrapper}>
         <CircularProgress
@@ -97,6 +103,34 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish }) => {
         onClose={() => { setShowModal(false); onFinish(); }}
         bleedingFollowUp={timerPreset.bleedingFollowUp}
       />
+
+      {/* Selector de Canciones */}
+      <Modal visible={showSongSelector} animationType="fade" transparent={true} onRequestClose={() => setShowSongSelector(false)}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.songModalContainer}>
+            <Text style={styles.songModalTitle}>Selecciona una melodía</Text>
+            {AVAILABLE_SONGS.map(song => (
+              <TouchableOpacity 
+                key={song.id} 
+                style={[styles.songOption, selectedSong.id === song.id && styles.songOptionSelected]}
+                onPress={() => {
+                  setSelectedSong(song);
+                  setShowSongSelector(false);
+                  if (isActive && player) {
+                    player.play();
+                  }
+                }}
+              >
+                <Ionicons name="musical-note" size={24} color={selectedSong.id === song.id ? Colors.white : Colors.navy} />
+                <Text style={[styles.songOptionText, selectedSong.id === song.id && styles.songOptionTextSelected]}>{song.title}</Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity style={styles.songModalCloseBtn} onPress={() => setShowSongSelector(false)}>
+              <Text style={styles.songModalCloseText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -178,5 +212,75 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Nunito_700Bold',
     color: Colors.timer.warning,
+  },
+  songSelectorBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.offWhite,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(121, 140, 235, 0.3)',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,14,85,0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  songModalContainer: {
+    width: '100%',
+    backgroundColor: Colors.white,
+    borderRadius: 24,
+    padding: 24,
+    shadowColor: Colors.navy,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  songModalTitle: {
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 22,
+    color: Colors.navy,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  songOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+    marginBottom: 10,
+    backgroundColor: Colors.offWhite,
+  },
+  songOptionSelected: {
+    backgroundColor: Colors.blue,
+  },
+  songOptionText: {
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 16,
+    color: Colors.navy,
+    marginLeft: 12,
+  },
+  songOptionTextSelected: {
+    color: Colors.white,
+  },
+  songModalCloseBtn: {
+    marginTop: 12,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: Colors.navy,
+    borderRadius: 16,
+  },
+  songModalCloseText: {
+    fontFamily: Typography.fonts.ubuntuBold,
+    fontSize: 16,
+    color: Colors.navy,
   },
 });

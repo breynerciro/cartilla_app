@@ -33,7 +33,8 @@
       "expo-font",
       "expo-asset",
       "expo-audio",
-      "expo-notifications"
+      "expo-notifications",
+      "@react-native-community/datetimepicker"
     ],
     "scheme": "cartilladentalhemofilia",
     "extra": {
