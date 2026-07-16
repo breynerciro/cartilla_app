@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import LogoHomi from '../../assets/images/svgs/logo_HOMI.svg';
 import LogoUnal from '../../assets/images/svgs/logo_UNAL.svg';
 
 interface FooterLogosProps {
@@ -12,11 +13,7 @@ export const FooterLogos = ({ color = 'black' }: FooterLogosProps) => {
 
   return (
     <View style={styles.container}>
-      <Image 
-        source={require('../../assets/images/png\'s/homi_logo.png')} 
-        style={[styles.homiLogo, { tintColor: iconColor }]} 
-        resizeMode="contain"
-      />
+      <LogoHomi width={120} height={40} fill={iconColor} style={styles.homiLogo} />
       <View style={[styles.divider, { backgroundColor: dividerColor }]} />
       <LogoUnal width={120} height={40} fill={iconColor} style={styles.unalLogo} />
     </View>
