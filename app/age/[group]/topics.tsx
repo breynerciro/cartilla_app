@@ -27,8 +27,6 @@ export default function TopicMenuScreen() {
       <Header 
         title={data.title}
         decoration="left"
-        showBack={true}
-        onBack={() => router.back()}
       />
 
       <View style={styles.body}>

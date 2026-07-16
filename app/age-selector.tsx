@@ -7,6 +7,7 @@ import { Typography } from '../src/theme/typography';
 import { Button } from '../src/components/Button';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { Header } from '../src/components/Header';
+import { BackButton } from '../src/components/BackButton';
 
 const AGE_GROUPS = [
   { label: '0 A 3 años', route: '0-3' },
@@ -23,8 +24,6 @@ export default function AgeSelectorScreen() {
       <Header 
         title="¿QUÉ EDAD TIENE TU NIÑO(A)?" 
         decoration="right" 
-        showBack={true}
-        onBack={() => router.replace('/main-menu')}
       />
 
       <View style={styles.content}>
@@ -42,7 +41,10 @@ export default function AgeSelectorScreen() {
         </View>
       </View>
 
-      <FooterLogos />
+      <View style={styles.footer}>
+        <BackButton onPress={() => router.replace('/main-menu')} />
+        <FooterLogos />
+      </View>
     </SafeAreaView>
   );
 }
@@ -58,6 +60,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  footer: {
+    alignItems: 'center',
+    paddingBottom: 8,
   },
   buttonsContainer: {
     width: '100%',

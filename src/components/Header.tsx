@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet } from 'react-native';
 import { CornerDecoration } from './CornerDecoration';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
@@ -9,24 +7,14 @@ import { Typography } from '../theme/typography';
 interface HeaderProps {
   title?: string;
   decoration?: 'left' | 'right' | 'none';
-  showBack?: boolean;
-  onBack?: () => void;
   titleLines?: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   title,
   decoration = 'none',
-  showBack = false,
-  onBack,
   titleLines = 2,
 }) => {
-  const router = useRouter();
-  
-  const handleBack = () => {
-    if (onBack) onBack();
-    else router.back();
-  };
 
   const hasLeftDeco = decoration === 'left';
   const hasRightDeco = decoration === 'right';
@@ -36,11 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
       {hasLeftDeco && <CornerDecoration position="bottom-left" />}
       {hasRightDeco && <CornerDecoration position="bottom-right" />}
 
-      {showBack && (
-        <TouchableOpacity style={styles.backBtn} onPress={handleBack}>
-          <Ionicons name="chevron-back" size={32} color={Colors.blue} />
-        </TouchableOpacity>
-      )}
+
 
       {title && (
         <Text 
@@ -67,13 +51,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  backBtn: {
-    position: 'absolute',
-    top: 0,
-    left: 12,
-    zIndex: 10,
-    padding: 8,
-  },
+
   title: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: Typography.sizes.heading,

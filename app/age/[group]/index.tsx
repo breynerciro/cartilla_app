@@ -40,8 +40,6 @@ export default function AgeGroupIntroScreen() {
       <Header 
         title={data.title}
         decoration={isLeft ? 'left' : 'right'}
-        showBack={true}
-        onBack={() => router.back()}
       />
 
       {/* Progress dots */}

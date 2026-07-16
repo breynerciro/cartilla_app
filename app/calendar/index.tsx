@@ -14,6 +14,7 @@ import { Button } from '../../src/components/Button';
 import { Appointment } from '../../src/data/appointments';
 import { getAppointments, saveAppointment, updateAppointment, deleteAppointment } from '../../src/services/storage';
 import { scheduleAppointmentReminder, cancelAppointmentReminder } from '../../src/services/notifications';
+import { BackButton } from '../../src/components/BackButton';
 
 export default function CalendarScreen() {
   const router = useRouter();
@@ -92,8 +93,6 @@ export default function CalendarScreen() {
       <Header 
         title="CALENDARIO DE CITAS" 
         decoration="left" 
-        showBack={true}
-        onBack={() => router.back()}
       />
 
       <ScrollView 
@@ -178,6 +177,10 @@ export default function CalendarScreen() {
         <Ionicons name="add" size={32} color={Colors.white} />
         <Text style={styles.fabText}>Nueva Cita</Text>
       </TouchableOpacity>
+
+      <View style={styles.floatingBack}>
+        <BackButton onPress={() => router.back()} />
+      </View>
 
       <View style={styles.footerContainer}>
         <FooterLogos />
@@ -293,5 +296,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.05)',
-  }
+  },
+  floatingBack: {
+    position: 'absolute',
+    bottom: 80,
+    left: 20,
+    zIndex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 82,
+    height: 82,
+  },
 });

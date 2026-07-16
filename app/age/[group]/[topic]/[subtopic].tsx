@@ -27,8 +27,6 @@ function NestedSubtopicMenuScreen({
       <Header 
         title={data.title}
         decoration="left"
-        showBack={true}
-        onBack={() => router.back()}
       />
 
       <ScrollView
