@@ -39,7 +39,7 @@ export const AppointmentCard = ({ appointment, onPress, onToggleComplete, onDele
 
   const dateObj = new Date(appointment.date + 'T' + appointment.time + ':00');
   const dateStr = dateObj.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
-  const timeStr = dateObj.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  const timeStr = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 
   return (
     <Animated.View style={[styles.container, { opacity: opacityAnim, borderLeftColor: typeConfig.color }]}>

@@ -3,7 +3,8 @@ try {
   Notifications = require('expo-notifications');
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
-      shouldShowAlert: true,
+      shouldShowBanner: true,
+      shouldShowList: true,
       shouldPlaySound: true,
       shouldSetBadge: false,
     }),
@@ -12,7 +13,47 @@ try {
   console.log("expo-notifications no disponible en este entorno");
 }
 
-export async function scheduleDailyBrushingReminders() {
+import { getAlarmSettings, AlarmSettings, AlarmTime } from './alarmSettings';
+
+const BRUSHING_NOTIFICATION_PREFIX = 'brushing-reminder-';
+
+const BRUSHING_MESSAGES: { title: string; body: string }[] = [
+  {
+    title: "¡Es hora de cepillarse! 🦷",
+    body: "Recuerda cepillarte por 2 minutos para mantener una sonrisa saludable.",
+  },
+  {
+    title: "¡Hora del cepillado! ✨",
+    body: "Una sonrisa saludable empieza con un buen cepillado. ¡2 minutos!",
+  },
+  {
+    title: "¡Buenas noches! A cepillarse 🌙",
+    body: "No olvides cepillarte los dientes antes de dormir.",
+  },
+];
+
+/**
+ * Cancela todos los recordatorios de cepillado existentes antes de reprogramarlos.
+ */
+async function cancelExistingBrushingReminders(): Promise<void> {
+  if (!Notifications) return;
+  try {
+    const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+    for (const notification of scheduled) {
+      if (notification.identifier?.startsWith(BRUSHING_NOTIFICATION_PREFIX)) {
+        await Notifications.cancelScheduledNotificationAsync(notification.identifier);
+      }
+    }
+  } catch (error) {
+    console.log("Error al cancelar recordatorios existentes:", error);
+  }
+}
+
+/**
+ * Programa los recordatorios de cepillado usando la configuración del usuario.
+ * Si no hay configuración guardada, usa los valores predeterminados.
+ */
+export async function scheduleDailyBrushingReminders(overrideSettings?: AlarmSettings) {
   if (!Notifications) {
     console.log("Notificaciones omitidas: expo-notifications no disponible.");
     return;
@@ -29,34 +70,42 @@ export async function scheduleDailyBrushingReminders() {
       return;
     }
 
-    // Programar para la mañana (8:00 AM)
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "¡Es hora de cepillarse! 🦷",
-        body: "Recuerda cepillarte por 2 minutos para mantener una sonrisa saludable.",
-        sound: true,
-      },
-      trigger: {
-        hour: 8,
-        minute: 0,
-        repeats: true,
-      },
-    });
+    const settings = overrideSettings || await getAlarmSettings();
 
-    // Programar para la noche (8:00 PM)
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "¡Buenas noches! A cepillarse 🌙",
-        body: "No olvides cepillarte los dientes antes de dormir.",
-        sound: true,
-      },
-      trigger: {
-        hour: 20,
-        minute: 0,
-        repeats: true,
-      },
-    });
-    console.log("Recordatorios diarios de cepillado programados.");
+    if (!settings.enabled) {
+      // Si las notificaciones están desactivadas, solo cancelamos las existentes
+      await cancelExistingBrushingReminders();
+      console.log("Recordatorios de cepillado desactivados por el usuario.");
+      return;
+    }
+
+    // Cancelar los recordatorios existentes antes de reprogramar
+    await cancelExistingBrushingReminders();
+
+    // Programar cada alarma configurada
+    for (let i = 0; i < settings.times.length; i++) {
+      const time = settings.times[i];
+      const message = BRUSHING_MESSAGES[i % BRUSHING_MESSAGES.length];
+
+      await Notifications.scheduleNotificationAsync({
+        identifier: `${BRUSHING_NOTIFICATION_PREFIX}${i}`,
+        content: {
+          title: message.title,
+          body: message.body,
+          sound: true,
+        },
+        trigger: {
+          type: 'daily',
+          hour: time.hour,
+          minute: time.minute,
+          repeats: true,
+          channelId: 'default',
+        } as any,
+      });
+    }
+
+    const timesSummary = settings.times.map(t => `${t.hour.toString().padStart(2, '0')}:${t.minute.toString().padStart(2, '0')}`).join(', ');
+    console.log(`Recordatorios diarios de cepillado programados: ${timesSummary}`);
   } catch (error) {
     console.log("Error al programar notificaciones:", error);
   }
@@ -81,7 +130,7 @@ export async function scheduleAppointmentReminder(appointment: any): Promise<str
 
     const [year, month, day] = appointment.date.split('-');
     const [hour, minute] = appointment.time.split(':');
-    
+
     const appointmentDate = new Date(
       parseInt(year, 10),
       parseInt(month, 10) - 1,
@@ -89,28 +138,57 @@ export async function scheduleAppointmentReminder(appointment: any): Promise<str
       parseInt(hour, 10),
       parseInt(minute, 10)
     );
-    
-    // Restar los días de recordatorio
-    appointmentDate.setDate(appointmentDate.getDate() - appointment.reminderDays);
 
-    if (appointmentDate.getTime() < Date.now()) {
-      console.log("La fecha del recordatorio ya pasó, no se programará.");
+    const timeFormatted = appointmentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+    const date1Day = new Date(appointmentDate.getTime() - 24 * 60 * 60 * 1000);
+    const date2Hours = new Date(appointmentDate.getTime() - 2 * 60 * 60 * 1000);
+
+    let scheduledAny = false;
+
+    if (date1Day.getTime() > Date.now()) {
+      await Notifications.scheduleNotificationAsync({
+        identifier: `${appointment.id}-1day`,
+        content: {
+          title: "¡Mañana es tu Cita Médica!",
+          body: `Recuerda tu cita: ${appointment.title} mañana a las ${timeFormatted}.`,
+          sound: true,
+          data: { appointmentId: appointment.id },
+        },
+        trigger: {
+          type: 'date',
+          date: date1Day.getTime(),
+          channelId: 'default'
+        } as any,
+      });
+      scheduledAny = true;
+    }
+
+    if (date2Hours.getTime() > Date.now()) {
+      await Notifications.scheduleNotificationAsync({
+        identifier: `${appointment.id}-2hours`,
+        content: {
+          title: "¡Tu Cita Médica es pronto!",
+          body: `Tu cita: ${appointment.title} es en 2 horas (a las ${timeFormatted}).`,
+          sound: true,
+          data: { appointmentId: appointment.id },
+        },
+        trigger: {
+          type: 'date',
+          date: date2Hours.getTime(),
+          channelId: 'default'
+        } as any,
+      });
+      scheduledAny = true;
+    }
+
+    if (!scheduledAny) {
+      console.log("Las fechas de recordatorio ya pasaron, no se programó ninguna alarma.");
       return null;
     }
 
-    const id = await Notifications.scheduleNotificationAsync({
-      identifier: appointment.id,
-      content: {
-        title: "¡Recordatorio de Cita Médica! 📅",
-        body: `Recuerda tu cita: ${appointment.title} programada para el ${appointment.date} a las ${appointment.time}.`,
-        sound: true,
-        data: { appointmentId: appointment.id },
-      },
-      trigger: { date: appointmentDate },
-    });
-
-    console.log(`Recordatorio programado para la cita: ${appointment.title} en ${appointmentDate.toLocaleString()}`);
-    return id;
+    console.log(`Recordatorios programados para la cita: ${appointment.title} (1 día y 2 horas antes)`);
+    return appointment.id;
   } catch (error) {
     console.log("Error al programar recordatorio de cita:", error);
     return null;
@@ -120,10 +198,10 @@ export async function scheduleAppointmentReminder(appointment: any): Promise<str
 export async function cancelAppointmentReminder(notificationId: string): Promise<void> {
   if (!Notifications) return;
   try {
-    await Notifications.cancelScheduledNotificationAsync(notificationId);
-    console.log(`Recordatorio cancelado: ${notificationId}`);
+    await Notifications.cancelScheduledNotificationAsync(`${notificationId}-1day`);
+    await Notifications.cancelScheduledNotificationAsync(`${notificationId}-2hours`);
+    console.log(`Recordatorios cancelados para la cita: ${notificationId}`);
   } catch (error) {
     console.log("Error al cancelar el recordatorio:", error);
   }
 }
-

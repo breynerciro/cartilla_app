@@ -155,7 +155,7 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
                 <Text style={styles.label}>Hora</Text>
                 <TouchableOpacity style={styles.dateBtn} onPress={() => setShowTimePicker(true)}>
                   <Ionicons name="time-outline" size={20} color={Colors.navy} />
-                  <Text style={styles.dateText}>{date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</Text>
+                  <Text style={styles.dateText}>{date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -196,20 +196,6 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
               numberOfLines={3}
             />
 
-            <Text style={styles.label}>Recordatorio</Text>
-            <View style={styles.remindersContainer}>
-              {[1, 3, 7].map(days => (
-                <TouchableOpacity
-                  key={days}
-                  style={[styles.reminderChip, reminderDays === days && styles.reminderChipActive]}
-                  onPress={() => setReminderDays(days)}
-                >
-                  <Text style={[styles.reminderText, reminderDays === days && styles.reminderTextActive]}>
-                    {days} {days === 1 ? 'día' : 'días'} antes
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
 
             <View style={styles.footer}>
               <Button title="Cancelar" variant="outline" onPress={onClose} style={{ flex: 1, paddingVertical: 12 }} />
@@ -315,29 +301,7 @@ const styles = StyleSheet.create({
     color: Colors.navy,
     marginLeft: 12,
   },
-  remindersContainer: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  reminderChip: {
-    flex: 1,
-    paddingVertical: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.lavender,
-    alignItems: 'center',
-  },
-  reminderChipActive: {
-    backgroundColor: Colors.lavender,
-  },
-  reminderText: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 14,
-    color: Colors.lavender,
-  },
-  reminderTextActive: {
-    color: Colors.white,
-  },
+
   footer: {
     flexDirection: 'row',
     marginTop: 32,
