@@ -20,11 +20,11 @@ const BRUSHING_NOTIFICATION_PREFIX = 'brushing-reminder-';
 const BRUSHING_MESSAGES: { title: string; body: string }[] = [
   {
     title: "¡Es hora de cepillarse! 🦷",
-    body: "Recuerda cepillarte por 2 minutos para mantener una sonrisa saludable.",
+    body: "Recuerda cepillarte para mantener una sonrisa saludable.",
   },
   {
     title: "¡Hora del cepillado! ✨",
-    body: "Una sonrisa saludable empieza con un buen cepillado. ¡2 minutos!",
+    body: "Una sonrisa saludable empieza con un buen cepillado.",
   },
   {
     title: "¡Buenas noches! A cepillarse 🌙",
@@ -187,7 +187,7 @@ export async function scheduleAppointmentReminder(appointment: any): Promise<str
       return null;
     }
 
-    console.log(`Recordatorios programados para la cita: ${appointment.title} (1 día y 2 horas antes)`);
+    console.log(`Recordatorios programados para la cita: ${appointment.title}`);
     return appointment.id;
   } catch (error) {
     console.log("Error al programar recordatorio de cita:", error);
