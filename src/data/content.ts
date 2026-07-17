@@ -670,7 +670,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
               {
                 type: 'modal',
                 photo: IMG.medicamento2,
-                alertText: 'Recuerda: NO automediques a tu bebé, los medicamentos deben ser formulados por tu médico u odontólogo.',
+                alertText: 'Recuerda: NO automediques a tu niño, los medicamentos deben ser formulados por tu médico u odontólogo.',
                 showExclamation: true,
               } as InfoSlide,
             ]
