@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: Typography.sizes.title - 2, // slightly smaller since ubuntu is wider than unkempt
+    fontSize: Typography.sizes.title - 2,
     lineHeight: (Typography.sizes.title - 2) * 1.2,
   },
 });

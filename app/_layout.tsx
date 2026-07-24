@@ -4,10 +4,6 @@ import {
   UbuntuSans_400Regular,
   UbuntuSans_700Bold,
 } from '@expo-google-fonts/ubuntu-sans';
-import {
-  Unkempt_400Regular,
-  Unkempt_700Bold,
-} from '@expo-google-fonts/unkempt';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -18,12 +14,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    // Ubuntu Sans — font1 / ubuntuSans
+    // Ubuntu Sans
     UbuntuSans_400Regular,
     UbuntuSans_700Bold,
-    // Unkempt — font2 / unkempt
-    Unkempt_400Regular,
-    Unkempt_700Bold,
   });
 
   useEffect(() => {
@@ -51,6 +44,7 @@ export default function RootLayout() {
         <Stack.Screen name="age-selector" />
         <Stack.Screen name="main-menu" />
         <Stack.Screen name="calendar" />
+        <Stack.Screen name="emergency" />
         <Stack.Screen name="age/[group]" />
       </Stack>
     </>

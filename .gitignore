@@ -3,3 +3,6 @@ documentos
 android
 ios
 .expo/
+.claude
+openspec
+dist

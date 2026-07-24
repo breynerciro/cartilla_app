@@ -8,6 +8,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { Colors } from '../theme/colors';
+import { Typography } from '../theme/typography';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 48,
-    fontFamily: 'Nunito_700Bold',
+    fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.navy,
   },
 });

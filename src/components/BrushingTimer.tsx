@@ -38,14 +38,24 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
       interval = setInterval(() => {
         setTimeRemaining((prev) => prev - 1);
       }, 1000);
-      player.play();
+      try {
+        player.play();
+      } catch (e) {
+        // Graceful fallback if network is offline or sound fails to load
+      }
     } else if (!isActive && player) {
-      player.pause();
+      try {
+        player.pause();
+      } catch (e) {}
     }
 
     if (timeRemaining === 0) {
       setIsActive(false);
-      if (player) player.pause();
+      if (player) {
+        try {
+          player.pause();
+        } catch (e) {}
+      }
       setShowModal(true);
     }
 
@@ -265,7 +275,7 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     fontSize: 15,
-    fontFamily: 'Nunito_600SemiBold',
+    fontFamily: Typography.fonts.ubuntu,
     color: Colors.white,
     textAlign: 'center',
     lineHeight: 22,
@@ -282,7 +292,7 @@ const styles = StyleSheet.create({
   },
   pressureWarning: {
     fontSize: 13,
-    fontFamily: 'Nunito_700Bold',
+    fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.timer.warning,
   },
 

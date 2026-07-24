@@ -7,4 +7,5 @@ assets/mockups
 .git
 .vscode
 dist
-LinksMockups
+.claude
+openspec

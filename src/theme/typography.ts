@@ -12,8 +12,6 @@ export const Typography = {
   fonts: {
     ubuntu:      'UbuntuSans_400Regular',
     ubuntuBold:  'UbuntuSans_700Bold',
-    unkempt:     'Unkempt_400Regular',
-    unkemptBold: 'Unkempt_700Bold',
   },
   sizes: {
     // Sizes are calculated dynamically based on the device width on load

@@ -1,4 +1,3 @@
-import { DynamicImage } from '../../../../src/components/DynamicImage';
 import React from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, useWindowDimensions,

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Animated, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,6 +33,14 @@ const MENU_OPTIONS = [
     icon: 'calendar-outline' as const,
     route: '/calendar',
     color: Colors.lavender,
+  },
+  {
+    id: 'emergency',
+    title: 'Contactos de Emergencia',
+    subtitle: 'Números de urgencia',
+    icon: 'call-outline' as const,
+    route: '/emergency',
+    color: Colors.timer.warning,
   },
 ];
 
@@ -77,7 +85,11 @@ export default function MainMenuScreen() {
         decoration="right" 
       />
 
-      <View style={styles.content}>
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         {MENU_OPTIONS.map((option, index) => {
           const translateY = anims[index].interpolate({
             inputRange: [0, 1],
@@ -111,7 +123,7 @@ export default function MainMenuScreen() {
             </Animated.View>
           );
         })}
-      </View>
+      </ScrollView>
 
       <FooterLogos />
     </SafeAreaView>
@@ -124,31 +136,35 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     justifyContent: 'space-between',
   },
-  content: {
+  scrollView: {
     flex: 1,
+  },
+  content: {
     paddingHorizontal: 20,
+    paddingVertical: 16,
     justifyContent: 'center',
-    gap: 20,
+    flexGrow: 1,
+    gap: 14,
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.navy,
     borderRadius: 24,
-    padding: 20,
+    padding: 16,
     shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 5,
   },
   iconContainer: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 14,
   },
   textContainer: {
     flex: 1,
@@ -156,12 +172,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 20,
+    fontSize: 18,
     color: Colors.white,
     marginBottom: 4,
   },
   cardSubtitle: {
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 14,
+    fontSize: 13,
   },
 });

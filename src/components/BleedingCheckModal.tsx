@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { Colors } from '../theme/colors';
+import { Typography } from '../theme/typography';
 
 interface BleedingCheckModalProps {
   visible: boolean;
@@ -85,28 +86,28 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: 'Nunito_800ExtraBold',
+    fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.navy,
     marginBottom: 16,
     textAlign: 'center',
   },
   titleAlert: {
     fontSize: 22,
-    fontFamily: 'Nunito_800ExtraBold',
+    fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.timer.warning,
     marginBottom: 16,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
-    fontFamily: 'Nunito_600SemiBold',
+    fontFamily: Typography.fonts.ubuntu,
     color: Colors.text.primary,
     marginBottom: 24,
     textAlign: 'center',
   },
   instruction: {
     fontSize: 16,
-    fontFamily: 'Nunito_600SemiBold',
+    fontFamily: Typography.fonts.ubuntu,
     color: Colors.navy,
     marginBottom: 12,
     alignSelf: 'flex-start',
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.white,
-    fontFamily: 'Nunito_700Bold',
+    fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 18,
   },
 });

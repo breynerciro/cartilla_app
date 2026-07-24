@@ -105,6 +105,7 @@ const IMG = {
   caries1: require("../../assets/images/png's/caries_1.jpeg"),
   caries2: require("../../assets/images/png's/caries_2.jpeg"),
   caries3: require("../../assets/images/png's/caries_3.png"),
+  gingivitis05: require("../../assets/images/png's/gingivitis_05.jpeg"),
   gingivitis1: require("../../assets/images/png's/gingivitis_1.jpeg"),
   gingivitis2: require("../../assets/images/png's/gingivitis_2.jpeg"),
   cordalesFoto: require("../../assets/images/png's/cordales.png"),
@@ -188,7 +189,7 @@ const cariesSlides0_5: Slide[] = [
     toothPosition: 'left',
   } as ContentSlide,
   {
-    text: 'Contrario de la creencia popular, los dientes de leche son muy importantes para la salud de los niños.',
+    text: 'Contrario de la creencia popular, los dientes de leche son muy importantes para la salud de los niños. \nConservar los dientes sanos ayuda a evitar extracciones y reduce el riesgo de sangrado.',
     image: IMG.toothBrush,
     toothPosition: 'right',
     photo: IMG.caries1,
@@ -216,7 +217,28 @@ const cariesSlides6_18: Slide[] = [
   } as ContentSlide,
 ];
 
-const gingivitisSlides: Slide[] = [
+const gingivitisSlides3_5: Slide[] = [
+  {
+    text: 'Al retirar la placa bacteriana se previene la inflamación de las encías o también conocida como gingivitis.',
+    image: IMG.toothBrush,
+    toothPosition: 'left',
+  } as ContentSlide,
+  {
+    text: 'Esta inflamación puede generar sangrado leve que no puede detenerse (depende del nivel de factor en sangre).',
+    image: IMG.toothBrush,
+    subtitle: "GINGIVITIS EN HEMOFILIA",
+    photo: IMG.gingivitis05,
+    toothPosition: 'right',
+  } as ContentSlide,
+  {
+    text: 'Además, puede generar molestias a la hora de alimentarse.',
+    image: IMG.toothBrush,
+    photo: IMG.gingivitis2,
+    toothPosition: 'left',
+  } as ContentSlide,
+];
+
+const gingivitisSlides6_18: Slide[] = [
   {
     text: 'Al retirar la placa bacteriana se previene la inflamación de las encías o también conocida como gingivitis.',
     image: IMG.toothBrush,
@@ -244,7 +266,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
     title: 'DE 0 A 3 AÑOS',
     introSlides: [
       {
-        text: 'En esta etapa ocurren transiciones muy importantes en el desarrollo general y aspecto dental de los niños, como:',
+        text: 'En esta etapa ocurren transiciones muy importantes en el desarrollo motor y dental',
         image: IMG.toothWand,
         toothPosition: 'left',
       },
@@ -490,7 +512,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         toothPosition: 'left',
       },
       {
-        text: 'El cuidado y la higiene de los conocidos "dientes de leche" es igual de importante que el de los dientes permanentes.',
+        text: 'El cuidado y la higiene de los dientes de leche es igual de importante que el de los dientes permanentes.',
         image: IMG.toothNeutral,
         toothPosition: 'right',
       },
@@ -507,7 +529,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.toothBrush,
         slides: [
           {
-            text: 'Este se realiza siempre en compañía de un adulto. \nEs importante por varias razones entre ellas:',
+            text: 'El cepillado se debe realizar en compañia de un adulto. \nEs importante por varias razones entre ellas:',
             image: IMG.toothWand,
             toothPosition: 'right',
             buttons: [
@@ -541,7 +563,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'gingivitis',
             title: 'Gingivitis',
             menuImage: IMG.enciaIcon,
-            slides: gingivitisSlides,
+            slides: gingivitisSlides3_5,
           },
           {
             id: 'cepillado',
@@ -641,16 +663,16 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         subtopics: [
           {
             id: 'torcidos',
-            title: '¿Qué hacer si salen torcidos?',
+            title: '¿Qué hacer si los dientes salen torcidos?',
             menuImage: IMG.braquet,
             slides: [
               {
-                text: 'Debido a muchos factores al momento de la erupción de dientes permanentes, pueden salir en mala posición. \n\nPara corregir esta condición, es necesario el uso de aparatos de ortopedia y ortodoncia, los cuales no están contraindicados en niños con hemofilia.',
+                text: 'En esta etapa salen los dientes permanentes. Algunos pueden salir torcidos o sin suficiente espacio. \n\nCuando se necesita, los aparatos de ortopedia u ortodoncia ayudan a corregir su posición. La hemofilia no impide su uso, siempre con el seguimiento del odontólogo y el hematólogo.',
                 image: IMG.toothWand,
                 toothPosition: 'left',
               } as ContentSlide,
               {
-                text: 'Sin embargo, es importante informarle al ortodoncista sobre el trastorno hemofílico, para que tenga todas las precauciones y evitar lesiones.',
+                text: 'Sin embargo, es importante informarle al ortodoncista sobre el trastorno hemofílico, para que tenga todas las precauciones y evitar lesiones con los aditamentos de los aparatos.',
                 image: IMG.toothWand,
                 photo: IMG.retenedor,
                 toothPosition: 'right',
@@ -664,7 +686,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             slides: [
               {
                 type: 'detail',
-                bodyText: 'Este proceso causa normalmente: sensación de "picazón" en las encías y dolor. \n\nSolo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
+                bodyText: 'Durante el recambio se produce sensación de picazón en las encías y dolor. \n\nSolo en caso de fiebre, sangrado que no para o dolor intenso que no le permita comer, es necesario administrarle medicamentos.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -682,7 +704,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             slides: [
               {
                 type: 'detail',
-                bodyText: 'La erupción del diente permanente como tal rara vez provoca hemorragias, pero el diente temporal al ser retirado sí genera sangrado leve.',
+                bodyText: 'La erupción del diente permanente generalmente no causa sangrado. \n\nSin embargo, cuando se cae o se retira el diente de leche, es normal que se presente un sangrado leve.',
                 showInfoIcon: true,
               } as DetailSlide,
               {
@@ -748,7 +770,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'gingivitis',
             title: 'Gingivitis',
             menuImage: IMG.gingivitis1,
-            slides: gingivitisSlides,
+            slides: gingivitisSlides6_18,
           },
           {
             id: 'cepillado',
@@ -830,7 +852,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         toothPosition: 'left',
       },
       {
-        text: '-El cuidado y la higiene de los dientes permanentes para evitar diferentes enfermedades. \n\n-Monitoreo constante a la posición y erupción de las cordales.',
+        text: '* El cuidado y la higiene de los dientes permanentes para evitar diferentes enfermedades. \n\n* Monitoreo constante a la posición y erupción de las cordales.',
         image: IMG.toothNeutral,
         toothPosition: 'right',
       },
@@ -899,7 +921,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'gingivitis',
             title: 'Gingivitis',
             menuImage: IMG.gingivitis1,
-            slides: gingivitisSlides,
+            slides: gingivitisSlides6_18,
           },
           {
             id: 'cepillado',
@@ -956,7 +978,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
         menuImage: IMG.bloodCells,
         slides: [
           {
-            text: 'Si tras una caída o golpe observas sangrado en la boca, puede ser ocasionado por un corte en la lengua o mucosas, incluso por una fractura dental o del hueso.',
+            text: 'Si ocurre una caída o un golpe y observas sangrado en la boca, este puede deberse a una herida en la lengua, los labios o las mejillas, o a una fractura de un diente o del hueso que lo sostiene.',
             image: IMG.toothTrauma,
             toothPosition: 'left',
           } as ContentSlide,
@@ -967,7 +989,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
           } as ContentSlide,
           {
             type: 'detail',
-            bodyText: 'Como primera medida, tras un trauma es indispensable acudir al servicio de urgencias para que se valore si hay lesiones, su severidad, se eleve el factor en caso de necesitarlo y se le dé un adecuado tratamiento.',
+            bodyText: 'Acude de inmediato al servicio de urgencias. \nAllí evaluarán si hay lesiones, determinarán su gravedad y, si es necesario, administrarán el tratamiento adecuado.',
             showInfoIcon: true,
           } as DetailSlide,
           {
@@ -977,18 +999,18 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             showExclamation: true,
           } as InfoSlide,
           {
-            text: 'Es necesario que el odontólogo revise detalladamente al paciente y le realice las radiografías necesarias para determinar el tratamiento.',
+            text: 'El odontólogo examinará la boca y, si es necesario, tomará radiografías para saber qué lesión hay y cómo tratarla.',
             image: IMG.toothTrauma,
             toothPosition: 'left',
           } as ContentSlide,
           {
-            text: 'En la dentición permanente los tratamientos van encaminados a detener el sangrado, preservar la integridad del diente en boca promover su desarrollo si es un diente inmaduro.',
+            text: 'En la dentición permanente los tratamientos van encaminados a detener el sangrado, preservar la integridad del diente y promover su formación radicular si es un diente inmaduro.',
             image: IMG.toothTrauma,
             toothPosition: 'right',
           } as ContentSlide,
           {
             type: 'detail',
-            bodyText: 'Estos tratamientos van desde suturas en tejidos blandos, pasando por inmovilización del diente, tratamiento de conductos y extracción del diente. \nEn algunos casos de fracturas óseas se requiere cirugía maxilofacial.',
+            bodyText: 'El tratamiento varía según la lesión. En algunos casos se necesitan puntos, inmovilizar el diente, hacer un tratamiento de conducto o retirar el diente. Si el hueso está fracturado, puede requerirse una cirugía maxilofacial.',
             showInfoIcon: true,
           } as DetailSlide,
           {
