@@ -3,6 +3,8 @@ documentos
 android
 ios
 .expo/
-.claude
-openspec
-dist
+.expo-shared/
+.claude/
+.agents/
+openspec/
+dist/

@@ -22,13 +22,13 @@ export interface EmergencyContact {
 }
 
 export const CONTACT_TYPES: Record<EmergencyContactType, { label: string; icon: string; color: string }> = {
-  hemofilia:   { label: 'Hemofilia / Especialista', icon: 'water-outline',     color: '#FC5939' },
-  emergencia:  { label: 'Línea de Emergencias',     icon: 'warning-outline',   color: '#E74C3C' },
-  hematologia: { label: 'Hematología',              icon: 'medkit-outline',    color: '#3E8CF2' },
-  odontologia: { label: 'Odontología de Urgencia',  icon: 'bandage-outline',   color: '#4ECDC4' },
-  cruzRoja:    { label: 'Cruz Roja',                icon: 'medical-outline',   color: '#E74C3C' },
-  bomberos:    { label: 'Bomberos',                 icon: 'flame-outline',     color: '#E67E22' },
-  otro:        { label: 'Otro Contacto',            icon: 'call-outline',      color: '#798CEB' },
+  hemofilia: { label: 'Hemofilia', icon: 'water-outline', color: '#FC5939' },
+  emergencia: { label: 'Línea de Emergencias', icon: 'warning-outline', color: '#E74C3C' },
+  hematologia: { label: 'Hematología', icon: 'medkit-outline', color: '#3E8CF2' },
+  odontologia: { label: 'Odontología', icon: 'bandage-outline', color: '#4ECDC4' },
+  cruzRoja: { label: 'Cruz Roja', icon: 'medical-outline', color: '#E74C3C' },
+  bomberos: { label: 'Bomberos', icon: 'flame-outline', color: '#E67E22' },
+  otro: { label: 'Otro Contacto', icon: 'call-outline', color: '#798CEB' },
 };
 
 export const DEFAULT_EMERGENCY_CONTACTS: EmergencyContact[] = [
@@ -40,36 +40,6 @@ export const DEFAULT_EMERGENCY_CONTACTS: EmergencyContact[] = [
     type: 'hemofilia',
     icon: 'water-outline',
     color: '#FC5939',
-    isCustom: false,
-  },
-  {
-    id: 'emergencias-123',
-    name: 'Línea Única de Emergencias',
-    subtitle: 'Atención médica y urgencias (123)',
-    phone: '123',
-    type: 'emergencia',
-    icon: 'warning-outline',
-    color: '#E74C3C',
-    isCustom: false,
-  },
-  {
-    id: 'cruz-roja-132',
-    name: 'Cruz Roja Colombiana',
-    subtitle: 'Ambulancias y socorro (132)',
-    phone: '132',
-    type: 'cruzRoja',
-    icon: 'medical-outline',
-    color: '#E74C3C',
-    isCustom: false,
-  },
-  {
-    id: 'bomberos-119',
-    name: 'Cuerpo Oficial de Bomberos',
-    subtitle: 'Emergencias y rescate (119)',
-    phone: '119',
-    type: 'bomberos',
-    icon: 'flame-outline',
-    color: '#E67E22',
     isCustom: false,
   },
 ];
