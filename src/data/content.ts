@@ -105,10 +105,12 @@ const IMG = {
   caries1: require("../../assets/images/png's/caries_1.jpeg"),
   caries2: require("../../assets/images/png's/caries_2.jpeg"),
   caries3: require("../../assets/images/png's/caries_3.png"),
+  caries4: require("../../assets/images/png's/caries_4.jpeg"),
+  caries5: require("../../assets/images/png's/caries_5.jpeg"),
   gingivitis05: require("../../assets/images/png's/gingivitis_05.jpeg"),
   gingivitis1: require("../../assets/images/png's/gingivitis_1.jpeg"),
   gingivitis2: require("../../assets/images/png's/gingivitis_2.jpeg"),
-  cordalesFoto: require("../../assets/images/png's/cordales.png"),
+  cordalesFoto: require("../../assets/images/png's/cordales.jpeg"),
   retenedor: require("../../assets/images/png's/retenedor.jpeg"),
 
 
@@ -125,10 +127,14 @@ const IMG = {
   tecnica5: require("../../assets/images/png's/tecnica5.jpeg"),
   tecnica6: require("../../assets/images/png's/tecnica6.jpeg"),
   tecnica61: require("../../assets/images/png's/tecnica61.jpeg"),
+  seda1: require("../../assets/images/png's/seda1.jpeg"),
+  seda2: require("../../assets/images/png's/seda2.jpeg"),
+  seda3: require("../../assets/images/png's/seda3.jpeg"),
 
 
   // ── Ilustraciones de objetos ──────────────────────────────────────────────
   cepillo: require("../../assets/images/png's/cepillo.jpeg"),
+  cepillo1: require("../../assets/images/png's/cepillo1.jpeg"),
   crema1: require("../../assets/images/png's/crema1.jpeg"),
   crema2: require("../../assets/images/png's/crema2.jpeg"),
   crema3: require("../../assets/images/png's/crema3.jpeg"),
@@ -184,6 +190,12 @@ const traumaCommonSlides = (groupNote?: string): Slide[] => [
 
 const cariesSlides0_5: Slide[] = [
   {
+    text: 'En los niños pequeños se llama caries de la infancia temprana Ocurre cuando el azúcar y las bacterias dañan los dientes, pudiendo causar dolor y afectar su salud bucal.',
+    image: IMG.toothBrush,
+    toothPosition: 'right',
+    photo: IMG.caries2,
+  } as ContentSlide,
+  {
     text: 'Al retirar la placa bacteriana se previene la caries y los problemas que puede traer, como dolor agudo, infecciones o extracciones prematuras que a su vez pueden provocar sangrado abundante o una situación de urgencia.',
     image: IMG.toothBrush,
     toothPosition: 'left',
@@ -193,12 +205,6 @@ const cariesSlides0_5: Slide[] = [
     image: IMG.toothBrush,
     toothPosition: 'right',
     photo: IMG.caries1,
-  } as ContentSlide,
-  {
-    text: 'Los dientes de leche pueden presentar manchas o cavidades, lo cual indica caries dental.',
-    image: IMG.toothBrush,
-    toothPosition: 'left',
-    photo: IMG.caries2,
   } as ContentSlide,
 ];
 
@@ -428,7 +434,15 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 id: 'caries',
                 title: 'Prevenir las Caries',
                 menuImage: IMG.traumaFoto2,
-                slides: cariesSlides0_5,
+                slides: [
+                  ...cariesSlides0_5,
+                  {
+                    text: 'Los dientes de leche pueden presentar manchas o cavidades, lo cual indica caries dental.',
+                    image: IMG.toothBrush,
+                    toothPosition: 'left',
+                    photo: IMG.caries4,
+                  } as ContentSlide,
+                ]
               },
               {
                 id: 'cepillado',
@@ -438,7 +452,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                   {
                     text: 'Para realizar la higiene ya puedes usar un cepillo de dientes pequeño y suave.',
                     image: IMG.toothBrush,
-                    photo: IMG.cepillo
+                    photo: IMG.cepillo1
                   } as ContentSlide,
                   {
                     text: 'Crema de dientes con flúor (cantidad: menor que el tamaño de un grano de arroz) y seda dental.',
@@ -557,7 +571,15 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
             id: 'caries',
             title: 'Caries',
             menuImage: IMG.dienteCarie,
-            slides: cariesSlides0_5,
+            slides: [
+              ...cariesSlides0_5,
+              {
+                text: 'Los dientes de leche pueden presentar manchas o cavidades, lo cual indica caries dental.',
+                image: IMG.toothBrush,
+                toothPosition: 'left',
+                photo: IMG.caries5,
+              } as ContentSlide,
+            ],
           },
           {
             id: 'gingivitis',
@@ -609,6 +631,21 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 text: 'Paso 5: limpia las superficies de masticación con movimientos de vaivén.',
                 image: IMG.toothBrush,
                 photo: IMG.tecnica5,
+              } as ContentSlide,
+              {
+                text: 'Técnica de seda dental \n\nPaso 1: Enrollar la seda en el dedo índice de cada mano.',
+                image: IMG.toothBrush,
+                photo: IMG.seda1,
+              } as ContentSlide,
+              {
+                text: 'Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
+                image: IMG.toothBrush,
+                photo: IMG.seda2,
+              } as ContentSlide,
+              {
+                text: 'Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
+                image: IMG.toothBrush,
+                photo: IMG.seda3,
               } as ContentSlide,
               {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
@@ -818,6 +855,21 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 photo: IMG.tecnica5,
               } as ContentSlide,
               {
+                text: 'Técnica de seda dental - Paso 1: Enrollar la seda en el dedo índice de cada mano.',
+                image: IMG.toothBrush,
+                photo: IMG.seda1,
+              } as ContentSlide,
+              {
+                text: 'Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
+                image: IMG.toothBrush,
+                photo: IMG.seda2,
+              } as ContentSlide,
+              {
+                text: 'Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
+                image: IMG.toothBrush,
+                photo: IMG.seda3,
+              } as ContentSlide,
+              {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
                 image: IMG.toothBrush,
                 photo: IMG.tecnica61,
@@ -962,6 +1014,21 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 text: 'Paso 5: limpia las superficies de masticación con movimientos de vaivén.',
                 image: IMG.toothBrush,
                 photo: IMG.tecnica5,
+              } as ContentSlide,
+              {
+                text: 'Técnica de seda dental \n\nPaso 1: Enrollar la seda en el dedo índice de cada mano.',
+                image: IMG.toothBrush,
+                photo: IMG.seda1,
+              } as ContentSlide,
+              {
+                text: 'Técnica de seda dental - Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
+                image: IMG.toothBrush,
+                photo: IMG.seda2,
+              } as ContentSlide,
+              {
+                text: 'Técnica de seda dental - Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
+                image: IMG.toothBrush,
+                photo: IMG.seda3,
               } as ContentSlide,
               {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',

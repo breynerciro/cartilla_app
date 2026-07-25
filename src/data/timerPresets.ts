@@ -16,24 +16,39 @@ export interface Song {
 export const AVAILABLE_SONGS: Song[] = [
   {
     id: 'song1',
-    title: 'Melodía Alegre',
+    title: 'Niños Alegres',
     uri: require('../../assets/audio/song1.mp3'),
   },
   {
     id: 'song2',
-    title: 'Ritmo Relajante',
+    title: 'Colores Brillan',
     uri: require('../../assets/audio/song2.mp3'),
   },
   {
     id: 'song3',
-    title: 'Aventura Espacial',
+    title: 'Melodía Infantil',
     uri: require('../../assets/audio/song3.mp3'),
+  },
+  {
+    id: 'song4',
+    title: 'Piano para Bebés',
+    uri: require('../../assets/audio/song4.mp3'),
+  },
+  {
+    id: 'song5',
+    title: 'Canción de Cuna',
+    uri: require('../../assets/audio/song5.mp3'),
+  },
+  {
+    id: 'song6',
+    title: 'Lullaby Dulce',
+    uri: require('../../assets/audio/song6.mp3'),
   },
 ];
 
 export const timerPreset: TimerPreset = {
   songUri: AVAILABLE_SONGS[0].uri,
-  songTitle: 'Melodía Alegre',
+  songTitle: 'Niños Alegres',
   quadrantLabels: [
     'Superior Derecho',
     'Superior Izquierdo',

@@ -52,16 +52,7 @@ export default function MainMenuScreen() {
 
   const handleOptionPress = async (option: typeof MENU_OPTIONS[0]) => {
     if (option.id === 'knowledge') {
-      try {
-        const hasSeen = await AsyncStorage.getItem('hasSeenKnowledgeIntro');
-        if (hasSeen === 'true') {
-          router.push('/age-selector');
-        } else {
-          router.push('/onboarding');
-        }
-      } catch (e) {
-        router.push('/onboarding');
-      }
+      router.push('/knowledge-hub');
     } else {
       router.push(option.route as any);
     }
