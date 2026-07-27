@@ -110,6 +110,7 @@ const IMG = {
   gingivitis05: require("../../assets/images/png's/gingivitis_05.jpeg"),
   gingivitis1: require("../../assets/images/png's/gingivitis_1.jpeg"),
   gingivitis2: require("../../assets/images/png's/gingivitis_2.jpeg"),
+  gingivitis3: require("../../assets/images/png's/gingivitis_3.jpeg"),
   cordalesFoto: require("../../assets/images/png's/cordales.jpeg"),
   retenedor: require("../../assets/images/png's/retenedor.jpeg"),
 
@@ -259,9 +260,27 @@ const gingivitisSlides6_18: Slide[] = [
   } as ContentSlide,
   {
     text: 'Además, puede generar molestias a la hora de alimentarse.',
-    photo: IMG.gingivitis2,
     image: IMG.toothBrush,
+    photo: IMG.gingivitis3,
     toothPosition: 'left',
+  } as ContentSlide,
+];
+
+const sedaSlides: Slide[] = [
+  {
+    text: 'Técnica de seda dental \n\nPaso 1: Enrollar la seda en el dedo índice de cada mano.',
+    image: IMG.toothBrush,
+    photo: IMG.seda1,
+  } as ContentSlide,
+  {
+    text: 'Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
+    image: IMG.toothBrush,
+    photo: IMG.seda2,
+  } as ContentSlide,
+  {
+    text: 'Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
+    image: IMG.toothBrush,
+    photo: IMG.seda3,
   } as ContentSlide,
 ];
 
@@ -632,21 +651,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 image: IMG.toothBrush,
                 photo: IMG.tecnica5,
               } as ContentSlide,
-              {
-                text: 'Técnica de seda dental \n\nPaso 1: Enrollar la seda en el dedo índice de cada mano.',
-                image: IMG.toothBrush,
-                photo: IMG.seda1,
-              } as ContentSlide,
-              {
-                text: 'Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
-                image: IMG.toothBrush,
-                photo: IMG.seda2,
-              } as ContentSlide,
-              {
-                text: 'Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
-                image: IMG.toothBrush,
-                photo: IMG.seda3,
-              } as ContentSlide,
+              ...sedaSlides,
               {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
                 image: IMG.toothBrush,
@@ -854,21 +859,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 image: IMG.toothBrush,
                 photo: IMG.tecnica5,
               } as ContentSlide,
-              {
-                text: 'Técnica de seda dental - Paso 1: Enrollar la seda en el dedo índice de cada mano.',
-                image: IMG.toothBrush,
-                photo: IMG.seda1,
-              } as ContentSlide,
-              {
-                text: 'Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
-                image: IMG.toothBrush,
-                photo: IMG.seda2,
-              } as ContentSlide,
-              {
-                text: 'Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
-                image: IMG.toothBrush,
-                photo: IMG.seda3,
-              } as ContentSlide,
+              ...sedaSlides,
               {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
                 image: IMG.toothBrush,
@@ -1015,21 +1006,7 @@ export const ageGroupData: Record<AgeGroup, AgeGroupData> = {
                 image: IMG.toothBrush,
                 photo: IMG.tecnica5,
               } as ContentSlide,
-              {
-                text: 'Técnica de seda dental \n\nPaso 1: Enrollar la seda en el dedo índice de cada mano.',
-                image: IMG.toothBrush,
-                photo: IMG.seda1,
-              } as ContentSlide,
-              {
-                text: 'Técnica de seda dental - Paso 2: Introducir suavemente la seda dental entre dos dientes. Adaptar la seda en forma de “C” alrededor de un diente.',
-                image: IMG.toothBrush,
-                photo: IMG.seda2,
-              } as ContentSlide,
-              {
-                text: 'Técnica de seda dental - Paso 3: Deslizar la seda de arriba hacia abajo y repetir en el diente vecino.',
-                image: IMG.toothBrush,
-                photo: IMG.seda3,
-              } as ContentSlide,
+              ...sedaSlides,
               {
                 text: 'Resultados felices: ¡Cepillado completo! Una sonrisa brillante y saludable',
                 image: IMG.toothBrush,
