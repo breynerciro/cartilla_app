@@ -32,7 +32,7 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
   const circleSize = Math.min(height * 0.26, 250);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     if (isActive && timeRemaining > 0) {
       interval = setInterval(() => {
