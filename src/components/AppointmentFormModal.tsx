@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { type DateTimePickerChangeEvent } from '@react-native-community/datetimepicker';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 import { Appointment, AppointmentType, APPOINTMENT_TYPES } from '../data/appointments';
@@ -87,22 +87,18 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
     onClose();
   };
 
-  const onDateChange = (event: any, selectedDate?: Date) => {
+  const onDateChange = (event: DateTimePickerChangeEvent, selectedDate: Date) => {
     setShowDatePicker(false);
-    if (selectedDate) {
-      const currentDate = new Date(date);
-      currentDate.setFullYear(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-      setDate(currentDate);
-    }
+    const currentDate = new Date(date);
+    currentDate.setFullYear(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+    setDate(currentDate);
   };
 
-  const onTimeChange = (event: any, selectedTime?: Date) => {
+  const onTimeChange = (event: DateTimePickerChangeEvent, selectedTime: Date) => {
     setShowTimePicker(false);
-    if (selectedTime) {
-      const currentDate = new Date(date);
-      currentDate.setHours(selectedTime.getHours(), selectedTime.getMinutes());
-      setDate(currentDate);
-    }
+    const currentDate = new Date(date);
+    currentDate.setHours(selectedTime.getHours(), selectedTime.getMinutes());
+    setDate(currentDate);
   };
 
   return (
@@ -165,7 +161,8 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
                 value={date}
                 mode="date"
                 display="default"
-                onChange={onDateChange}
+                onValueChange={onDateChange}
+                onDismiss={() => setShowDatePicker(false)}
               />
             )}
             
@@ -174,7 +171,8 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
                 value={date}
                 mode="time"
                 display="default"
-                onChange={onTimeChange}
+                onValueChange={onTimeChange}
+                onDismiss={() => setShowTimePicker(false)}
               />
             )}
 
