@@ -6,10 +6,10 @@
 
 El proyecto está construido utilizando tecnologías modernas para el desarrollo móvil multiplataforma:
 
-*   **Framework:** [React Native](https://reactnative.dev/) (v0.83)
-*   **Plataforma/Tooling:** [Expo](https://expo.dev/) (SDK 55)
+*   **Framework:** [React Native](https://reactnative.dev/) (v0.86)
+*   **Plataforma/Tooling:** [Expo](https://expo.dev/) (SDK 57)
 *   **Enrutamiento:** [Expo Router](https://docs.expo.dev/router/introduction/) (Basado en archivos)
-*   **Lenguaje:** [TypeScript](https://www.typescriptlang.org/) para un tipado estricto y código seguro.
+*   **Lenguaje:** [TypeScript](https://www.typescriptlang.org/) (v6) para un tipado estricto y código seguro.
 *   **Almacenamiento Local:** AsyncStorage (`@react-native-async-storage/async-storage`)
 *   **Animaciones:** React Native Reanimated (`react-native-reanimated`)
 *   **Otras librerías clave:** `expo-notifications`, `expo-audio`, `@react-native-community/datetimepicker`.
@@ -64,9 +64,10 @@ Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
 ### Prerrequisitos
 
-*   [Node.js](https://nodejs.org/) (versión LTS recomendada)
+*   [Node.js](https://nodejs.org/) `^20.19.4`, `^22.13.0`, `^24.3.0` o `>= 25` (rango que exige React Native 0.86; versión LTS recomendada)
 *   [Git](https://git-scm.com/)
 *   Dispositivo físico (iOS/Android) con la aplicación **Expo Go** instalada, o un emulador/simulador configurado en tu computadora.
+*   Versiones mínimas de plataforma: iOS 16.4 o superior y Android 7.0 (API 24, `minSdkVersion` 24) o superior.
 
 ### Pasos
 
@@ -100,6 +101,7 @@ En el archivo `package.json` están definidos los siguientes scripts que puedes 
 *   `android`: Compila e inicia la aplicación nativamente en un emulador/dispositivo Android (`expo run:android`).
 *   `ios`: Compila e inicia la aplicación nativamente en un simulador/dispositivo iOS (`expo run:ios`).
 *   `web`: Inicia la aplicación en el navegador web.
+*   `typecheck`: Verifica los tipos de TypeScript sin generar archivos (`tsc --noEmit`).
 
 ## 🔧 Configuración Adicional
 
