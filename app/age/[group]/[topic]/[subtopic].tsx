@@ -1,62 +1,14 @@
 import React from 'react';
-import {
-  View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, useWindowDimensions,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Colors } from '../../../../src/theme/colors';
-import { Typography } from '../../../../src/theme/typography';
-import { ageGroupData, AgeGroup, SubtopicData } from '../../../../src/data/content';
-import { FooterLogos } from '../../../../src/components/FooterLogos';
-import { Header } from '../../../../src/components/Header';
+import { ageGroupData, AgeGroup } from '../../../../src/data/content';
 import { BackButton } from '../../../../src/components/BackButton';
-import { TopicCard } from '../../../../src/components/TopicCard';
+import { TopicMenuList } from '../../../../src/components/TopicMenuList';
 import { SlidesRunner } from '../../../../src/components/SlidesRunner';
-
-// ─── Nested Sub-menu screen (for subtopics that have further subtopics) ──────
-function NestedSubtopicMenuScreen({
-  group, topic, subtopicId, data,
-}: { group: string; topic: string; subtopicId: string; data: SubtopicData }) {
-  const router = useRouter();
-  const { width } = useWindowDimensions();
-  const cardImgSize = Math.min(width * 0.25, 100);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Header 
-        title={data.title}
-        decoration="left"
-      />
-
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        {data.subtopics!.map((sub, index) => {
-          return (
-            <TopicCard 
-              key={sub.id}
-              title={sub.title}
-              image={sub.menuImage}
-              imagePosition={index % 2 === 0 ? 'left' : 'right'}
-              onPress={() => router.push(`/age/${group}/${topic}/${sub.id}`)}
-            />
-          );
-        })}
-      </ScrollView>
-
-      <View style={styles.footer}>
-        <BackButton onPress={() => router.back()} />
-        <FooterLogos />
-      </View>
-    </SafeAreaView>
-  );
-}
 
 export default function SubtopicScreen() {
   const { group, topic, subtopic } = useLocalSearchParams();
   const router = useRouter();
-  
+
   // State to track if we've finished showing intro slides for this subtopic
   const [introFinished, setIntroFinished] = React.useState(false);
 
@@ -84,7 +36,7 @@ export default function SubtopicScreen() {
   if (hasSlides && !introFinished) {
     const isTerminal = !(hasSubtopics && !hasInlineButtons);
     return (
-      <SlidesRunner 
+      <SlidesRunner
         slides={subtopicData.slides!}
         groupTitle={data.title}
         onNavigate={(targetId) => router.push(`/age/${group}/${topic}/${targetId}`)}
@@ -104,29 +56,14 @@ export default function SubtopicScreen() {
   // 2. If subtopic has nested subtopics (and slides are either done or don't exist) → show menu
   if (hasSubtopics && !hasInlineButtons) {
     return (
-      <NestedSubtopicMenuScreen
-        group={group as string}
-        topic={topic as string}
-        subtopicId={subtopic as string}
-        data={subtopicData}
+      <TopicMenuList
+        title={subtopicData.title}
+        items={subtopicData.subtopics!}
+        onSelect={(nestedId) => router.push(`/age/${group}/${topic}/${nestedId}`)}
+        action={<BackButton onPress={() => router.back()} />}
       />
     );
   }
 
   return null;
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white },
-  scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 120,
-  },
-  footer: {
-    paddingHorizontal: 20,
-    paddingBottom: 12,
-    alignItems: 'center',
-    gap: 8,
-  },
-});

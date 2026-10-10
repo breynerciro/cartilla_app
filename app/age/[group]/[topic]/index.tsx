@@ -1,55 +1,8 @@
 import React from 'react';
-import {
-  View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, useWindowDimensions,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { Colors } from '../../../../src/theme/colors';
-import { Typography } from '../../../../src/theme/typography';
-import { ageGroupData, AgeGroup, TopicData } from '../../../../src/data/content';
-import { FooterLogos } from '../../../../src/components/FooterLogos';
-import { Header } from '../../../../src/components/Header';
+import { ageGroupData, AgeGroup } from '../../../../src/data/content';
 import { BackButton } from '../../../../src/components/BackButton';
-import { TopicCard } from '../../../../src/components/TopicCard';
-
-// ─── Sub-menu screen (for topics with subtopics) ─────────
-function SubtopicMenuScreen({
-  group, topic, data,
-}: { group: string; topic: string; data: TopicData }) {
-  const router = useRouter();
-  const { width } = useWindowDimensions();
-  const cardImgSize = Math.min(width * 0.25, 100);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Header 
-        title={data.title}
-        decoration="left"
-      />
-
-      <View style={styles.body}>
-        {data.subtopics!.map((sub, index) => {
-          return (
-            <TopicCard 
-              key={sub.id}
-              title={sub.title}
-              image={sub.menuImage}
-              imagePosition={index % 2 === 0 ? 'left' : 'right'}
-              onPress={() => router.push(`/age/${group}/${topic}/${sub.id}`)}
-            />
-          );
-        })}
-      </View>
-
-      <View style={styles.footer}>
-        <BackButton onPress={() => router.back()} />
-        <FooterLogos />
-      </View>
-    </SafeAreaView>
-  );
-}
-
+import { TopicMenuList } from '../../../../src/components/TopicMenuList';
 import { SlidesRunner } from '../../../../src/components/SlidesRunner';
 
 // ─── Main export ──────────────────────────────────────────────────────────────
@@ -97,42 +50,14 @@ export default function TopicScreen() {
   // 2. If topic has subtopics (and slides are either done or don't exist) → show menu
   if (hasSubtopics && !hasInlineButtons) {
     return (
-      <SubtopicMenuScreen
-        group={group as string}
-        topic={topic as string}
-        data={topicData}
+      <TopicMenuList
+        title={topicData.title}
+        items={topicData.subtopics!}
+        onSelect={(subtopicId) => router.push(`/age/${group}/${topic}/${subtopicId}`)}
+        action={<BackButton onPress={() => router.back()} />}
       />
     );
   }
 
   return null;
 }
-
-// ─── Styles ───────────────────────────────────────────────────────────────────
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white },
-  body: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    flex: 1,
-  },
-  footer: {
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    alignItems: 'center',
-    gap: 6,
-  },
-  finishButton: {
-    backgroundColor: Colors.navy,
-    borderRadius: 25,
-    paddingVertical: 14,
-    paddingHorizontal: 60,
-    alignItems: 'center',
-  },
-  finishButtonText: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: Typography.sizes.title - 2,
-    color: Colors.white,
-  },
-});
