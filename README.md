@@ -105,7 +105,7 @@ En el archivo `package.json` están definidos los siguientes scripts que puedes 
 
 ## 🔧 Configuración Adicional
 
-*   **EAS (Expo Application Services):** El proyecto tiene configurado un ID de proyecto en `app.json` (`ca2975b4-1511-4c78-a364-bca0c833f71a`) para compilaciones en la nube utilizando EAS Build.
+*   **EAS (Expo Application Services):** El proyecto tiene configurado un ID de proyecto en `app.json` (`e2354ad0-6d86-46cb-8054-993f5daecb31`) para compilaciones en la nube utilizando EAS Build.
 *   **Iconos y Splash Screen:** Los recursos visuales principales se encuentran en `./assets/images/` (ej. `icon.png`, `adaptive-icon.png`, `favicon.png`).
 
 ---
