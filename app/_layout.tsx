@@ -31,7 +31,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar style="light" backgroundColor={Colors.navy} />
+      <StatusBar style="light" />
       <Stack
         screenOptions={{
           headerShown: false,

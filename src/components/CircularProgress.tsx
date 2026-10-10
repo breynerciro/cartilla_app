@@ -77,7 +77,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
           originY={size / 2}
         />
       </Svg>
-      <View style={[StyleSheet.absoluteFillObject, styles.textContainer]}>
+      <View style={[StyleSheet.absoluteFill, styles.textContainer]}>
         <Text style={styles.timeText}>{formatTime(timeRemaining)}</Text>
       </View>
     </View>

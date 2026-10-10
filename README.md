@@ -1,15 +1,15 @@
-# Hemodent - Cartilla Dental para Pacientes con Hemofilia
+# HemoDent
 
-**Hemodent** es una aplicación móvil educativa e interactiva diseñada para guiar a pacientes con hemofilia (y a sus cuidadores) en el cuidado de su salud bucodental. Proporciona información especializada, herramientas de seguimiento y asistencia en caso de emergencias dentales, adaptándose a las diferentes etapas de la vida del paciente.
+**HemoDent** es una aplicación móvil educativa e interactiva diseñada para guiar a pacientes con hemofilia (y a sus cuidadores) en el cuidado de su salud bucodental. Proporciona información especializada, herramientas de seguimiento y asistencia en caso de emergencias dentales, adaptándose a las diferentes etapas de la vida del paciente.
 
 ## 🚀 Tecnologías Principales
 
 El proyecto está construido utilizando tecnologías modernas para el desarrollo móvil multiplataforma:
 
-*   **Framework:** [React Native](https://reactnative.dev/) (v0.83)
-*   **Plataforma/Tooling:** [Expo](https://expo.dev/) (SDK 55)
+*   **Framework:** [React Native](https://reactnative.dev/) (v0.86)
+*   **Plataforma/Tooling:** [Expo](https://expo.dev/) (SDK 57)
 *   **Enrutamiento:** [Expo Router](https://docs.expo.dev/router/introduction/) (Basado en archivos)
-*   **Lenguaje:** [TypeScript](https://www.typescriptlang.org/) para un tipado estricto y código seguro.
+*   **Lenguaje:** [TypeScript](https://www.typescriptlang.org/) (v6) para un tipado estricto y código seguro.
 *   **Almacenamiento Local:** AsyncStorage (`@react-native-async-storage/async-storage`)
 *   **Animaciones:** React Native Reanimated (`react-native-reanimated`)
 *   **Otras librerías clave:** `expo-notifications`, `expo-audio`, `@react-native-community/datetimepicker`.
@@ -19,7 +19,7 @@ El proyecto está construido utilizando tecnologías modernas para el desarrollo
 La aplicación utiliza la arquitectura basada en rutas (file-based routing) proporcionada por Expo Router.
 
 ```text
-cartilla_app/
+hemodent/
 ├── app/                  # Rutas de la aplicación (Expo Router)
 │   ├── _layout.tsx       # Layout principal y configuración de navegación
 │   ├── index.tsx         # Punto de entrada inicial
@@ -64,15 +64,16 @@ Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
 ### Prerrequisitos
 
-*   [Node.js](https://nodejs.org/) (versión LTS recomendada)
+*   [Node.js](https://nodejs.org/) `^20.19.4`, `^22.13.0`, `^24.3.0` o `>= 25` (rango que exige React Native 0.86; versión LTS recomendada)
 *   [Git](https://git-scm.com/)
 *   Dispositivo físico (iOS/Android) con la aplicación **Expo Go** instalada, o un emulador/simulador configurado en tu computadora.
+*   Versiones mínimas de plataforma: iOS 16.4 o superior y Android 7.0 (API 24, `minSdkVersion` 24) o superior.
 
 ### Pasos
 
 1.  **Clonar el repositorio** (si aplica) o navegar a la carpeta del proyecto:
     ```bash
-    cd cartilla_app
+    cd hemodent
     ```
 
 2.  **Instalar dependencias:**
@@ -100,10 +101,11 @@ En el archivo `package.json` están definidos los siguientes scripts que puedes 
 *   `android`: Compila e inicia la aplicación nativamente en un emulador/dispositivo Android (`expo run:android`).
 *   `ios`: Compila e inicia la aplicación nativamente en un simulador/dispositivo iOS (`expo run:ios`).
 *   `web`: Inicia la aplicación en el navegador web.
+*   `typecheck`: Verifica los tipos de TypeScript sin generar archivos (`tsc --noEmit`).
 
 ## 🔧 Configuración Adicional
 
-*   **EAS (Expo Application Services):** El proyecto tiene configurado un ID de proyecto en `app.json` (`ca2975b4-1511-4c78-a364-bca0c833f71a`) para compilaciones en la nube utilizando EAS Build.
+*   **EAS (Expo Application Services):** El proyecto tiene configurado un ID de proyecto en `app.json` (`e2354ad0-6d86-46cb-8054-993f5daecb31`) para compilaciones en la nube utilizando EAS Build.
 *   **Iconos y Splash Screen:** Los recursos visuales principales se encuentran en `./assets/images/` (ej. `icon.png`, `adaptive-icon.png`, `favicon.png`).
 
 ---
