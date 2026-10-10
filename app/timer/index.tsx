@@ -48,7 +48,7 @@ export default function GlobalTimerScreen() {
   return (
     <Screen>
       <Header 
-        title="Temporizador Clínico" 
+        title="Temporizador de Cepillado" 
         decoration="left" 
       />
       {/* ScrollView: el contenido del temporizador mide ~530 pt y en un iPhone SE
