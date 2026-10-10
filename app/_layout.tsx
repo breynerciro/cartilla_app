@@ -31,7 +31,8 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar style="light" />
+      {/* Iconos oscuros por defecto: casi todas las pantallas son blancas. Cada <Screen> declara el suyo. */}
+      <StatusBar style="dark" />
       <Stack
         screenOptions={{
           headerShown: false,
