@@ -9,7 +9,7 @@ import { Screen } from '../src/components/Screen';
 import { NavyCard } from '../src/components/NavyCard';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { NextButton } from '../src/components/NextButton';
-import { CornerDecoration } from '../src/components/CornerDecoration';
+import { Header } from '../src/components/Header';
 
 const slides = [
   {
@@ -53,7 +53,9 @@ export default function OnboardingScreen() {
 
   return (
     <Screen>
-      <CornerDecoration position="bottom-left" />
+      {/* Header sin titulo: renderiza la decoracion con el mismo patron que las demas pantallas
+          (dentro del flujo y compensando el inset superior), no suelta sobre el SafeAreaView. */}
+      <Header decoration="left" />
 
       {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
       <View style={styles.body}>
@@ -84,7 +86,6 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     paddingHorizontal: screenPadding,
-    paddingTop: Spacing.massive,
     justifyContent: 'center',
   },
   card: {
