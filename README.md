@@ -1,6 +1,6 @@
-# Hemodent - Cartilla Dental para Pacientes con Hemofilia
+# HEMODENT
 
-**Hemodent** es una aplicación móvil educativa e interactiva diseñada para guiar a pacientes con hemofilia (y a sus cuidadores) en el cuidado de su salud bucodental. Proporciona información especializada, herramientas de seguimiento y asistencia en caso de emergencias dentales, adaptándose a las diferentes etapas de la vida del paciente.
+**HEMODENT** es una aplicación móvil educativa e interactiva diseñada para guiar a pacientes con hemofilia (y a sus cuidadores) en el cuidado de su salud bucodental. Proporciona información especializada, herramientas de seguimiento y asistencia en caso de emergencias dentales, adaptándose a las diferentes etapas de la vida del paciente.
 
 ## 🚀 Tecnologías Principales
 
@@ -19,7 +19,7 @@ El proyecto está construido utilizando tecnologías modernas para el desarrollo
 La aplicación utiliza la arquitectura basada en rutas (file-based routing) proporcionada por Expo Router.
 
 ```text
-cartilla_app/
+hemodent/
 ├── app/                  # Rutas de la aplicación (Expo Router)
 │   ├── _layout.tsx       # Layout principal y configuración de navegación
 │   ├── index.tsx         # Punto de entrada inicial
@@ -72,7 +72,7 @@ Sigue estos pasos para ejecutar el proyecto en tu entorno local:
 
 1.  **Clonar el repositorio** (si aplica) o navegar a la carpeta del proyecto:
     ```bash
-    cd cartilla_app
+    cd hemodent
     ```
 
 2.  **Instalar dependencias:**
