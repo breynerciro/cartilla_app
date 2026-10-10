@@ -36,7 +36,8 @@ export default function RootLayout() {
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: Colors.navy },
+          // Mismo fondo que Screen (blanco) en todos los Stack; la intro pone su propio navy.
+          contentStyle: { backgroundColor: Colors.surface },
         }}
       >
         <Stack.Screen name="index" />
