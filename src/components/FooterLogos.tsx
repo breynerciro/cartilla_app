@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import LogoHomi from '../../assets/images/svgs/logo_HOMI.svg';
 import LogoUnal from '../../assets/images/svgs/logo_UNAL.svg';
+import { Spacing } from '../theme/spacing';
 
 interface FooterLogosProps {
   color?: 'white' | 'black';
@@ -43,12 +44,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
+    paddingTop: Spacing.sm,
+    paddingBottom: Spacing.md,
     width: '100%',
     opacity: 0.45,
   },
   divider: {
     width: 1,
-    marginHorizontal: 12,
+    marginHorizontal: Spacing.md,
   },
 });

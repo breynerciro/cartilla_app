@@ -2,6 +2,9 @@ import { DynamicImage } from './DynamicImage';
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View, ImageSourcePropType } from 'react-native';
 import { Colors } from '../theme/colors';
+import { Radius } from '../theme/radius';
+import { Shadows } from '../theme/shadows';
+import { Spacing } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -15,7 +18,7 @@ interface TopicCardProps {
 
 export const TopicCard = ({ title, image, icon = 'document-text-outline', onPress, imagePosition = 'left' }: TopicCardProps) => {
   const ImageComponent = (
-    <View style={[styles.imageContainer, imagePosition === 'right' ? { marginLeft: 16, marginRight: 0 } : { marginRight: 16 }]}>
+    <View style={[styles.imageContainer, imagePosition === 'right' ? { marginLeft: Spacing.lg, marginRight: 0 } : { marginRight: Spacing.lg }]}>
       {image ? (
         <DynamicImage source={image} style={styles.image} resizeMode="contain" />
       ) : (
@@ -43,23 +46,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.white,
-    borderRadius: 24,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.12,
-    shadowRadius: 10,
-    elevation: 5,
+    borderRadius: Radius.xl,
+    padding: Spacing.lg,
+    marginBottom: Spacing.lg,
+    ...Shadows.md,
   },
   imageContainer: {
     width: 80,
     height: 80,
-    borderRadius: 20,
-    backgroundColor: '#F5F7FA',
+    borderRadius: Radius.lgPlus,
+    backgroundColor: Colors.offWhite,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: Spacing.lg,
   },
   image: {
     width: 64,
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
   iconFallback: {
     width: 60,
     height: 60,
-    borderRadius: 16,
+    borderRadius: Radius.lg,
     backgroundColor: Colors.lavender,
     justifyContent: 'center',
     alignItems: 'center',
@@ -83,6 +82,6 @@ const styles = StyleSheet.create({
     color: Colors.navy,
   },
   chevron: {
-    marginLeft: 8,
+    marginLeft: Spacing.sm,
   }
 });
