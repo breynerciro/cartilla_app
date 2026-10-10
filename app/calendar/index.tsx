@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../src/theme/colors';
+import { Radius } from '../../src/theme/radius';
+import { Spacing, screenPadding } from '../../src/theme/spacing';
 import { Typography } from '../../src/theme/typography';
+import { Screen } from '../../src/components/Screen';
 import { Header } from '../../src/components/Header';
 import { FooterLogos } from '../../src/components/FooterLogos';
 import { MiniCalendar } from '../../src/components/MiniCalendar';
@@ -89,14 +91,15 @@ export default function CalendarScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <Header 
         title="CALENDARIO DE CITAS" 
         decoration="left" 
       />
 
       <ScrollView 
-        style={styles.content}
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={loadAppointments} />}
       >
@@ -164,7 +167,7 @@ export default function CalendarScreen() {
                 title="Agendar Cita Ahora" 
                 variant="outline" 
                 onPress={openNewAppointment} 
-                style={{ marginTop: 24, paddingHorizontal: 24 }} 
+                style={{ marginTop: Spacing.xxl, paddingHorizontal: Spacing.xxl }} 
               />
             </View>
           )}
@@ -182,9 +185,7 @@ export default function CalendarScreen() {
         <BackButton onPress={() => router.back()} />
       </View>
 
-      <View style={styles.footerContainer}>
-        <FooterLogos />
-      </View>
+      <FooterLogos />
 
       <AppointmentFormModal 
         visible={isModalVisible}
@@ -193,29 +194,30 @@ export default function CalendarScreen() {
         existingAppointment={editingAppointment}
         initialDate={selectedDate}
       />
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scroll: {
     flex: 1,
-    backgroundColor: Colors.offWhite,
   },
+  // El margen lateral va en el contenido para que el ScrollView llegue al borde
+  // y no recorte las sombras de las tarjetas.
   content: {
-    flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: screenPadding,
+    paddingTop: Spacing.lg,
   },
   filterContainer: {
-    marginVertical: 16,
+    marginVertical: Spacing.lg,
   },
   filterScroll: {
-    gap: 12,
+    gap: Spacing.md,
   },
   filterChip: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: Radius.lgPlus,
     backgroundColor: Colors.white,
     borderWidth: 1,
     borderColor: 'rgba(121, 140, 235, 0.3)',
@@ -236,7 +238,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    marginBottom: 16,
+    marginBottom: Spacing.lg,
   },
   listTitle: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -254,9 +256,9 @@ const styles = StyleSheet.create({
   emptyState: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 40,
+    paddingVertical: Spacing.huge,
     backgroundColor: Colors.white,
-    borderRadius: 20,
+    borderRadius: Radius.lgPlus,
     borderWidth: 1,
     borderColor: 'rgba(121, 140, 235, 0.2)',
     borderStyle: 'dashed',
@@ -266,8 +268,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.lavender,
     textAlign: 'center',
-    marginTop: 12,
-    paddingHorizontal: 32,
+    marginTop: Spacing.md,
+    paddingHorizontal: Spacing.xxxl,
   },
   fab: {
     position: 'absolute',
@@ -276,8 +278,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.xl,
     borderRadius: 30,
     shadowColor: Colors.navy,
     shadowOffset: { width: 0, height: 6 },
@@ -290,12 +292,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 16,
     color: Colors.white,
-    marginLeft: 8,
-  },
-  footerContainer: {
-    backgroundColor: Colors.white,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.05)',
+    marginLeft: Spacing.sm,
   },
   floatingBack: {
     position: 'absolute',

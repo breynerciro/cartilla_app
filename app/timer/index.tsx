@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Colors } from '../../src/theme/colors';
+import { screenPadding, Spacing } from '../../src/theme/spacing';
+import { Screen } from '../../src/components/Screen';
 import { Header } from '../../src/components/Header';
 import { BrushingTimer } from '../../src/components/BrushingTimer';
 import { BackButton } from '../../src/components/BackButton';
@@ -46,7 +46,7 @@ export default function GlobalTimerScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <Header 
         title="Temporizador Clínico" 
         decoration="left" 
@@ -66,19 +66,18 @@ export default function GlobalTimerScreen() {
         visible={showAlarmSettings}
         onClose={handleAlarmSettingsClose}
       />
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 4,
+    paddingHorizontal: screenPadding,
+    paddingBottom: Spacing.xs,
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 8,
+    paddingBottom: Spacing.sm,
   },
 });

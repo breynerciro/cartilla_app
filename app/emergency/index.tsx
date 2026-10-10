@@ -9,11 +9,13 @@ import {
   Linking,
   Alert,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../src/theme/colors';
+import { Radius } from '../../src/theme/radius';
+import { Spacing, screenPadding } from '../../src/theme/spacing';
 import { Typography } from '../../src/theme/typography';
+import { Screen } from '../../src/components/Screen';
 import { Header } from '../../src/components/Header';
 import { BackButton } from '../../src/components/BackButton';
 import { FooterLogos } from '../../src/components/FooterLogos';
@@ -112,10 +114,14 @@ export default function EmergencyScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <Header title="CONTACTOS DE EMERGENCIA" decoration="right" />
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Banner Informativo */}
         <View style={styles.banner}>
           <Ionicons name="information-circle" size={24} color={Colors.white} />
@@ -236,35 +242,34 @@ export default function EmergencyScreen() {
         onClose={() => setModalVisible(false)}
         onSave={handleAddContact}
       />
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    justifyContent: 'space-between',
-  },
   floatingBack: {
     position: 'absolute',
     bottom: 24,
     left: 16,
     zIndex: 10,
   },
-  content: {
+  scroll: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 16,
+  },
+  // El margen lateral va en el contenido para que el ScrollView llegue al borde
+  // y no recorte las sombras de las tarjetas.
+  content: {
+    paddingHorizontal: screenPadding,
+    paddingTop: Spacing.lg,
   },
   banner: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.navy,
-    borderRadius: 16,
-    padding: 14,
-    marginBottom: 20,
-    gap: 12,
+    borderRadius: Radius.lg,
+    padding: Spacing.lg,
+    marginBottom: Spacing.xl,
+    gap: Spacing.md,
   },
   bannerText: {
     flex: 1,
@@ -274,14 +279,14 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   listContainer: {
-    gap: 16,
+    gap: Spacing.lg,
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.offWhite,
-    borderRadius: 20,
-    padding: 16,
+    borderRadius: Radius.lgPlus,
+    padding: Spacing.lg,
     borderWidth: 1.5,
     borderColor: '#E2E8F0',
     shadowColor: Colors.navy,
@@ -291,12 +296,13 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   iconContainer: {
-    width: 54,
-    height: 54,
-    borderRadius: 16,
+    // Tile de icono: mismo 56 / Radius.lg / separacion 16 que main-menu.
+    width: 56,
+    height: 56,
+    borderRadius: Radius.lg,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 14,
+    marginRight: Spacing.lg,
   },
   textContainer: {
     flex: 1,
@@ -306,18 +312,18 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 17,
     color: Colors.navy,
-    marginBottom: 2,
+    marginBottom: Spacing.xs,
   },
   contactSubtitle: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 13,
     color: Colors.lavender,
-    marginBottom: 6,
+    marginBottom: Spacing.sm,
   },
   phoneChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: Spacing.xs,
     alignSelf: 'flex-start',
   },
   phoneText: {
@@ -327,11 +333,11 @@ const styles = StyleSheet.create({
   actionsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginLeft: 8,
+    gap: Spacing.md,
+    marginLeft: Spacing.sm,
   },
   deleteBtn: {
-    padding: 6,
+    padding: Spacing.sm,
   },
   callBtn: {
     width: 44,
@@ -350,13 +356,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.offWhite,
-    borderRadius: 20,
-    paddingVertical: 16,
-    marginTop: 20,
+    borderRadius: Radius.lgPlus,
+    paddingVertical: Spacing.lg,
+    marginTop: Spacing.xl,
     borderWidth: 2,
     borderColor: Colors.navy,
     borderStyle: 'dashed',
-    gap: 8,
+    gap: Spacing.sm,
   },
   addBtnText: {
     fontFamily: Typography.fonts.ubuntuBold,
