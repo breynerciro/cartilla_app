@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, useWindowDimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors } from '../src/theme/colors';
+import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
+import { Screen } from '../src/components/Screen';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { NextButton } from '../src/components/NextButton';
 import { CornerDecoration } from '../src/components/CornerDecoration';
@@ -50,7 +51,7 @@ export default function OnboardingScreen() {
   const isLast = currentSlide === slides.length - 1;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <CornerDecoration position="bottom-left" />
 
       {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
@@ -74,26 +75,22 @@ export default function OnboardingScreen() {
         </View>
         <FooterLogos />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 60,
+    paddingHorizontal: screenPadding,
+    paddingTop: Spacing.massive,
     justifyContent: 'center',
   },
   card: {
     backgroundColor: Colors.navy,
     borderRadius: 32,
-    paddingVertical: 32,
-    paddingHorizontal: 24,
+    paddingVertical: Spacing.xxxl,
+    paddingHorizontal: Spacing.xxl,
     width: '100%',
     flexShrink: 1,
     shadowColor: Colors.navy,
@@ -111,15 +108,14 @@ const styles = StyleSheet.create({
     lineHeight: 20 * 1.4,
   },
   footer: {
-    paddingHorizontal: 16,
-    paddingBottom: 8,
+    paddingHorizontal: screenPadding,
   },
   characterSection: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 4,
-    paddingVertical: 8,
+    paddingHorizontal: Spacing.xs,
+    paddingVertical: Spacing.sm,
   },
 });

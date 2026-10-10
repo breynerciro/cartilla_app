@@ -1,26 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors } from '../src/theme/colors';
+import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
+import { Screen } from '../src/components/Screen';
 import { Button } from '../src/components/Button';
 import { FooterLogos } from '../src/components/FooterLogos';
-import { StatusBar } from 'expo-status-bar';
 
 export default function IntroScreen() {
   const router = useRouter();
 
   return (
+    // El fondo navy es de la intro (ya no del Stack): cubre tambien detras del
+    // status bar y se ve mientras carga la imagen.
     <ImageBackground
       source={require('../assets/images/png\'s/fondo.png')}
       style={styles.background}
       resizeMode="cover"
     >
-      <StatusBar style="light" />
-      <SafeAreaView style={styles.safeArea}>
+      <Screen backgroundColor="transparent" statusBarStyle="light">
         <View style={styles.spacerTop} />
-        
+
         <View style={styles.titleContainer}>
           <Text style={styles.title} adjustsFontSizeToFit numberOfLines={2}>
             HEMOFILIA Y{'\n'}ODONTOLOGÍA
@@ -33,14 +34,14 @@ export default function IntroScreen() {
         <View style={styles.bottomSection}>
           <Button
             title="Empezar"
-            variant="primary"
+            variant="light"
             onPress={() => router.push('/main-menu')}
             style={styles.button}
             textStyle={styles.buttonText}
           />
           <FooterLogos color="white" />
         </View>
-      </SafeAreaView>
+      </Screen>
     </ImageBackground>
   );
 }
@@ -50,9 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-  },
-  safeArea: {
-    flex: 1,
+    backgroundColor: Colors.navy,
   },
   spacerTop: {
     flex: 1.5,
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     width: '100%',
     backgroundColor: Colors.navy,
-    paddingVertical: 35,
+    paddingVertical: Spacing.xxxl,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -71,13 +70,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 43,
     letterSpacing: 2,
-    paddingHorizontal: 20,
+    paddingHorizontal: screenPadding,
   },
   subtitle: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 24,
     color: Colors.white,
-    marginTop: 15,
+    marginTop: Spacing.lg,
     textAlign: 'center',
     lineHeight: 28,
   },
@@ -85,26 +84,17 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   bottomSection: {
-    paddingHorizontal: 30,
-    paddingBottom: 20,
+    paddingHorizontal: screenPadding,
     alignItems: 'center',
   },
+  // Fondo, color de texto y borde vienen de variant="light"; aqui solo el ancho.
   button: {
     width: 222,
-    height: 65,
-    backgroundColor: Colors.white,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 40,
-    borderColor: 'transparent',
-    borderWidth: 0,
+    marginBottom: Spacing.huge,
   },
+  // Tamano fijo de la intro; B3 lo migra a la escala tipografica.
   buttonText: {
-    fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 24,
-    color: Colors.navy,
-    textAlign: 'center',
     lineHeight: 29,
   },
 });
