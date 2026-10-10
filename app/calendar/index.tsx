@@ -27,18 +27,28 @@ export default function CalendarScreen() {
   
   const [isModalVisible, setModalVisible] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
+  // loading: primera carga al montar (no muestra el spinner de pull-to-refresh).
+  // refreshing: solo cuando el usuario jala para actualizar.
+  const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [filterType, setFilterType] = useState<'all' | 'pending' | 'completed'>('all');
 
   const loadAppointments = useCallback(async () => {
-    setRefreshing(true);
     const data = await getAppointments();
     setAppointments(data);
-    setRefreshing(false);
   }, []);
 
   useEffect(() => {
-    loadAppointments();
+    loadAppointments().finally(() => setLoading(false));
+  }, [loadAppointments]);
+
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await loadAppointments();
+    } finally {
+      setRefreshing(false);
+    }
   }, [loadAppointments]);
 
   const toISODate = (date: Date) => {
@@ -105,7 +115,7 @@ export default function CalendarScreen() {
           style={styles.scroll}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={loadAppointments} />}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
         >
           <MiniCalendar 
             selectedDate={selectedDate}
@@ -163,7 +173,7 @@ export default function CalendarScreen() {
                   onDelete={() => handleDeleteAppointment(app.id)}
                 />
               ))
-            ) : (
+            ) : !loading && (
               <View style={styles.emptyState}>
                 <Ionicons name="calendar-clear-outline" size={48} color={Colors.lavender} style={{ opacity: 0.5 }} />
                 <Text style={styles.emptyText}>No tienes citas programadas para este día.</Text>
