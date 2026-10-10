@@ -33,7 +33,20 @@ export default function EmergencyScreen() {
   const [customContacts, setCustomContacts] = useState<EmergencyContact[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const anims = useRef<Animated.Value[]>([]).current;
+  // Un Animated.Value por contacto, estable entre renders y creado en 0 antes del primer
+  // render: cada item nace invisible y entra animado. Antes los items sin valor asignado
+  // recibian new Animated.Value(1) en cada render (se veian completos) y el efecto los
+  // reiniciaba a 0 despues, con un parpadeo.
+  const anims = useRef(new Map<string, Animated.Value>()).current;
+  const animatedIds = useRef(new Set<string>()).current;
+  const animFor = (id: string) => {
+    let value = anims.get(id);
+    if (!value) {
+      value = new Animated.Value(0);
+      anims.set(id, value);
+    }
+    return value;
+  };
 
   const allContacts = [...DEFAULT_EMERGENCY_CONTACTS, ...customContacts];
 
@@ -47,16 +60,15 @@ export default function EmergencyScreen() {
   };
 
   useEffect(() => {
-    // Refresh animations for contacts
-    anims.length = 0;
-    allContacts.forEach(() => {
-      anims.push(new Animated.Value(0));
-    });
+    // Anima solo los contactos que aun no entraron: los de fabrica al montar y los
+    // personalizados cuando cargan o se agregan. Los que ya se ven no se reinician.
+    const entering = allContacts.filter((contact) => !animatedIds.has(contact.id));
+    entering.forEach((contact) => animatedIds.add(contact.id));
 
     Animated.stagger(
       100,
-      anims.map((anim) =>
-        Animated.spring(anim, {
+      entering.map((contact) =>
+        Animated.spring(animFor(contact.id), {
           toValue: 1,
           tension: 50,
           friction: 7,
@@ -136,8 +148,8 @@ export default function EmergencyScreen() {
 
           {/* Lista de contactos */}
           <View style={styles.listContainer}>
-            {allContacts.map((contact, index) => {
-              const anim = anims[index] || new Animated.Value(1);
+            {allContacts.map((contact) => {
+              const anim = animFor(contact.id);
               const translateY = anim.interpolate({
                 inputRange: [0, 1],
                 outputRange: [40, 0],
