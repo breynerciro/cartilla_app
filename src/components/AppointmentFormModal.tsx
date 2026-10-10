@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ScrollView, Platform } from 'react-native';
+import {
+  View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ScrollView, Platform,
+  KeyboardAvoidingView, Alert,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker, { type DateTimePickerChangeEvent } from '@react-native-community/datetimepicker';
 import { Colors } from '../theme/colors';
+import { Radius } from '../theme/radius';
 import { Typography } from '../theme/typography';
 import { Appointment, AppointmentType, APPOINTMENT_TYPES } from '../data/appointments';
 import { generateId } from '../utils/uuid';
 import { Button } from './Button';
 
+import { Spacing } from '../theme/spacing';
 interface AppointmentFormModalProps {
   visible: boolean;
   onClose: () => void;
@@ -26,6 +32,7 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
   
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (existingAppointment) {
@@ -60,7 +67,7 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
 
   const handleSave = () => {
     if (!title.trim()) {
-      alert("Por favor ingresa un título para la cita");
+      Alert.alert('Campo requerido', 'Por favor ingresa un título para la cita');
       return;
     }
 
@@ -103,7 +110,10 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
 
   return (
     <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={onClose}>
-      <View style={styles.overlay}>
+      <KeyboardAvoidingView
+        style={styles.overlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <View style={styles.modalContainer}>
           <View style={styles.header}>
             <Text style={styles.headerTitle}>{existingAppointment ? 'Editar Cita' : 'Nueva Cita'}</Text>
@@ -112,9 +122,20 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
             </TouchableOpacity>
           </View>
 
-          <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+          {/* handled: el primer toque en Guardar/chips actua en vez de solo cerrar el teclado */}
+          <ScrollView
+            style={styles.content}
+            contentContainerStyle={{ paddingBottom: insets.bottom + Spacing.xl }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
             <Text style={styles.label}>Tipo de Cita</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.typeScroll}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+              style={styles.typeScroll}
+            >
               {Object.entries(APPOINTMENT_TYPES).map(([key, config]) => {
                 const isSelected = type === key;
                 return (
@@ -194,16 +215,17 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
               numberOfLines={3}
             />
 
-
             <View style={styles.footer}>
-              <Button title="Cancelar" variant="outline" onPress={onClose} style={{ flex: 1, paddingVertical: 12 }} />
-              <View style={{ width: 16 }} />
-              <Button title="Guardar" variant="primary" onPress={handleSave} style={{ flex: 1, paddingVertical: 12 }} />
+              <View style={styles.footerCell}>
+                <Button title="Cancelar" variant="outline" onPress={onClose} style={styles.footerButton} />
+              </View>
+              <View style={styles.footerCell}>
+                <Button title="Guardar" variant="primary" onPress={handleSave} style={styles.footerButton} />
+              </View>
             </View>
-            <View style={{ height: 40 }} />
           </ScrollView>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -216,17 +238,17 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: Colors.white,
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
+    borderTopLeftRadius: Radius.xxl,
+    borderTopRightRadius: Radius.xxl,
     height: '85%',
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: Spacing.xl,
+    paddingTop: Spacing.xl,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: Spacing.xl,
   },
   headerTitle: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -234,7 +256,7 @@ const styles = StyleSheet.create({
     color: Colors.navy,
   },
   closeBtn: {
-    padding: 4,
+    padding: Spacing.xs,
   },
   content: {
     flex: 1,
@@ -243,33 +265,33 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 16,
     color: Colors.navy,
-    marginBottom: 8,
-    marginTop: 16,
+    marginBottom: Spacing.sm,
+    marginTop: Spacing.lg,
   },
   typeScroll: {
-    marginBottom: 8,
+    marginBottom: Spacing.sm,
   },
   typeChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
     borderRadius: 20,
     borderWidth: 1.5,
     borderColor: Colors.lavender,
-    marginRight: 12,
+    marginRight: Spacing.md,
   },
   typeText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
     color: Colors.lavender,
-    marginLeft: 8,
+    marginLeft: Spacing.sm,
   },
   input: {
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 16,
     color: Colors.navy,
@@ -280,7 +302,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    gap: 16,
+    gap: Spacing.lg,
   },
   half: {
     flex: 1,
@@ -290,19 +312,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
   },
   dateText: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 16,
     color: Colors.navy,
-    marginLeft: 12,
+    marginLeft: Spacing.md,
   },
 
   footer: {
     flexDirection: 'row',
-    marginTop: 32,
-    marginBottom: 20,
-  }
+    gap: Spacing.lg,
+    marginTop: Spacing.xxxl,
+  },
+  footerCell: {
+    flex: 1,
+  },
+  footerButton: {
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+  },
 });

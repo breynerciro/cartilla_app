@@ -8,9 +8,13 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
+import { Radius } from '../theme/radius';
 import { Typography } from '../theme/typography';
 import {
   EmergencyContact,
@@ -19,6 +23,7 @@ import {
 } from '../data/emergencyContacts';
 import { Button } from './Button';
 
+import { Spacing } from '../theme/spacing';
 interface EmergencyContactFormModalProps {
   visible: boolean;
   onClose: () => void;
@@ -34,6 +39,7 @@ export const EmergencyContactFormModal = ({
   const [name, setName] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [phone, setPhone] = useState('');
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (visible) {
@@ -76,7 +82,10 @@ export const EmergencyContactFormModal = ({
       transparent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
+      <KeyboardAvoidingView
+        style={styles.overlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <View style={styles.modalContainer}>
           <View style={styles.header}>
             <Text style={styles.headerTitle}>Nuevo Contacto</Text>
@@ -85,11 +94,18 @@ export const EmergencyContactFormModal = ({
             </TouchableOpacity>
           </View>
 
-          <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+          {/* handled: el primer toque en Guardar/chips actua en vez de solo cerrar el teclado */}
+          <ScrollView
+            style={styles.content}
+            contentContainerStyle={{ paddingBottom: insets.bottom + Spacing.xl }}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
             <Text style={styles.label}>Tipo de Contacto</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
               style={styles.typeScroll}
             >
               {Object.entries(CONTACT_TYPES).map(([key, config]) => {
@@ -152,24 +168,26 @@ export const EmergencyContactFormModal = ({
             />
 
             <View style={styles.footer}>
-              <Button
-                title="Cancelar"
-                variant="outline"
-                onPress={onClose}
-                style={{ flex: 1, paddingVertical: 12 }}
-              />
-              <View style={{ width: 16 }} />
-              <Button
-                title="Guardar"
-                variant="primary"
-                onPress={handleSave}
-                style={{ flex: 1, paddingVertical: 12 }}
-              />
+              <View style={styles.footerCell}>
+                <Button
+                  title="Cancelar"
+                  variant="outline"
+                  onPress={onClose}
+                  style={styles.footerButton}
+                />
+              </View>
+              <View style={styles.footerCell}>
+                <Button
+                  title="Guardar"
+                  variant="primary"
+                  onPress={handleSave}
+                  style={styles.footerButton}
+                />
+              </View>
             </View>
-            <View style={{ height: 40 }} />
           </ScrollView>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -182,17 +200,17 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: Colors.white,
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
+    borderTopLeftRadius: Radius.xxl,
+    borderTopRightRadius: Radius.xxl,
     height: '75%',
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingHorizontal: Spacing.xl,
+    paddingTop: Spacing.xl,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: Spacing.xl,
   },
   headerTitle: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -200,7 +218,7 @@ const styles = StyleSheet.create({
     color: Colors.navy,
   },
   closeBtn: {
-    padding: 4,
+    padding: Spacing.xs,
   },
   content: {
     flex: 1,
@@ -209,40 +227,47 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 16,
     color: Colors.navy,
-    marginBottom: 8,
-    marginTop: 16,
+    marginBottom: Spacing.sm,
+    marginTop: Spacing.lg,
   },
   typeScroll: {
-    marginBottom: 8,
+    marginBottom: Spacing.sm,
   },
   typeChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
     borderRadius: 20,
     borderWidth: 1.5,
     borderColor: Colors.lavender,
-    marginRight: 12,
+    marginRight: Spacing.md,
   },
   typeText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
     color: Colors.lavender,
-    marginLeft: 8,
+    marginLeft: Spacing.sm,
   },
   input: {
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 16,
     color: Colors.navy,
   },
   footer: {
     flexDirection: 'row',
-    marginTop: 32,
-    marginBottom: 20,
+    gap: Spacing.lg,
+    marginTop: Spacing.xxxl,
+  },
+  footerCell: {
+    flex: 1,
+  },
+  footerButton: {
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
   },
 });
