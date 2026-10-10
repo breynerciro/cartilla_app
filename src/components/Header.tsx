@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CornerDecoration } from './CornerDecoration';
 import { Colors } from '../theme/colors';
-import { Spacing } from '../theme/spacing';
+import { Spacing, screenPadding } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 
 // Ancho que ocupa CornerDecoration (90) más 2 pt de aire, en grilla de 4.
@@ -64,12 +64,12 @@ const styles = StyleSheet.create({
   },
   titleLeft: {
     textAlign: 'left',
-    paddingLeft: Spacing.xl,
+    paddingLeft: screenPadding, // alinea con el margen lateral del contenido
     paddingRight: DECORATION_CLEARANCE, // Evita pisar la decoracion derecha
   },
   titleRight: {
     textAlign: 'right',
-    paddingRight: Spacing.xl,
+    paddingRight: screenPadding,
     paddingLeft: DECORATION_CLEARANCE, // Evita pisar la decoracion izquierda
   },
 });

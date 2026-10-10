@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Animated, TouchableOpacity, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../src/theme/colors';
+import { Radius } from '../src/theme/radius';
+import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
+import { Screen } from '../src/components/Screen';
 import { Header } from '../src/components/Header';
 import { FooterLogos } from '../src/components/FooterLogos';
 
@@ -70,7 +72,7 @@ export default function MainMenuScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <Header 
         title="HEMOFILIA Y ODONTOLOGÍA" 
         decoration="right" 
@@ -117,45 +119,43 @@ export default function MainMenuScreen() {
       </ScrollView>
 
       <FooterLogos />
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    justifyContent: 'space-between',
-  },
   scrollView: {
     flex: 1,
   },
+  // El margen lateral va en el contenido (no en la pantalla) para que el
+  // ScrollView llegue al borde y no recorte la sombra de las tarjetas.
   content: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: screenPadding,
+    paddingVertical: Spacing.lg,
     justifyContent: 'center',
     flexGrow: 1,
-    gap: 14,
+    gap: Spacing.lg,
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.navy,
-    borderRadius: 24,
-    padding: 16,
+    borderRadius: Radius.xl,
+    padding: Spacing.lg,
     shadowColor: Colors.navy,
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.2,
     shadowRadius: 10,
     elevation: 5,
   },
+  // Tile de icono: mismo 56 / Radius.lg / separacion 16 que las tarjetas de emergencia.
   iconContainer: {
     width: 56,
     height: 56,
-    borderRadius: 18,
+    borderRadius: Radius.lg,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 14,
+    marginRight: Spacing.lg,
   },
   textContainer: {
     flex: 1,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 18,
     color: Colors.white,
-    marginBottom: 4,
+    marginBottom: Spacing.xs,
   },
   cardSubtitle: {
     fontFamily: Typography.fonts.ubuntu,
