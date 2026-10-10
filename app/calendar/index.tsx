@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../src/theme/colors';
 import { Radius } from '../../src/theme/radius';
+import { Shadows } from '../../src/theme/shadows';
 import { Spacing, screenPadding } from '../../src/theme/spacing';
 import { Typography } from '../../src/theme/typography';
 import { Screen } from '../../src/components/Screen';
@@ -16,7 +17,7 @@ import { Button } from '../../src/components/Button';
 import { Appointment } from '../../src/data/appointments';
 import { getAppointments, saveAppointment, updateAppointment, deleteAppointment } from '../../src/services/storage';
 import { scheduleAppointmentReminder, cancelAppointmentReminder } from '../../src/services/notifications';
-import { BackButton } from '../../src/components/BackButton';
+import { BackButton, BACK_BUTTON_SIZE } from '../../src/components/BackButton';
 
 export default function CalendarScreen() {
   const router = useRouter();
@@ -97,92 +98,94 @@ export default function CalendarScreen() {
         decoration="left" 
       />
 
-      <ScrollView 
-        style={styles.scroll}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={loadAppointments} />}
-      >
-        <MiniCalendar 
-          selectedDate={selectedDate}
-          onSelectDate={setSelectedDate}
-          markedDates={markedDates}
-          onMonthChange={setCurrentMonth}
-        />
+      {/* `main` termina donde empieza el pie (y el pie ya esta dentro del area segura de
+          Screen): lo flotante nunca pisa los logos ni el inset inferior. */}
+      <View style={styles.main}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.content}
+          showsVerticalScrollIndicator={false}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={loadAppointments} />}
+        >
+          <MiniCalendar 
+            selectedDate={selectedDate}
+            onSelectDate={setSelectedDate}
+            markedDates={markedDates}
+            onMonthChange={setCurrentMonth}
+          />
 
-        {/* Filtro Rápido */}
-        <View style={styles.filterContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterScroll}>
-            <TouchableOpacity 
-              style={[styles.filterChip, filterType === 'all' && styles.filterChipActive]}
-              onPress={() => setFilterType('all')}
-            >
-              <Text style={[styles.filterText, filterType === 'all' && styles.filterTextActive]}>Todas</Text>
-            </TouchableOpacity>
+          {/* Filtro Rápido */}
+          <View style={styles.filterContainer}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterScroll}>
+              <TouchableOpacity 
+                style={[styles.filterChip, filterType === 'all' && styles.filterChipActive]}
+                onPress={() => setFilterType('all')}
+              >
+                <Text style={[styles.filterText, filterType === 'all' && styles.filterTextActive]}>Todas</Text>
+              </TouchableOpacity>
             
-            <TouchableOpacity 
-              style={[styles.filterChip, filterType === 'pending' && styles.filterChipActive]}
-              onPress={() => setFilterType('pending')}
-            >
-              <Text style={[styles.filterText, filterType === 'pending' && styles.filterTextActive]}>Pendientes</Text>
-            </TouchableOpacity>
+              <TouchableOpacity 
+                style={[styles.filterChip, filterType === 'pending' && styles.filterChipActive]}
+                onPress={() => setFilterType('pending')}
+              >
+                <Text style={[styles.filterText, filterType === 'pending' && styles.filterTextActive]}>Pendientes</Text>
+              </TouchableOpacity>
             
-            <TouchableOpacity 
-              style={[styles.filterChip, filterType === 'completed' && styles.filterChipActive]}
-              onPress={() => setFilterType('completed')}
-            >
-              <Text style={[styles.filterText, filterType === 'completed' && styles.filterTextActive]}>Completadas</Text>
-            </TouchableOpacity>
-          </ScrollView>
+              <TouchableOpacity 
+                style={[styles.filterChip, filterType === 'completed' && styles.filterChipActive]}
+                onPress={() => setFilterType('completed')}
+              >
+                <Text style={[styles.filterText, filterType === 'completed' && styles.filterTextActive]}>Completadas</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+
+          <View style={styles.listHeader}>
+            <Text style={styles.listTitle}>
+              {selectedDate.getDate() === new Date().getDate() && selectedDate.getMonth() === new Date().getMonth() && selectedDate.getFullYear() === new Date().getFullYear() 
+                ? 'Hoy' 
+                : selectedDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}
+            </Text>
+            <Text style={styles.countText}>
+              {selectedAppointments.length} {selectedAppointments.length === 1 ? 'cita' : 'citas'}
+            </Text>
+          </View>
+
+          <View style={styles.listContainer}>
+            {selectedAppointments.length > 0 ? (
+              selectedAppointments.map(app => (
+                <AppointmentCard 
+                  key={app.id}
+                  appointment={app}
+                  hideDate={true}
+                  onPress={() => openEditAppointment(app)}
+                  onToggleComplete={() => handleToggleComplete(app)}
+                  onDelete={() => handleDeleteAppointment(app.id)}
+                />
+              ))
+            ) : (
+              <View style={styles.emptyState}>
+                <Ionicons name="calendar-clear-outline" size={48} color={Colors.lavender} style={{ opacity: 0.5 }} />
+                <Text style={styles.emptyText}>No tienes citas programadas para este día.</Text>
+                <Button 
+                  title="Agendar Cita Ahora" 
+                  variant="outline" 
+                  onPress={openNewAppointment} 
+                  style={{ marginTop: Spacing.xxl, paddingHorizontal: Spacing.xxl }} 
+                />
+              </View>
+            )}
+          </View>
+        </ScrollView>
+
+        {/* Fila flotante: Back y FAB centrados entre si, dentro de `main`. */}
+        <View style={styles.floatingRow}>
+          <BackButton onPress={() => router.back()} />
+          <TouchableOpacity style={styles.fab} onPress={openNewAppointment} activeOpacity={0.8}>
+            <Ionicons name="add" size={32} color={Colors.white} />
+            <Text style={styles.fabText}>Nueva Cita</Text>
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.listHeader}>
-          <Text style={styles.listTitle}>
-            {selectedDate.getDate() === new Date().getDate() && selectedDate.getMonth() === new Date().getMonth() && selectedDate.getFullYear() === new Date().getFullYear() 
-              ? 'Hoy' 
-              : selectedDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}
-          </Text>
-          <Text style={styles.countText}>
-            {selectedAppointments.length} {selectedAppointments.length === 1 ? 'cita' : 'citas'}
-          </Text>
-        </View>
-
-        <View style={styles.listContainer}>
-          {selectedAppointments.length > 0 ? (
-            selectedAppointments.map(app => (
-              <AppointmentCard 
-                key={app.id}
-                appointment={app}
-                hideDate={true}
-                onPress={() => openEditAppointment(app)}
-                onToggleComplete={() => handleToggleComplete(app)}
-                onDelete={() => handleDeleteAppointment(app.id)}
-              />
-            ))
-          ) : (
-            <View style={styles.emptyState}>
-              <Ionicons name="calendar-clear-outline" size={48} color={Colors.lavender} style={{ opacity: 0.5 }} />
-              <Text style={styles.emptyText}>No tienes citas programadas para este día.</Text>
-              <Button 
-                title="Agendar Cita Ahora" 
-                variant="outline" 
-                onPress={openNewAppointment} 
-                style={{ marginTop: Spacing.xxl, paddingHorizontal: Spacing.xxl }} 
-              />
-            </View>
-          )}
-        </View>
-
-        <View style={{ height: 80 }} />
-      </ScrollView>
-
-      <TouchableOpacity style={styles.fab} onPress={openNewAppointment} activeOpacity={0.8}>
-        <Ionicons name="add" size={32} color={Colors.white} />
-        <Text style={styles.fabText}>Nueva Cita</Text>
-      </TouchableOpacity>
-
-      <View style={styles.floatingBack}>
-        <BackButton onPress={() => router.back()} />
       </View>
 
       <FooterLogos />
@@ -198,15 +201,23 @@ export default function CalendarScreen() {
   );
 }
 
+// Distancia de la fila flotante al borde inferior de `main` (justo sobre el pie).
+const FLOATING_BOTTOM = Spacing.sm;
+
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+  },
   scroll: {
     flex: 1,
   },
   // El margen lateral va en el contenido para que el ScrollView llegue al borde
-  // y no recorte las sombras de las tarjetas.
+  // y no recorte las sombras de las tarjetas. El paddingBottom reserva el alto real
+  // de la fila flotante (Back 82) para que el ultimo item nunca quede tapado.
   content: {
     paddingHorizontal: screenPadding,
     paddingTop: Spacing.lg,
+    paddingBottom: BACK_BUTTON_SIZE + FLOATING_BOTTOM + Spacing.lg,
   },
   filterContainer: {
     marginVertical: Spacing.lg,
@@ -271,37 +282,31 @@ const styles = StyleSheet.create({
     marginTop: Spacing.md,
     paddingHorizontal: Spacing.xxxl,
   },
-  fab: {
+  floatingRow: {
     position: 'absolute',
-    bottom: 80,
-    right: 20,
+    left: 0,
+    right: 0,
+    bottom: FLOATING_BOTTOM,
+    pointerEvents: 'box-none', // los huecos entre botones dejan pasar el toque al scroll
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: screenPadding,
+    zIndex: 10,
+  },
+  fab: {
     backgroundColor: Colors.blue,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: Spacing.md,
     paddingHorizontal: Spacing.xl,
-    borderRadius: 30,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
-    zIndex: 10,
+    borderRadius: Radius.xxl,
+    ...Shadows.lg,
   },
   fabText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 16,
     color: Colors.white,
     marginLeft: Spacing.sm,
-  },
-  floatingBack: {
-    position: 'absolute',
-    bottom: 80,
-    left: 20,
-    zIndex: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 82,
-    height: 82,
   },
 });
