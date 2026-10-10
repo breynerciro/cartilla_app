@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 
+import { Spacing } from '../theme/spacing';
 interface BleedingCheckModalProps {
   visible: boolean;
   onClose: () => void;
@@ -72,15 +73,15 @@ export const BleedingCheckModal: React.FC<BleedingCheckModalProps> = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: Colors.scrim,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: Spacing.xl,
   },
   modalCard: {
     backgroundColor: Colors.white,
     borderRadius: 24,
-    padding: 24,
+    padding: Spacing.xxl,
     width: '100%',
     alignItems: 'center',
   },
@@ -88,28 +89,28 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.navy,
-    marginBottom: 16,
+    marginBottom: Spacing.lg,
     textAlign: 'center',
   },
   titleAlert: {
     fontSize: 22,
     fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.timer.warning,
-    marginBottom: 16,
+    marginBottom: Spacing.lg,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
     fontFamily: Typography.fonts.ubuntu,
     color: Colors.text.primary,
-    marginBottom: 24,
+    marginBottom: Spacing.xxl,
     textAlign: 'center',
   },
   instruction: {
     fontSize: 16,
     fontFamily: Typography.fonts.ubuntu,
     color: Colors.navy,
-    marginBottom: 12,
+    marginBottom: Spacing.md,
     alignSelf: 'flex-start',
   },
   buttonRow: {
@@ -119,17 +120,17 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     flex: 1,
-    paddingVertical: 14,
+    paddingVertical: Spacing.lg,
     borderRadius: 12,
-    marginHorizontal: 8,
+    marginHorizontal: Spacing.sm,
     alignItems: 'center',
   },
   button: {
     backgroundColor: Colors.navy,
-    paddingVertical: 14,
-    paddingHorizontal: 32,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.xxxl,
     borderRadius: 12,
-    marginTop: 20,
+    marginTop: Spacing.xl,
   },
   buttonText: {
     color: Colors.white,

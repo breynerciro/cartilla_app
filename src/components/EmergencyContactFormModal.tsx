@@ -195,7 +195,7 @@ export const EmergencyContactFormModal = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,14,85,0.5)',
+    backgroundColor: Colors.scrim,
     justifyContent: 'flex-end',
   },
   modalContainer: {

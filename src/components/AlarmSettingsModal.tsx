@@ -395,7 +395,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 14, 85, 0.55)',
+    backgroundColor: Colors.scrim,
     justifyContent: 'flex-end',
   },
   overlayDismiss: {

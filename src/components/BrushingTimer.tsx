@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   // ── Song selector modal ──
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,14,85,0.6)',
+    backgroundColor: Colors.scrim,
     justifyContent: 'center',
     alignItems: 'center',
     padding: Spacing.xl,
