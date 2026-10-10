@@ -45,7 +45,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: Spacing.sm,
-    paddingBottom: Spacing.md,
+    // Distancia al borde seguro unica para todas las pantallas con logos (antes cada
+    // pantalla sumaba 0, 8, 10, 12 o 20 por fuera). Las pantallas ya no agregan la suya.
+    paddingBottom: Spacing.xl,
     width: '100%',
     opacity: 0.45,
   },
