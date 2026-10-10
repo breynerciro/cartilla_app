@@ -1,6 +1,6 @@
-# HEMODENT
+# HemoDent
 
-**HEMODENT** es una aplicación móvil educativa e interactiva diseñada para guiar a pacientes con hemofilia (y a sus cuidadores) en el cuidado de su salud bucodental. Proporciona información especializada, herramientas de seguimiento y asistencia en caso de emergencias dentales, adaptándose a las diferentes etapas de la vida del paciente.
+**HemoDent** es una aplicación móvil educativa e interactiva diseñada para guiar a pacientes con hemofilia (y a sus cuidadores) en el cuidado de su salud bucodental. Proporciona información especializada, herramientas de seguimiento y asistencia en caso de emergencias dentales, adaptándose a las diferentes etapas de la vida del paciente.
 
 ## 🚀 Tecnologías Principales
 
