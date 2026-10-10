@@ -4,12 +4,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  ScrollView,
   useWindowDimensions,
   Animated,
 } from 'react-native';
 import Svg, { Circle, Path, G, Defs, RadialGradient, Stop, Image as SvgImage } from 'react-native-svg';
 import { upperArchPaths, lowerArchPaths, upperPermanentArchPaths, lowerPermanentArchPaths, ToothData } from '../data/teethPaths';
 import { Colors } from '../theme/colors';
+import { screenPadding, Spacing } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 
 // ─── COLORES BASADOS EN LA LEYENDA DEL USUARIO ───
@@ -42,6 +44,9 @@ const TOOTH_NAMES: Record<string, string> = {
 const DECIDUOUS_KEYS = ['ic', 'il', 'ca', 'pm', 'sm'];
 const PERMANENT_KEYS = ['ic', 'il', 'ca', 'pm1', 'pm2', 'm1', 'm2', 'm3'];
 
+// Tope del lado del diagrama: sin el, en tabletas y anchos grandes ocupa todo el ancho.
+const MAX_DIAGRAM_SIZE = 480;
+
 // ─── COORDENADAS Y RUTAS VECTORIALES (Sincronizadas al pixel de 890x682) ───
 // Extraídas matemáticamente de la imagen para asegurar hitbox perfecto.
 const upperArch = upperArchPaths;
@@ -66,8 +71,8 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
     }
   }, [activeSpot]);
 
-  // width - 32 (paddingHorizontal de SlidesRunner) - 8 de margen de seguridad
-  const diagramSize = width - 40;
+  // Ancho de pantalla menos el margen lateral de SlidesRunner (screenPadding a cada lado), con tope.
+  const diagramSize = Math.min(width - 2 * screenPadding, MAX_DIAGRAM_SIZE);
   const isPermanent = ageGroup === '6-13';
   const teethData = isPermanent 
     ? (activeArch === 'upper' ? upperPermanentArchPaths : lowerPermanentArchPaths)
@@ -81,8 +86,14 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
   const upperImage = isPermanent ? require("../../assets/images/png's/arch_upper_permanentes.png") : require("../../assets/images/png's/arch_upper.png");
   const lowerImage = isPermanent ? require("../../assets/images/png's/arch_lower_permanentes.png") : require("../../assets/images/png's/arch_lower.png");
 
+  // ScrollView: titulo + tabs + diagrama + tarjeta/leyenda miden ~620 pt y no caben
+  // en telefonos de ~640 pt con header y pie; asi hacen scroll en vez de recortarse.
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.scroll}
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Modelo Dental Anatómico</Text>
         <Text style={styles.subtitle}>Toca un diente en la ilustración para explorarlo.</Text>
@@ -229,18 +240,22 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
           ))}
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+    width: '100%',
+  },
   container: {
     width: '100%',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: Spacing.md,
   },
   headerContainer: {
-    marginBottom: 8,
+    marginBottom: Spacing.sm,
     alignItems: 'center',
   },
   title: {
@@ -248,7 +263,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Colors.navy,
     textAlign: 'center',
-    marginBottom: 6,
+    marginBottom: Spacing.sm,
   },
   subtitle: {
     fontFamily: Typography.fonts.ubuntu,
@@ -261,14 +276,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#F0F2F8',
     borderRadius: 30,
-    padding: 4,
-    marginBottom: 12,
+    padding: Spacing.xs,
+    marginBottom: Spacing.md,
     alignSelf: 'stretch',
-    marginHorizontal: 16,
+    marginHorizontal: Spacing.lg,
   },
   tab: {
     flex: 1,
-    paddingVertical: 8,
+    paddingVertical: Spacing.sm,
     alignItems: 'center',
     borderRadius: 26,
     justifyContent: 'center',
@@ -298,8 +313,8 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: Colors.white,
     borderRadius: 16,
-    padding: 14,
-    marginTop: 12,
+    padding: Spacing.lg,
+    marginTop: Spacing.md,
     borderLeftWidth: 6,
     shadowColor: Colors.navy,
     shadowOffset: { width: 0, height: 8 },
@@ -314,15 +329,15 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 18,
     color: Colors.navy,
-    marginBottom: 2,
+    marginBottom: Spacing.xs,
   },
   infoArch: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 13,
     color: Colors.text.secondary,
-    marginBottom: 12,
+    marginBottom: Spacing.md,
   },
-  ageRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  ageRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   clockIconContainer: {
     width: 26, height: 26, borderRadius: 13, alignItems: 'center', justifyContent: 'center'
   },
@@ -330,20 +345,20 @@ const styles = StyleSheet.create({
   infoAge: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 16, color: Colors.text.primary },
   closeBadge: {
     width: 32, height: 32, borderRadius: 16, backgroundColor: '#F0F2F8',
-    alignItems: 'center', justifyContent: 'center', marginLeft: 12
+    alignItems: 'center', justifyContent: 'center', marginLeft: Spacing.md
   },
   closeText: { fontSize: 14, color: Colors.navy, fontFamily: Typography.fonts.ubuntuBold },
   hintBox: {
-    flexDirection: 'row', alignItems: 'center', marginTop: 12, paddingVertical: 10,
-    paddingHorizontal: 20, backgroundColor: '#F0F2F8', borderRadius: 14, gap: 10
+    flexDirection: 'row', alignItems: 'center', marginTop: Spacing.md, paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.xl, backgroundColor: '#F0F2F8', borderRadius: 14, gap: Spacing.md
   },
   hintIcon: { fontSize: 18 },
   hintText: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 13, color: Colors.navy, flex: 1 },
   legend: {
-    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8, marginTop: 12,
-    paddingHorizontal: 8, borderTopWidth: 1, borderTopColor: '#EAECEF', paddingTop: 10, width: '100%'
+    flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: Spacing.sm, marginTop: Spacing.md,
+    paddingHorizontal: Spacing.sm, borderTopWidth: 1, borderTopColor: '#EAECEF', paddingTop: Spacing.md, width: '100%'
   },
-  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  legendItem: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   legendDot: { width: 12, height: 12, borderRadius: 6, borderWidth: 1, borderColor: '#1A1A1A' },
   legendText: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 12, color: Colors.navy },
 });

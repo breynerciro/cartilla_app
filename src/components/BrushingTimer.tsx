@@ -10,6 +10,7 @@ import { QuadrantIndicator } from './QuadrantIndicator';
 import { BleedingCheckModal } from './BleedingCheckModal';
 import { Ionicons } from '@expo/vector-icons';
 
+import { Spacing } from '../theme/spacing';
 interface BrushingTimerProps {
   onFinish: () => void;
   onOpenAlarmSettings?: () => void;
@@ -167,16 +168,18 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
 };
 
 const styles = StyleSheet.create({
+  // flexGrow (no flex: 1): el padre es un ScrollView, asi crece para centrar cuando
+  // sobra alto y toma su alto natural (con scroll) cuando no cabe.
   container: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
   },
   centerGroup: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'stretch',
-    gap: 16,
+    gap: Spacing.lg,
   },
 
   // ── Top row: song + alarm side by side ──
@@ -184,18 +187,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
-    gap: 8,
+    gap: Spacing.sm,
   },
   songSelectorBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: Spacing.xl,
     backgroundColor: Colors.offWhite,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     borderRadius: 20,
-    gap: 6,
+    gap: Spacing.sm,
     borderWidth: 1,
     borderColor: 'rgba(121, 140, 235, 0.3)',
   },
@@ -210,11 +213,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.lavender,
-    marginTop: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    marginTop: Spacing.xl,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     borderRadius: 20,
-    gap: 6,
+    gap: Spacing.sm,
   },
   alarmBtnText: {
     fontSize: 11,
@@ -228,8 +231,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    marginTop: 20,
-    marginBottom: 8,
+    marginTop: Spacing.xl,
+    marginBottom: Spacing.sm,
   },
   playButton: {
     position: 'absolute',
@@ -250,14 +253,14 @@ const styles = StyleSheet.create({
   // ── Instruction card ──
   cardContainer: {
     width: '100%',
-    marginTop: 20,
+    marginTop: Spacing.xl,
     alignItems: 'center',
   },
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
-    gap: 12,
+    marginBottom: Spacing.sm,
+    gap: Spacing.md,
   },
   instructionTitle: {
     fontSize: 16,
@@ -278,9 +281,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
+    gap: Spacing.sm,
     height: 30,
-    paddingHorizontal: 16,
+    paddingHorizontal: Spacing.lg,
   },
   pressureWarning: {
     fontSize: 13,
@@ -294,13 +297,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,14,85,0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: Spacing.xl,
   },
   songModalContainer: {
     width: '100%',
     backgroundColor: Colors.white,
     borderRadius: 24,
-    padding: 24,
+    padding: Spacing.xxl,
     shadowColor: Colors.navy,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
@@ -311,16 +314,16 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 22,
     color: Colors.navy,
-    marginBottom: 20,
+    marginBottom: Spacing.xl,
     textAlign: 'center',
   },
   songOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.lg,
     borderRadius: 16,
-    marginBottom: 10,
+    marginBottom: Spacing.md,
     backgroundColor: Colors.offWhite,
   },
   songOptionSelected: {
@@ -330,14 +333,14 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 16,
     color: Colors.navy,
-    marginLeft: 12,
+    marginLeft: Spacing.md,
   },
   songOptionTextSelected: {
     color: Colors.white,
   },
   songModalCloseBtn: {
-    marginTop: 12,
-    paddingVertical: 14,
+    marginTop: Spacing.md,
+    paddingVertical: Spacing.lg,
     alignItems: 'center',
     borderWidth: 2,
     borderColor: Colors.navy,

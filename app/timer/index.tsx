@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { screenPadding, Spacing } from '../../src/theme/spacing';
 import { Screen } from '../../src/components/Screen';
@@ -51,13 +51,20 @@ export default function GlobalTimerScreen() {
         title="Temporizador Clínico" 
         decoration="left" 
       />
-      <View style={styles.body}>
+      {/* ScrollView: el contenido del temporizador mide ~530 pt y en un iPhone SE
+          (667 pt) solo hay ~453 libres entre el Header y el Back. flexGrow lo centra
+          cuando sobra espacio y deja hacer scroll cuando no cabe. */}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.body}
+        showsVerticalScrollIndicator={false}
+      >
         <BrushingTimer
           onFinish={() => router.back()}
           onOpenAlarmSettings={() => setShowAlarmSettings(true)}
           alarmSummary={alarmSummary}
         />
-      </View>
+      </ScrollView>
       <View style={styles.footer}>
         <BackButton onPress={() => router.back()} />
       </View>
@@ -71,8 +78,11 @@ export default function GlobalTimerScreen() {
 }
 
 const styles = StyleSheet.create({
-  body: {
+  scroll: {
     flex: 1,
+  },
+  body: {
+    flexGrow: 1,
     paddingHorizontal: screenPadding,
     paddingBottom: Spacing.xs,
   },
