@@ -6,6 +6,7 @@ import { Colors } from '../src/theme/colors';
 import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
 import { Screen } from '../src/components/Screen';
+import { NavyCard } from '../src/components/NavyCard';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { NextButton } from '../src/components/NextButton';
 import { CornerDecoration } from '../src/components/CornerDecoration';
@@ -56,11 +57,11 @@ export default function OnboardingScreen() {
 
       {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
       <View style={styles.body}>
-        <View style={styles.card}>
+        <NavyCard size="lg" style={styles.card}>
           <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={15}>
             {slides[currentSlide].text}
           </Text>
-        </View>
+        </NavyCard>
       </View>
 
       {/* ZONE 3: Footer — always visible */}
@@ -87,17 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   card: {
-    backgroundColor: Colors.navy,
-    borderRadius: 32,
-    paddingVertical: Spacing.xxxl,
-    paddingHorizontal: Spacing.xxl,
     width: '100%',
     flexShrink: 1,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
     justifyContent: 'center',
   },
   cardText: {

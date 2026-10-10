@@ -8,6 +8,7 @@ import { Radius } from '../src/theme/radius';
 import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
 import { Screen } from '../src/components/Screen';
+import { NavyCard } from '../src/components/NavyCard';
 import { Header } from '../src/components/Header';
 import { FooterLogos } from '../src/components/FooterLogos';
 
@@ -98,20 +99,21 @@ export default function MainMenuScreen() {
               }}
             >
               <TouchableOpacity 
-                style={styles.card}
                 activeOpacity={0.8}
                 onPress={() => handleOptionPress(option)}
               >
-                <View style={[styles.iconContainer, { backgroundColor: `${option.color}33` }]}>
-                  <Ionicons name={option.icon} size={36} color={option.color} />
-                </View>
+                <NavyCard size="sm" style={styles.card}>
+                  <View style={[styles.iconContainer, { backgroundColor: `${option.color}33` }]}>
+                    <Ionicons name={option.icon} size={36} color={option.color} />
+                  </View>
                 
-                <View style={styles.textContainer}>
-                  <Text style={styles.cardTitle}>{option.title}</Text>
-                  <Text style={[styles.cardSubtitle, { color: option.color }]}>{option.subtitle}</Text>
-                </View>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.cardTitle}>{option.title}</Text>
+                    <Text style={[styles.cardSubtitle, { color: option.color }]}>{option.subtitle}</Text>
+                  </View>
                 
-                <Ionicons name="chevron-forward" size={24} color={Colors.lavender} />
+                  <Ionicons name="chevron-forward" size={24} color={Colors.lavender} />
+                </NavyCard>
               </TouchableOpacity>
             </Animated.View>
           );
@@ -139,14 +141,6 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.navy,
-    borderRadius: Radius.xl,
-    padding: Spacing.lg,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 5,
   },
   // Tile de icono: mismo 56 / Radius.lg / separacion 16 que las tarjetas de emergencia.
   iconContainer: {

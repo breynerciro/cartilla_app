@@ -12,6 +12,7 @@ import {
   ContentSlide, InfoSlide, DetailSlide, DiagramSlide, Slide,
 } from '../data/content';
 import { Header } from './Header';
+import { NavyCard } from './NavyCard';
 import { FooterLogos } from './FooterLogos';
 import { NextButton } from './NextButton';
 import { BackButton } from './BackButton';
@@ -60,7 +61,7 @@ const ContentSlideView = ({
 
       {/* ZONE 2 */}
       <View style={styles.body}>
-        <View style={styles.navyCard}>
+        <NavyCard size="md" style={styles.navyCard}>
           <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={20}>
             {slide.text}
           </Text>
@@ -99,7 +100,7 @@ const ContentSlideView = ({
               <Ionicons name="chevron-forward" size={24} color={Colors.blue} />
             </TouchableOpacity>
           ))}
-        </View>
+        </NavyCard>
 
         <View style={[styles.mascotWrap, { alignItems: isLeft ? 'flex-start' : 'center', marginTop: 10 }]}>
           <View style={[styles.mascotAndBubbleContainer, { flexDirection: 'row' }]}>
@@ -171,7 +172,7 @@ const DetailSlideView = ({
 
     {/* ZONE 2 */}
     <View style={styles.body}>
-      <View style={styles.navyCard}>
+      <NavyCard size="md" style={styles.navyCard}>
         <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={20}>
           {slide.bodyText}
         </Text>
@@ -182,7 +183,7 @@ const DetailSlideView = ({
             </View>
           </TouchableOpacity>
         )}
-      </View>
+      </NavyCard>
     </View>
 
     {/* ZONE 3 */}
@@ -376,17 +377,8 @@ const styles = StyleSheet.create({
   //   flexShrink:1 → shrinks if content is smaller than available space
   //   This prevents the "giant empty card" problem while still using space well
   navyCard: {
-    backgroundColor: Colors.navy,
-    borderRadius: 32,
-    paddingVertical: 24,
-    paddingHorizontal: 20,
     width: '100%',
     flexShrink: 1,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
     justifyContent: 'center',
   },
   navyCardText: {

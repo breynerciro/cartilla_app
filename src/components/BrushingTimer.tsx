@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Modal } 
 import { useAudioPlayer } from 'expo-audio';
 import { timerPreset, AVAILABLE_SONGS, Song } from '../data/timerPresets';
 import { Colors } from '../theme/colors';
+import { NavyCard } from './NavyCard';
 import { Typography } from '../theme/typography';
 import { CircularProgress } from './CircularProgress';
 import { QuadrantIndicator } from './QuadrantIndicator';
@@ -113,13 +114,13 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
         </View>
 
         {/* Tarjeta de Instrucción */}
-        <View style={styles.cardContainer}>
+        <NavyCard size="sm" style={styles.cardContainer}>
           <View style={styles.cardHeader}>
             <QuadrantIndicator activeQuadrant={activeQuadrant} />
             <Text style={styles.instructionTitle}>{timerPreset.quadrantLabels[activeQuadrant]}</Text>
           </View>
           <Text style={styles.instructionText}>{timerPreset.instructions[activeQuadrant]}</Text>
-        </View>
+        </NavyCard>
 
         {/* Pressure warning — conditional opacity */}
         <View style={[styles.pressureContainer, { opacity: (timeRemaining % 15 < 5 && timeRemaining < TOTAL_TIME && isActive) ? 1 : 0 }]}>
@@ -249,17 +250,8 @@ const styles = StyleSheet.create({
   // ── Instruction card ──
   cardContainer: {
     width: '100%',
-    backgroundColor: Colors.navy,
-    borderRadius: 20,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
     marginTop: 20,
     alignItems: 'center',
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
-    elevation: 5,
   },
   cardHeader: {
     flexDirection: 'row',

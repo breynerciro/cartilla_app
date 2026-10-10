@@ -7,6 +7,7 @@ import { Colors } from '../../../src/theme/colors';
 import { Spacing, screenPadding } from '../../../src/theme/spacing';
 import { Typography } from '../../../src/theme/typography';
 import { Screen } from '../../../src/components/Screen';
+import { NavyCard } from '../../../src/components/NavyCard';
 import { ageGroupData, AgeGroup } from '../../../src/data/content';
 import { FooterLogos } from '../../../src/components/FooterLogos';
 import { NextButton } from '../../../src/components/NextButton';
@@ -54,9 +55,9 @@ export default function AgeGroupIntroScreen() {
       </View>
 
       <View style={styles.body}>
-        <View style={styles.card}>
+        <NavyCard size="lg" style={styles.card}>
           <Text style={styles.cardText}>{slide.text}</Text>
-        </View>
+        </NavyCard>
 
         <View style={styles.charRow}>
           <View style={styles.charImageContainer}>
@@ -97,17 +98,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    backgroundColor: Colors.navy,
-    borderRadius: 32,
-    paddingVertical: Spacing.xxxl,
-    paddingHorizontal: Spacing.xxl,
     width: '100%',
     marginBottom: Spacing.xxxl,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
   },
   cardText: {
     fontFamily: Typography.fonts.ubuntu,
