@@ -45,8 +45,14 @@
     "@babel/plugin-transform-private-property-in-object": "^7.29.7",
     "@types/react": "~19.2.10",
     "babel-preset-expo": "~57.0.0",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.5",
     "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "shell-quote": "^1.11.0",
+    "xcode": {
+      "uuid": "^11.1.1"
+    }
   },
   "private": true
 }
