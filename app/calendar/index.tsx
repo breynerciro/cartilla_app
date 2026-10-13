@@ -262,8 +262,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.textSecondary,
   },
   filterText: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 14,
+    ...Typography.scale.label,
     color: Colors.textSecondary,
   },
   filterTextActive: {
@@ -276,13 +275,11 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   listTitle: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 22,
+    ...Typography.scale.title,
     color: Colors.navy,
   },
   countText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 16,
+    ...Typography.scale.body,
     color: Colors.textSecondary,
   },
   listContainer: {
@@ -299,8 +296,7 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
   },
   emptyText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 16,
+    ...Typography.scale.body,
     color: Colors.textSecondary,
     textAlign: 'center',
     marginTop: Spacing.md,
@@ -328,8 +324,8 @@ const styles = StyleSheet.create({
     ...Shadows.lg,
   },
   fabText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 16,
     color: Colors.onPrimary,
     marginLeft: Spacing.sm,
   },

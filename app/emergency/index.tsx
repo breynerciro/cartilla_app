@@ -303,11 +303,10 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   bannerText: {
-    flex: 1,
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 14,
+    flex: 1,
     color: Colors.white,
-    lineHeight: 18,
   },
   listContainer: {
     gap: Spacing.lg,
@@ -340,14 +339,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   contactName: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 17,
     color: Colors.navy,
     marginBottom: Spacing.xs,
   },
   contactSubtitle: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 13,
     color: Colors.textSecondary,
     marginBottom: Spacing.sm,
   },
@@ -358,8 +357,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   phoneText: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 14,
+    ...Typography.scale.label,
   },
   actionsContainer: {
     flexDirection: 'row',
@@ -399,8 +397,8 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   addBtnText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 15,
     color: Colors.navy,
   },
 });

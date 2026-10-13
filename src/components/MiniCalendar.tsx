@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   monthText: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 18,
     color: Colors.navy,
   },
   navButton: {
@@ -153,10 +153,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   dayHeaderText: {
+    ...Typography.scale.label,
     flex: 1,
     textAlign: 'center',
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 14,
     color: Colors.textSecondary,
   },
   grid: {
@@ -179,8 +178,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
   },
   dayText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 16,
+    ...Typography.scale.body,
     color: Colors.navy,
   },
   selectedText: {

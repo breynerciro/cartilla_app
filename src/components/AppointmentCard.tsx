@@ -126,14 +126,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 18,
     color: Colors.navy,
     marginBottom: 4,
   },
   subtitle: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 14,
     color: Colors.textSecondary,
     marginBottom: 4,
   },
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   locationText: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 13,
     color: Colors.textSecondary,
     marginLeft: 4,
   },

@@ -223,8 +223,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   headerTitle: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 24,
+    ...Typography.scale.title,
     color: Colors.navy,
   },
   // Area tactil de 44 pt; el margen negativo deja el glifo donde estaba (alineado con el borde).
@@ -239,8 +238,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 16,
     color: Colors.navy,
     marginBottom: Spacing.sm,
     marginTop: Spacing.lg,
@@ -259,8 +258,7 @@ const styles = StyleSheet.create({
     marginRight: Spacing.md,
   },
   typeText: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 14,
+    ...Typography.scale.label,
     color: Colors.textSecondary,
     marginLeft: Spacing.sm,
   },
@@ -269,8 +267,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.lg,
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 16,
+    // Tamano de body sin lineHeight: en un TextInput de una linea el lineHeight descentra el texto en Android.
+    fontFamily: Typography.scale.body.fontFamily,
+    fontSize: Typography.scale.body.fontSize,
     color: Colors.navy,
   },
   footer: {
