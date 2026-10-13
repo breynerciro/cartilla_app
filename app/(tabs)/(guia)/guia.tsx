@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { useFocusEffect, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Colors } from '../../../src/theme/colors';
 import { Radius } from '../../../src/theme/radius';
 import { Spacing, screenPadding } from '../../../src/theme/spacing';
 import { Screen } from '../../../src/components/Screen';
 import { Button } from '../../../src/components/Button';
 import { FooterLogos } from '../../../src/components/FooterLogos';
 import { Header } from '../../../src/components/Header';
+import { MenuCard } from '../../../src/components/MenuCard';
 
 const AGE_GROUPS = [
   { label: '0 A 3 años', route: '0-3' },
@@ -47,7 +49,13 @@ export default function GuiaScreen() {
     <Screen edges={['top', 'left', 'right']}>
       <Header title="¿QUÉ EDAD TIENE TU NIÑO(A)?" decoration="right" />
 
-      <View style={styles.content}>
+      {/* Con scroll: con fuente grande o en pantallas pequeñas los botones no caben
+          entre el Header y la barra de pestañas. */}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.buttonsContainer}>
           {showIntro && (
             <Button
@@ -66,30 +74,41 @@ export default function GuiaScreen() {
               style={styles.button}
             />
           ))}
-        </View>
-      </View>
 
-      <View style={styles.footer}>
+          {/* El glosario se abre dentro de la pila de la Guía: la barra sigue visible. */}
+          <MenuCard
+            title="Glosario"
+            subtitle="Términos odontológicos y hematológicos"
+            icon="library-outline"
+            color={Colors.blue}
+            onPress={() => router.push('/glossary')}
+          />
+        </View>
+
+        {/* Logos institucionales al final del contenido, no fijos sobre la barra. */}
         <FooterLogos />
-      </View>
+      </ScrollView>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
+  scroll: {
     flex: 1,
-    paddingHorizontal: screenPadding,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  footer: {
+  // flexGrow + space-between: con espacio de sobra los logos quedan al fondo del
+  // contenido; si no cabe, todo hace scroll.
+  content: {
+    flexGrow: 1,
+    paddingHorizontal: screenPadding,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: Spacing.xxl,
   },
   buttonsContainer: {
     width: '100%',
     maxWidth: 350,
-    marginTop: Spacing.massive,
+    marginTop: Spacing.xxl,
     gap: Spacing.xl,
   },
   button: {

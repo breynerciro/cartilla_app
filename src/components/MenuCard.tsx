@@ -15,7 +15,7 @@ interface MenuCardProps {
   onPress: () => void;
 }
 
-// Tarjeta de menú reutilizable (Inicio y Más). Mismo patrón visual que el antiguo
+// Tarjeta de menú reutilizable (acceso al Glosario en la Guía). Mismo patrón visual que el antiguo
 // main-menu: tile de icono 56, título en bold y subtítulo en el color del tile.
 export const MenuCard = ({ title, subtitle, icon, color, onPress }: MenuCardProps) => {
   return (
