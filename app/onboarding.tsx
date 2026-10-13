@@ -54,7 +54,7 @@ export default function OnboardingScreen() {
   return (
     <Screen>
       {/* Header sin titulo: renderiza la decoracion con el mismo patron que las demas pantallas
-          (dentro del flujo y compensando el inset superior), no suelta sobre el SafeAreaView. */}
+          (dentro del flujo y del area segura), no suelta sobre el SafeAreaView. */}
       <Header decoration="left" />
 
       {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
