@@ -8,7 +8,6 @@ import { Spacing, screenPadding } from '../../../src/theme/spacing';
 import { Typography } from '../../../src/theme/typography';
 import { Screen } from '../../../src/components/Screen';
 import { Header } from '../../../src/components/Header';
-import { FooterLogos } from '../../../src/components/FooterLogos';
 import { MiniCalendar } from '../../../src/components/MiniCalendar';
 import { AppointmentCard } from '../../../src/components/AppointmentCard';
 import { AppointmentFormModal } from '../../../src/components/AppointmentFormModal';
@@ -205,8 +204,6 @@ export default function CalendarScreen() {
           </TouchableOpacity>
         </View>
       </View>
-
-      <FooterLogos />
 
       <AppointmentFormModal 
         visible={isModalVisible}

@@ -16,7 +16,6 @@ import { Spacing, screenPadding } from '../../src/theme/spacing';
 import { Typography } from '../../src/theme/typography';
 import { Screen } from '../../src/components/Screen';
 import { Header } from '../../src/components/Header';
-import { FooterLogos } from '../../src/components/FooterLogos';
 import {
   EmergencyContact,
   DEFAULT_EMERGENCY_CONTACTS,
@@ -277,8 +276,6 @@ export default function EmergenciaScreen() {
           <Text style={styles.addBtnText}>Agregar contacto personalizado</Text>
         </TouchableOpacity>
       </ScrollView>
-
-      <FooterLogos />
 
       <EmergencyContactFormModal
         visible={modalVisible}

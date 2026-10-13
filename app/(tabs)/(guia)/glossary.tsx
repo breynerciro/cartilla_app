@@ -6,7 +6,6 @@ import { Radius } from '../../../src/theme/radius';
 import { Spacing, screenPadding } from '../../../src/theme/spacing';
 import { Typography } from '../../../src/theme/typography';
 import { Screen } from '../../../src/components/Screen';
-import { FooterLogos } from '../../../src/components/FooterLogos';
 import { Header } from '../../../src/components/Header';
 import { BackButton } from '../../../src/components/BackButton';
 import { glossaryData } from '../../../src/data/glossary';
@@ -36,7 +35,6 @@ export default function GlossaryScreen() {
 
       <View style={styles.footer}>
         <BackButton onPress={() => router.back()} />
-        <FooterLogos />
       </View>
     </Screen>
   );
@@ -56,6 +54,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
+    paddingBottom: Spacing.sm,
   },
   termContainer: {
     backgroundColor: Colors.offWhite,

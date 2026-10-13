@@ -14,7 +14,6 @@ import {
 import { Screen } from './Screen';
 import { Header } from './Header';
 import { NavyCard } from './NavyCard';
-import { FooterLogos } from './FooterLogos';
 import { NextButton } from './NextButton';
 import { BackButton } from './BackButton';
 import { InteractiveDentalDiagram } from './InteractiveDentalDiagram';
@@ -154,7 +153,6 @@ const ContentSlideView = ({
             <View style={{ width: 82 }} /> 
           )}
         </View>
-        <FooterLogos />
       </View>
     </Screen>
   );
@@ -207,7 +205,6 @@ const DetailSlideView = ({
         <BackButton onPress={onBack} />
         {!hideNext && <NextButton onPress={onNext} isLast={isLast} />}
       </View>
-      <FooterLogos />
     </View>
   </Screen>
 );
@@ -263,7 +260,7 @@ const InfoSlideView = ({
       </View>
 
       {/* ZONE 3 */}
-      <View style={[styles.footer, styles.footerNoLogos]}>
+      <View style={styles.footer}>
         <View style={[styles.footerRow, { justifyContent: 'center' }]}>
           <BackButton onPress={onBack} />
         </View>
@@ -293,7 +290,7 @@ const DiagramSlideView = ({
     </View>
 
     {/* ZONE 3 */}
-    <View style={[styles.footer, styles.footerNoLogos]}>
+    <View style={styles.footer}>
       <View style={[styles.footerRow, { justifyContent: 'space-between' }]}>
         <BackButton onPress={onBack} />
         {!hideNext && <NextButton onPress={onNext} isLast={isLast} />}
@@ -397,13 +394,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // ZONE 3 — footer always at bottom
-  // El espacio inferior de los pies con logos lo da FooterLogos.
+  // ZONE 3 — footer always at bottom, justo sobre la barra de pestañas (sin logos).
   footer: {
     paddingHorizontal: screenPadding,
-  },
-  // Pies sin logos (info y diagrama): mismo aire inferior que el resto de pantallas.
-  footerNoLogos: {
     paddingBottom: Spacing.sm,
   },
   footerRow: {

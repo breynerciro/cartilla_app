@@ -9,7 +9,6 @@ import { Typography } from '../../../../../src/theme/typography';
 import { Screen } from '../../../../../src/components/Screen';
 import { NavyCard } from '../../../../../src/components/NavyCard';
 import { ageGroupData, AgeGroup } from '../../../../../src/data/content';
-import { FooterLogos } from '../../../../../src/components/FooterLogos';
 import { NextButton } from '../../../../../src/components/NextButton';
 import { Header } from '../../../../../src/components/Header';
 
@@ -72,8 +71,6 @@ export default function AgeGroupIntroScreen() {
           <NextButton onPress={handleNext} isLast={isLast} />
         </View>
       </View>
-
-      <FooterLogos />
     </Screen>
   );
 }
@@ -93,9 +90,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     width: 20,
   },
+  // paddingBottom: aire bajo el botón Siguiente, sobre la barra de pestañas (antes lo daban los logos).
   body: {
     flex: 1,
     paddingHorizontal: screenPadding,
+    paddingBottom: Spacing.lg,
     justifyContent: 'center',
     alignItems: 'center',
   },

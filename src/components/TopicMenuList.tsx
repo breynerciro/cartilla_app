@@ -4,7 +4,6 @@ import { Spacing, screenPadding } from '../theme/spacing';
 import { Screen } from './Screen';
 import { Header } from './Header';
 import { TopicCard } from './TopicCard';
-import { FooterLogos } from './FooterLogos';
 
 export interface TopicMenuItem {
   id: string;
@@ -18,7 +17,7 @@ interface TopicMenuListProps {
   onSelect: (id: string) => void;
   // Lado de la imagen de la primera tarjeta; las demas alternan.
   firstImagePosition?: 'left' | 'right';
-  // Accion principal del pie (volver, finalizar...), encima de los logos.
+  // Accion principal del pie (volver, finalizar...).
   action: React.ReactNode;
 }
 
@@ -57,7 +56,6 @@ export const TopicMenuList = ({
 
       <View style={styles.footer}>
         {action}
-        <FooterLogos />
       </View>
     </Screen>
   );
@@ -75,5 +73,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
+    paddingBottom: Spacing.sm,
   },
 });
