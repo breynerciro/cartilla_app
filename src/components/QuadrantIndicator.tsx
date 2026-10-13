@@ -8,7 +8,8 @@ interface QuadrantIndicatorProps {
 
 export const QuadrantIndicator: React.FC<QuadrantIndicatorProps> = ({ activeQuadrant }) => {
   return (
-    <View style={styles.container}>
+    // Decorativo: el cuadrante activo ya lo dice la etiqueta de texto de la tarjeta.
+    <View style={styles.container} accessible={false} importantForAccessibility="no-hide-descendants">
       <View style={styles.row}>
         <View style={[styles.quadrant, styles.topLeft, activeQuadrant === 1 && { backgroundColor: Colors.timer.quadrant2 }]} />
         <View style={[styles.quadrant, styles.topRight, activeQuadrant === 0 && { backgroundColor: Colors.timer.quadrant1 }]} />

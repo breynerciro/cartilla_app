@@ -66,6 +66,8 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
 
   const activeQuadrant = Math.min(3, Math.floor((TOTAL_TIME - timeRemaining) / QUADRANT_TIME));
   const progress = (TOTAL_TIME - timeRemaining) / TOTAL_TIME;
+  // El aviso de presion siempre esta en el arbol (solo cambia su opacidad): se oculta al lector cuando no se ve.
+  const showPressureReminder = timeRemaining % 15 < 5 && timeRemaining < TOTAL_TIME && isActive;
 
   const quadrantColors = [
     Colors.timer.quadrant1,
@@ -78,14 +80,25 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
     <View style={styles.container}>
       {/* Top row: Song selector + Alarm settings — pinned at top */}
       <View style={styles.topRow}>
-        <TouchableOpacity onPress={() => setShowSongSelector(true)} style={styles.songSelectorBtn}>
+        <TouchableOpacity
+          onPress={() => setShowSongSelector(true)}
+          style={styles.songSelectorBtn}
+          accessibilityRole="button"
+          accessibilityLabel={`Melodía: ${selectedSong.title}`}
+          accessibilityHint="Cambiar melodía"
+        >
           <Ionicons name="musical-notes" size={18} color={Colors.textSecondary} />
           <Text style={styles.songTitle} numberOfLines={1}>{selectedSong.title}</Text>
           <Ionicons name="chevron-down" size={16} color={Colors.textSecondary} />
         </TouchableOpacity>
 
         {onOpenAlarmSettings && (
-          <TouchableOpacity onPress={onOpenAlarmSettings} style={styles.alarmBtn}>
+          <TouchableOpacity
+            onPress={onOpenAlarmSettings}
+            style={styles.alarmBtn}
+            accessibilityRole="button"
+            accessibilityLabel={alarmSummary ? `Configurar alarmas: ${alarmSummary}` : 'Configurar alarmas'}
+          >
             <Ionicons name="alarm" size={18} color={Colors.white} />
             {alarmSummary ? (
               <Text style={styles.alarmBtnText} numberOfLines={1}>{alarmSummary}</Text>
@@ -109,6 +122,8 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
           <TouchableOpacity 
             style={styles.playButton} 
             onPress={() => setIsActive(!isActive)}
+            accessibilityRole="button"
+            accessibilityLabel={isActive ? 'Pausar temporizador' : 'Iniciar temporizador'}
           >
             <Ionicons name={isActive ? "pause" : "play"} size={28} color={Colors.white} style={{ marginLeft: isActive ? 0 : 3 }} />
           </TouchableOpacity>
@@ -124,7 +139,12 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
         </NavyCard>
 
         {/* Pressure warning — conditional opacity */}
-        <View style={[styles.pressureContainer, { opacity: (timeRemaining % 15 < 5 && timeRemaining < TOTAL_TIME && isActive) ? 1 : 0 }]}>
+        <View
+          style={[styles.pressureContainer, { opacity: showPressureReminder ? 1 : 0 }]}
+          importantForAccessibility={showPressureReminder ? 'auto' : 'no-hide-descendants'}
+          accessibilityElementsHidden={!showPressureReminder}
+          accessibilityLiveRegion="polite"
+        >
           <Ionicons name="alert-circle" size={18} color={Colors.danger} />
           <Text style={styles.pressureWarning}>{timerPreset.pressureReminder}</Text>
         </View>
@@ -139,7 +159,7 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
       {/* Selector de Canciones */}
       <Modal visible={showSongSelector} animationType="fade" transparent={true} onRequestClose={() => setShowSongSelector(false)}>
         <View style={styles.modalOverlay}>
-          <View style={styles.songModalContainer}>
+          <View style={styles.songModalContainer} accessibilityViewIsModal>
             <Text style={styles.songModalTitle}>Selecciona una melodía</Text>
             {AVAILABLE_SONGS.map(song => (
               <TouchableOpacity 
@@ -152,12 +172,18 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
                     player.play();
                   }
                 }}
+                accessibilityRole="button"
+                accessibilityState={{ selected: selectedSong.id === song.id }}
               >
                 <Ionicons name="musical-note" size={24} color={selectedSong.id === song.id ? Colors.onPrimary : Colors.navy} />
                 <Text style={[styles.songOptionText, selectedSong.id === song.id && styles.songOptionTextSelected]}>{song.title}</Text>
               </TouchableOpacity>
             ))}
-            <TouchableOpacity style={styles.songModalCloseBtn} onPress={() => setShowSongSelector(false)}>
+            <TouchableOpacity
+              style={styles.songModalCloseBtn}
+              onPress={() => setShowSongSelector(false)}
+              accessibilityRole="button"
+            >
               <Text style={styles.songModalCloseText}>Cancelar</Text>
             </TouchableOpacity>
           </View>

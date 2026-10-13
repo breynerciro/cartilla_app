@@ -12,6 +12,15 @@ import { Typography } from '../theme/typography';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
+// Tiempo restante dicho en palabras ("1 minuto y 45 segundos"), para el lector de pantalla.
+const spokenTime = (seconds: number) => {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  const mins = `${m} ${m === 1 ? 'minuto' : 'minutos'}`;
+  const secs = `${s} ${s === 1 ? 'segundo' : 'segundos'}`;
+  return `Tiempo restante: ${m > 0 ? `${mins} y ` : ''}${secs}`;
+};
+
 interface CircularProgressProps {
   progress: number;
   size?: number;
@@ -78,7 +87,13 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
         />
       </Svg>
       <View style={[StyleSheet.absoluteFill, styles.textContainer]}>
-        <Text style={styles.timeText}>{formatTime(timeRemaining)}</Text>
+        <Text
+          style={styles.timeText}
+          accessibilityRole="timer"
+          accessibilityLabel={spokenTime(timeRemaining)}
+        >
+          {formatTime(timeRemaining)}
+        </Text>
       </View>
     </View>
   );

@@ -93,15 +93,17 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.headerContainer}>
-        <Text style={styles.title}>Modelo Dental Anatómico</Text>
+        <Text style={styles.title} accessibilityRole="header">Modelo Dental Anatómico</Text>
         <Text style={styles.subtitle}>Toca un diente en la ilustración para explorarlo.</Text>
       </View>
 
-      <View style={styles.tabRow}>
+      <View style={styles.tabRow} accessibilityRole="tablist">
         <TouchableOpacity
           style={[styles.tab, activeArch === 'upper' && styles.tabActive]}
           onPress={() => { setActiveArch('upper'); setActiveSpot(null); }}
           activeOpacity={0.8}
+          accessibilityRole="tab"
+          accessibilityState={{ selected: activeArch === 'upper' }}
         >
           <Text style={[styles.tabText, activeArch === 'upper' && styles.tabTextActive]}>
             Maxilar Superior
@@ -111,6 +113,8 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
           style={[styles.tab, activeArch === 'lower' && styles.tabActive]}
           onPress={() => { setActiveArch('lower'); setActiveSpot(null); }}
           activeOpacity={0.8}
+          accessibilityRole="tab"
+          accessibilityState={{ selected: activeArch === 'lower' }}
         >
           <Text style={[styles.tabText, activeArch === 'lower' && styles.tabTextActive]}>
             Maxilar Inferior
@@ -190,7 +194,8 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
 
       {/* Tarjeta de información animada */}
       {activeSpot ? (
-        <Animated.View 
+        <Animated.View
+          accessibilityLiveRegion="polite"
           style={[
             styles.infoBox, 
             { borderLeftColor: TOOTH_COLORS[activeSpot.type] },
@@ -216,7 +221,12 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
             </View>
           </View>
           
-          <TouchableOpacity onPress={() => setActiveSpot(null)} style={styles.closeHit}>
+          <TouchableOpacity
+            onPress={() => setActiveSpot(null)}
+            style={styles.closeHit}
+            accessibilityRole="button"
+            accessibilityLabel="Cerrar"
+          >
             <View style={styles.closeBadge}>
               <Text style={styles.closeText}>✕</Text>
             </View>
