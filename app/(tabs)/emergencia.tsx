@@ -27,6 +27,8 @@ import {
 } from '../../src/data/emergencyContacts';
 import { EmergencyContactFormModal } from '../../src/components/EmergencyContactFormModal';
 
+const PRIMARY_CONTACT_ID = 'homi-tatiana';
+
 export default function EmergenciaScreen() {
   const [customContacts, setCustomContacts] = useState<EmergencyContact[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -46,7 +48,15 @@ export default function EmergenciaScreen() {
     return value;
   };
 
-  const allContacts = [...DEFAULT_EMERGENCY_CONTACTS, ...customContacts];
+  // La Línea Hemofilia HOMI es la llamada principal: va arriba como botón destacado,
+  // fuera de la lista animada para que esté disponible desde el primer instante.
+  const primaryContact = DEFAULT_EMERGENCY_CONTACTS.find(
+    (contact) => contact.id === PRIMARY_CONTACT_ID
+  );
+  const allContacts = [
+    ...DEFAULT_EMERGENCY_CONTACTS.filter((contact) => contact.id !== PRIMARY_CONTACT_ID),
+    ...customContacts,
+  ];
 
   useEffect(() => {
     loadCustomContacts();
@@ -132,6 +142,28 @@ export default function EmergenciaScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
+        {primaryContact && (
+          <TouchableOpacity
+            style={styles.primaryCall}
+            activeOpacity={0.85}
+            onPress={() => handleMakeCall(primaryContact.phone, primaryContact.name)}
+            accessibilityRole="button"
+            accessibilityLabel={`Llamar a ${primaryContact.name}${primaryContact.subtitle ? `, ${primaryContact.subtitle}` : ''}`}
+            accessibilityHint={`Marca ${primaryContact.phone}`}
+          >
+            <View style={styles.primaryCallIcon}>
+              <Ionicons name="call" size={28} color={Colors.danger} />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.primaryCallName}>{primaryContact.name}</Text>
+              {primaryContact.subtitle ? (
+                <Text style={styles.primaryCallSubtitle}>{primaryContact.subtitle}</Text>
+              ) : null}
+              <Text style={styles.primaryCallPhone}>{primaryContact.phone}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+
         {/* Banner Informativo */}
         <View style={styles.banner}>
           <Ionicons name="information-circle" size={24} color={Colors.white} />
@@ -267,6 +299,46 @@ const styles = StyleSheet.create({
     paddingHorizontal: screenPadding,
     paddingTop: Spacing.lg,
     paddingBottom: Spacing.lg,
+  },
+  // Llamada principal: rojo sólido, texto blanco (5.08:1) y alto mínimo 56.
+  primaryCall: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    minHeight: 56,
+    backgroundColor: Colors.danger,
+    borderRadius: Radius.lgPlus,
+    padding: Spacing.lg,
+    marginBottom: Spacing.xl,
+    gap: Spacing.lg,
+    shadowColor: Colors.navy,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  primaryCallIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  primaryCallName: {
+    ...Typography.scale.bodyLarge,
+    fontFamily: Typography.fonts.ubuntuBold,
+    color: Colors.onPrimary,
+  },
+  primaryCallSubtitle: {
+    ...Typography.scale.label,
+    fontFamily: Typography.fonts.ubuntu,
+    color: Colors.onPrimary,
+    marginTop: Spacing.xs,
+  },
+  primaryCallPhone: {
+    ...Typography.scale.label,
+    color: Colors.onPrimary,
+    marginTop: Spacing.xs,
   },
   banner: {
     flexDirection: 'row',
