@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Switch,
-  FlatList,
   Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

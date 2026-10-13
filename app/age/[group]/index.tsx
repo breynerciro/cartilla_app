@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity, useWindowDimensions,
+  View, Text, StyleSheet, Image, useWindowDimensions,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Colors } from '../../../src/theme/colors';

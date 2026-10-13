@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Pressable, Animated, View } from 'react-native';
+import { StyleSheet, Pressable, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
 

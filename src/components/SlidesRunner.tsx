@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     borderBottomColor: 'transparent',
     top: '50%',
-    marginTop: -8,
+    marginTop: -8, // mitad del alto del triangulo (2 x borderWidth 8): centra el puntero; no es espaciado
   },
   pointerRightToothFlex: {
     right: -10,

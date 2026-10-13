@@ -47,11 +47,6 @@ const PERMANENT_KEYS = ['ic', 'il', 'ca', 'pm1', 'pm2', 'm1', 'm2', 'm3'];
 // Tope del lado del diagrama: sin el, en tabletas y anchos grandes ocupa todo el ancho.
 const MAX_DIAGRAM_SIZE = 480;
 
-// ─── COORDENADAS Y RUTAS VECTORIALES (Sincronizadas al pixel de 890x682) ───
-// Extraídas matemáticamente de la imagen para asegurar hitbox perfecto.
-const upperArch = upperArchPaths;
-const lowerArch = lowerArchPaths;
-
 export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: string }) => {
   const { width } = useWindowDimensions();
   const [activeArch, setActiveArch] = useState<'upper' | 'lower'>('upper');

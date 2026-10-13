@@ -23,7 +23,7 @@ export default function CalendarScreen() {
   const router = useRouter();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [, setCurrentMonth] = useState(new Date());
   
   const [isModalVisible, setModalVisible] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
