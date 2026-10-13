@@ -22,6 +22,7 @@ import { FooterLogos } from '../../src/components/FooterLogos';
 import {
   EmergencyContact,
   DEFAULT_EMERGENCY_CONTACTS,
+  contactColor,
   getCustomContacts,
   saveCustomContact,
   deleteCustomContact,
@@ -149,6 +150,7 @@ export default function EmergencyScreen() {
           {/* Lista de contactos */}
           <View style={styles.listContainer}>
             {allContacts.map((contact) => {
+              const color = contactColor(contact);
               const anim = animFor(contact.id);
               const translateY = anim.interpolate({
                 inputRange: [0, 1],
@@ -171,13 +173,13 @@ export default function EmergencyScreen() {
                     <View
                       style={[
                         styles.iconContainer,
-                        { backgroundColor: `${contact.color}25` },
+                        { backgroundColor: `${color}25` },
                       ]}
                     >
                       <Ionicons
                         name={contact.icon as any}
                         size={32}
-                        color={contact.color}
+                        color={color}
                       />
                     </View>
 
@@ -192,10 +194,10 @@ export default function EmergencyScreen() {
                         <Ionicons
                           name="call-outline"
                           size={14}
-                          color={contact.color}
+                          color={color}
                         />
                         <Text
-                          style={[styles.phoneText, { color: contact.color }]}
+                          style={[styles.phoneText, { color }]}
                         >
                           {contact.phone}
                         </Text>
@@ -221,7 +223,7 @@ export default function EmergencyScreen() {
                       <View
                         style={[
                           styles.callBtn,
-                          { backgroundColor: contact.color },
+                          { backgroundColor: color },
                         ]}
                       >
                         <Ionicons name="call" size={20} color={Colors.white} />

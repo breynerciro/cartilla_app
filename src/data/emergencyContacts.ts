@@ -21,15 +21,22 @@ export interface EmergencyContact {
   isCustom?: boolean;
 }
 
+// Cada color se usa como texto (telefono) sobre offWhite y como fondo del boton de llamada con
+// icono blanco, asi que todos dan >= 4.7:1 en ambos usos (los colores anteriores daban 1.80 a 3.82).
 export const CONTACT_TYPES: Record<EmergencyContactType, { label: string; icon: string; color: string }> = {
-  hemofilia: { label: 'Hemofilia', icon: 'water-outline', color: '#FC5939' },
-  emergencia: { label: 'Línea de Emergencias', icon: 'warning-outline', color: '#E74C3C' },
-  hematologia: { label: 'Hematología', icon: 'medkit-outline', color: '#3E8CF2' },
-  odontologia: { label: 'Odontología', icon: 'bandage-outline', color: '#4ECDC4' },
-  cruzRoja: { label: 'Cruz Roja', icon: 'medical-outline', color: '#E74C3C' },
-  bomberos: { label: 'Bomberos', icon: 'flame-outline', color: '#E67E22' },
-  otro: { label: 'Otro Contacto', icon: 'call-outline', color: '#798CEB' },
+  hemofilia: { label: 'Hemofilia', icon: 'water-outline', color: Colors.danger },
+  emergencia: { label: 'Línea de Emergencias', icon: 'warning-outline', color: Colors.danger },
+  hematologia: { label: 'Hematología', icon: 'medkit-outline', color: Colors.primary },
+  odontologia: { label: 'Odontología', icon: 'bandage-outline', color: '#227973' },
+  cruzRoja: { label: 'Cruz Roja', icon: 'medical-outline', color: Colors.danger },
+  bomberos: { label: 'Bomberos', icon: 'flame-outline', color: '#A65813' },
+  otro: { label: 'Otro Contacto', icon: 'call-outline', color: Colors.textSecondary },
 };
+
+// Los contactos personalizados guardan su color al crearse, y los de antes del cambio traen los
+// colores claros. Se resuelve por tipo para que tambien esos usen la variante accesible.
+export const contactColor = (contact: EmergencyContact): string =>
+  CONTACT_TYPES[contact.type]?.color ?? contact.color;
 
 export const DEFAULT_EMERGENCY_CONTACTS: EmergencyContact[] = [
   {
@@ -39,7 +46,7 @@ export const DEFAULT_EMERGENCY_CONTACTS: EmergencyContact[] = [
     phone: '+573153910231',
     type: 'hemofilia',
     icon: 'water-outline',
-    color: '#FC5939',
+    color: Colors.danger,
     isCustom: false,
   },
 ];
