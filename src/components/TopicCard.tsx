@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
+    ...Typography.scale.subtitle,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 20,
     color: Colors.navy,
   },
   chevron: {

@@ -157,13 +157,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cardTitle: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 18,
     color: Colors.white,
     marginBottom: Spacing.xs,
   },
   cardSubtitle: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 13,
   },
 });

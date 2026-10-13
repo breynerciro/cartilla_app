@@ -104,11 +104,9 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xxxl,
   },
   cardText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 20,
+    ...Typography.scale.bodyLarge,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: 20 * 1.4,
   },
   charRow: {
     flexDirection: 'row',

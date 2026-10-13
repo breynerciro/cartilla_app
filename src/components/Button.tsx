@@ -97,8 +97,6 @@ const styles = StyleSheet.create({
     ...Shadows.lg,
   },
   text: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: Typography.sizes.title - 2,
-    lineHeight: (Typography.sizes.title - 2) * 1.2,
+    ...Typography.scale.title,
   },
 });

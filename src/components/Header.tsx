@@ -58,10 +58,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: Typography.sizes.heading,
+    ...Typography.scale.heading,
     color: Colors.blue,
-    lineHeight: Typography.sizes.heading * 1.1,
   },
   titleLeft: {
     textAlign: 'left',

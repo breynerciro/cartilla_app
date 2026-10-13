@@ -65,15 +65,13 @@ const styles = StyleSheet.create({
     borderLeftColor: Colors.blue,
   },
   termTitle: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 18,
     color: Colors.navy,
     marginBottom: Spacing.sm,
   },
   termDefinition: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 16,
+    ...Typography.scale.body,
     color: Colors.text.primary,
-    lineHeight: 22,
   },
 });

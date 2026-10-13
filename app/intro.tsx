@@ -37,7 +37,6 @@ export default function IntroScreen() {
             variant="light"
             onPress={() => router.push('/main-menu')}
             style={styles.button}
-            textStyle={styles.buttonText}
           />
           <FooterLogos color="white" />
         </View>
@@ -64,21 +63,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 36,
+    ...Typography.scale.display,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: 43,
     letterSpacing: 2,
     paddingHorizontal: screenPadding,
   },
   subtitle: {
+    ...Typography.scale.title,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 24,
     color: Colors.white,
     marginTop: Spacing.lg,
     textAlign: 'center',
-    lineHeight: 28,
   },
   spacerMiddle: {
     flex: 3,
@@ -91,10 +87,5 @@ const styles = StyleSheet.create({
   button: {
     width: 222,
     marginBottom: Spacing.huge,
-  },
-  // Tamano fijo de la intro; B3 lo migra a la escala tipografica.
-  buttonText: {
-    fontSize: 24,
-    lineHeight: 29,
   },
 });

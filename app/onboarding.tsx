@@ -96,11 +96,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cardText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 20,
+    ...Typography.scale.bodyLarge,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: 20 * 1.4,
   },
   footer: {
     paddingHorizontal: screenPadding,
