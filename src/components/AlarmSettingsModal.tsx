@@ -243,7 +243,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                   <Ionicons
                     name="notifications"
                     size={22}
-                    color={settings.enabled ? Colors.timer.success : '#94A3B8'}
+                    color={settings.enabled ? Colors.success : '#94A3B8'}
                   />
                   <Text style={styles.toggleLabel}>Recordatorios activos</Text>
                 </View>
@@ -251,7 +251,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                   value={settings.enabled}
                   onValueChange={handleToggleEnabled}
                   trackColor={{ false: '#E2E8F0', true: 'rgba(107, 203, 119, 0.4)' }}
-                  thumbColor={settings.enabled ? Colors.timer.success : '#94A3B8'}
+                  thumbColor={settings.enabled ? Colors.success : '#94A3B8'}
                 />
               </View>
             </View>
@@ -673,9 +673,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.timer.success,
+    backgroundColor: Colors.success,
     gap: Spacing.sm,
-    shadowColor: Colors.timer.success,
+    shadowColor: Colors.success,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -684,6 +684,6 @@ const styles = StyleSheet.create({
   saveBtnText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 15,
-    color: Colors.white,
+    color: Colors.onPrimary,
   },
 });

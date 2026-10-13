@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   todayCell: {
     borderWidth: 1.5,
-    borderColor: Colors.calendar.today,
+    borderColor: Colors.primary,
   },
   dayText: {
     fontFamily: Typography.fonts.ubuntu,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
   },
   todayText: {
-    color: Colors.calendar.today,
+    color: Colors.primary,
     fontFamily: Typography.fonts.ubuntuBold,
   },
   dot: {

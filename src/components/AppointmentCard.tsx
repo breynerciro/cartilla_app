@@ -64,11 +64,11 @@ export const AppointmentCard = ({ appointment, onPress, onToggleComplete, onDele
           <Ionicons 
             name={appointment.completed ? "checkmark-circle" : "ellipse-outline"} 
             size={28} 
-            color={appointment.completed ? Colors.timer.success : Colors.lavender} 
+            color={appointment.completed ? Colors.success : Colors.lavender} 
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={confirmDelete} style={styles.actionBtn}>
-          <Ionicons name="trash-outline" size={24} color={Colors.timer.warning} />
+          <Ionicons name="trash-outline" size={24} color={Colors.danger} />
         </TouchableOpacity>
       </View>
     </Animated.View>

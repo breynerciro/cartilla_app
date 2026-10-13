@@ -51,14 +51,14 @@ export const BleedingCheckModal: React.FC<BleedingCheckModalProps> = ({
           
           <View style={styles.buttonRow}>
             <TouchableOpacity 
-              style={[styles.actionButton, { backgroundColor: Colors.timer.warning }]} 
+              style={[styles.actionButton, { backgroundColor: Colors.danger }]} 
               onPress={() => setShowInstructions(true)}
             >
               <Text style={styles.buttonText}>Sí</Text>
             </TouchableOpacity>
             
             <TouchableOpacity 
-              style={[styles.actionButton, { backgroundColor: Colors.timer.success }]} 
+              style={[styles.actionButton, { backgroundColor: Colors.success }]} 
               onPress={handleClose}
             >
               <Text style={styles.buttonText}>No</Text>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   titleAlert: {
     fontSize: 22,
     fontFamily: Typography.fonts.ubuntuBold,
-    color: Colors.timer.warning,
+    color: Colors.danger,
     marginBottom: Spacing.lg,
     textAlign: 'center',
   },
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.xl,
   },
   buttonText: {
-    color: Colors.white,
+    color: Colors.onPrimary,
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 18,
   },

@@ -125,7 +125,7 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
 
         {/* Pressure warning — conditional opacity */}
         <View style={[styles.pressureContainer, { opacity: (timeRemaining % 15 < 5 && timeRemaining < TOTAL_TIME && isActive) ? 1 : 0 }]}>
-          <Ionicons name="alert-circle" size={18} color={Colors.timer.warning} />
+          <Ionicons name="alert-circle" size={18} color={Colors.danger} />
           <Text style={styles.pressureWarning}>{timerPreset.pressureReminder}</Text>
         </View>
       </View>
@@ -153,7 +153,7 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
                   }
                 }}
               >
-                <Ionicons name="musical-note" size={24} color={selectedSong.id === song.id ? Colors.white : Colors.navy} />
+                <Ionicons name="musical-note" size={24} color={selectedSong.id === song.id ? Colors.onPrimary : Colors.navy} />
                 <Text style={[styles.songOptionText, selectedSong.id === song.id && styles.songOptionTextSelected]}>{song.title}</Text>
               </TouchableOpacity>
             ))}
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   pressureWarning: {
     fontSize: 13,
     fontFamily: Typography.fonts.ubuntuBold,
-    color: Colors.timer.warning,
+    color: Colors.danger,
   },
 
   // ── Song selector modal ──
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.offWhite,
   },
   songOptionSelected: {
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.primary,
   },
   songOptionText: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     marginLeft: Spacing.md,
   },
   songOptionTextSelected: {
-    color: Colors.white,
+    color: Colors.onPrimary,
   },
   songModalCloseBtn: {
     marginTop: Spacing.md,

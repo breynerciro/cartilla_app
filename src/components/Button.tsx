@@ -35,12 +35,12 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
 
   const getBackgroundColor = () => {
     switch (variant) {
-      case 'primary':   return Colors.blue;
-      case 'secondary': return Colors.lavender;
+      case 'primary':   return Colors.primary;
+      case 'secondary': return Colors.textSecondary;
       case 'dark':      return Colors.navy;
       case 'outline':   return 'transparent';
       case 'light':     return Colors.white;
-      default:          return Colors.blue;
+      default:          return Colors.primary;
     }
   };
 
@@ -48,7 +48,8 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
     switch (variant) {
       case 'outline': return Colors.navy;
       case 'light':   return Colors.navy;
-      default:        return Colors.white;
+      case 'dark':    return Colors.white;
+      default:        return Colors.onPrimary;
     }
   };
 

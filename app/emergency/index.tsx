@@ -214,7 +214,7 @@ export default function EmergencyScreen() {
                           <Ionicons
                             name="trash-outline"
                             size={20}
-                            color="#E74C3C"
+                            color={Colors.danger}
                           />
                         </TouchableOpacity>
                       )}

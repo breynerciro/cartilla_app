@@ -192,7 +192,7 @@ export default function CalendarScreen() {
         <View style={styles.floatingRow}>
           <BackButton onPress={() => router.back()} />
           <TouchableOpacity style={styles.fab} onPress={openNewAppointment} activeOpacity={0.8}>
-            <Ionicons name="add" size={32} color={Colors.white} />
+            <Ionicons name="add" size={32} color={Colors.onPrimary} />
             <Text style={styles.fabText}>Nueva Cita</Text>
           </TouchableOpacity>
         </View>
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   fab: {
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: Spacing.md,
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
   fabText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 16,
-    color: Colors.white,
+    color: Colors.onPrimary,
     marginLeft: Spacing.sm,
   },
 });
