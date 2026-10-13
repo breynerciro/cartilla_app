@@ -28,12 +28,16 @@ interface AlarmSettingsModalProps {
   onClose: () => void;
 }
 
-// Pre-compute common time slots grouped by period
+// Pre-compute common time slots grouped by period.
+// `color` es el relleno (el slot seleccionado lleva texto navy encima: 10.5, 7.8 y 5.9:1);
+// `ink` es la variante oscura del mismo tono para texto e iconos sobre #F0F2FF / offWhite
+// (todas >= 4.6:1), porque el color claro daba 1.50, 2.03 y 2.68:1.
 const TIME_PERIODS = [
   {
     label: 'Mañana',
     icon: 'sunny' as const,
     color: '#FBBF24',
+    ink: '#8E6703',
     slots: [
       { hour: 5, minute: 0 }, { hour: 5, minute: 30 },
       { hour: 6, minute: 0 }, { hour: 6, minute: 30 },
@@ -48,6 +52,7 @@ const TIME_PERIODS = [
     label: 'Tarde',
     icon: 'partly-sunny' as const,
     color: '#FB923C',
+    ink: '#B15204',
     slots: [
       { hour: 12, minute: 0 }, { hour: 12, minute: 30 },
       { hour: 13, minute: 0 }, { hour: 13, minute: 30 },
@@ -61,6 +66,7 @@ const TIME_PERIODS = [
     label: 'Noche',
     icon: 'moon' as const,
     color: '#818CF8',
+    ink: '#4959F5',
     slots: [
       { hour: 18, minute: 0 }, { hour: 18, minute: 30 },
       { hour: 19, minute: 0 }, { hour: 19, minute: 30 },
@@ -88,6 +94,12 @@ function getTimeColor(hour: number): string {
   if (hour >= 5 && hour < 12) return '#FBBF24';
   if (hour >= 12 && hour < 18) return '#FB923C';
   return '#818CF8';
+}
+
+function getTimeInk(hour: number): string {
+  if (hour >= 5 && hour < 12) return '#8E6703';
+  if (hour >= 12 && hour < 18) return '#B15204';
+  return '#4959F5';
 }
 
 export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible, onClose }) => {
@@ -174,8 +186,8 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
           <View key={period.label} style={styles.periodSection}>
             {/* Period header */}
             <View style={styles.periodHeader}>
-              <Ionicons name={period.icon} size={16} color={period.color} />
-              <Text style={[styles.periodLabel, { color: period.color }]}>{period.label}</Text>
+              <Ionicons name={period.icon} size={16} color={period.ink} />
+              <Text style={[styles.periodLabel, { color: period.ink }]}>{period.label}</Text>
             </View>
             {/* Time slots in a wrap layout */}
             <View style={styles.slotsWrap}>
@@ -186,7 +198,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                     key={`${slot.hour}-${slot.minute}`}
                     style={[
                       styles.timeSlot,
-                      isSelected && { backgroundColor: period.color },
+                      isSelected && { backgroundColor: period.color, borderColor: Colors.navy },
                     ]}
                     onPress={() => handleTimeSelect(alarmIndex, slot.hour, slot.minute)}
                     activeOpacity={0.6}
@@ -243,7 +255,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                   <Ionicons
                     name="notifications"
                     size={22}
-                    color={settings.enabled ? Colors.success : '#94A3B8'}
+                    color={settings.enabled ? Colors.success : Colors.textSecondary}
                   />
                   <Text style={styles.toggleLabel}>Recordatorios activos</Text>
                 </View>
@@ -251,7 +263,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                   value={settings.enabled}
                   onValueChange={handleToggleEnabled}
                   trackColor={{ false: '#E2E8F0', true: 'rgba(107, 203, 119, 0.4)' }}
-                  thumbColor={settings.enabled ? Colors.success : '#94A3B8'}
+                  thumbColor={settings.enabled ? Colors.success : Colors.textSecondary}
                 />
               </View>
             </View>
@@ -339,7 +351,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                           <Ionicons
                             name={getTimeIcon(time.hour)}
                             size={24}
-                            color={getTimeColor(time.hour)}
+                            color={getTimeInk(time.hour)}
                           />
                         </View>
                         <View style={styles.alarmInfo}>
@@ -351,7 +363,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                         <Ionicons
                           name={editingTimeIndex === index ? 'chevron-up' : 'chevron-down'}
                           size={20}
-                          color={Colors.lavender}
+                          color={Colors.textSecondary}
                         />
                       </TouchableOpacity>
 
@@ -479,7 +491,7 @@ const styles = StyleSheet.create({
   sectionHint: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 12,
-    color: '#94A3B8',
+    color: Colors.textSecondary,
     marginBottom: Spacing.md,
   },
 
@@ -540,7 +552,7 @@ const styles = StyleSheet.create({
   frequencySubtext: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 11,
-    color: '#94A3B8',
+    color: Colors.textSecondary,
     textAlign: 'center',
   },
   frequencySubtextSelected: {
@@ -586,7 +598,7 @@ const styles = StyleSheet.create({
   alarmTime: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 20,
-    color: Colors.blue,
+    color: Colors.primary,
     letterSpacing: 0.5,
   },
 
@@ -640,7 +652,7 @@ const styles = StyleSheet.create({
   },
   timeSlotTextSelected: {
     fontFamily: Typography.fonts.ubuntuBold,
-    color: Colors.white,
+    color: Colors.navy,
   },
 
   // Footer
