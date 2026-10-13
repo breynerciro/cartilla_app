@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lgPlus,
     backgroundColor: Colors.white,
     borderWidth: 1,
-    borderColor: 'rgba(121, 140, 235, 0.3)',
+    borderColor: Colors.lavender,
   },
   filterChipActive: {
     backgroundColor: Colors.textSecondary,

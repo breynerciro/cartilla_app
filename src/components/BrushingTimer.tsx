@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     gap: Spacing.sm,
     borderWidth: 1,
-    borderColor: 'rgba(121, 140, 235, 0.3)',
+    borderColor: Colors.lavender,
   },
   songTitle: {
     flex: 1,

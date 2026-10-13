@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
   },
   dot: {
     width: 8, height: 8, borderRadius: 4,
-    backgroundColor: '#D0D5E8',
+    backgroundColor: Colors.lavender,
   },
   dotActive: {
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.primary,
     width: 20,
   },
   body: {
