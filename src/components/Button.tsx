@@ -69,6 +69,7 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary', 
       <Animated.View
         style={[
           styles.button,
+          variant !== 'outline' && styles.elevated,
           {
             backgroundColor: getBackgroundColor(),
             borderColor: variant === 'outline' ? Colors.navy : 'rgba(255,255,255,0.15)',
@@ -97,6 +98,10 @@ const styles = StyleSheet.create({
     borderRadius: Radius.xxl,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  // El outline no lleva sombra: sobre un fondo transparente Android dibuja la elevacion como un
+  // rectangulo gris detras del boton.
+  elevated: {
     ...Shadows.lg,
   },
   text: {
