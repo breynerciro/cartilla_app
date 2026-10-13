@@ -32,6 +32,8 @@ export const NextButton: React.FC<NextButtonProps> = ({ onPress, isLast = false 
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      accessibilityRole="button"
+      accessibilityLabel={isLast ? 'Finalizar' : 'Siguiente'}
     >
       <Animated.View style={[
         styles.container,

@@ -12,9 +12,12 @@ interface ButtonProps {
   style?: ViewStyle | ViewStyle[];
   textStyle?: TextStyle | TextStyle[];
   variant?: 'primary' | 'secondary' | 'dark' | 'outline' | 'light';
+  disabled?: boolean;
+  // Solo si el nombre accesible debe diferir del texto visible.
+  accessibilityLabel?: string;
 }
 
-export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }: ButtonProps) => {
+export const Button = ({ title, onPress, style, textStyle, variant = 'primary', disabled = false, accessibilityLabel }: ButtonProps) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
@@ -58,6 +61,10 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      disabled={disabled}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? title}
+      accessibilityState={{ disabled }}
     >
       <Animated.View
         style={[
@@ -67,6 +74,7 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
             borderColor: variant === 'outline' ? Colors.navy : 'rgba(255,255,255,0.15)',
             borderWidth: variant === 'outline' ? 2 : 1.5,
             transform: [{ scale: scaleAnim }],
+            opacity: disabled ? 0.5 : 1,
           },
           style,
         ]}

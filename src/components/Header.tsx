@@ -38,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
           ]}
           adjustsFontSizeToFit 
           numberOfLines={titleLines}
+          accessibilityRole="header"
         >
           {title}
         </Text>

@@ -100,6 +100,8 @@ export default function MainMenuScreen() {
               <TouchableOpacity 
                 activeOpacity={0.8}
                 onPress={() => handleOptionPress(option)}
+                accessibilityRole="button"
+                accessibilityLabel={`${option.title}. ${option.subtitle}`}
               >
                 <NavyCard size="sm" style={styles.card}>
                   <View style={[styles.iconContainer, { backgroundColor: `${option.color}33` }]}>

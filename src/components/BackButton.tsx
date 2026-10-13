@@ -12,7 +12,7 @@ interface BackButtonProps {
   label?: string;
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({ onPress }) => {
+export const BackButton: React.FC<BackButtonProps> = ({ onPress, label = 'Volver' }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
@@ -36,6 +36,8 @@ export const BackButton: React.FC<BackButtonProps> = ({ onPress }) => {
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      accessibilityRole="button"
+      accessibilityLabel={label}
     >
       <Animated.View style={[
         styles.container,

@@ -30,7 +30,13 @@ export const TopicCard = ({ title, image, icon = 'document-text-outline', onPres
   );
 
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={onPress}
+      activeOpacity={0.8}
+      accessibilityRole="button"
+      accessibilityLabel={title}
+    >
       {imagePosition === 'left' && ImageComponent}
       <View style={[styles.textContainer, imagePosition === 'right' && { alignItems: 'flex-end' }]}>
         <Text style={[styles.title, imagePosition === 'right' && { textAlign: 'right' }]}>{title}</Text>
