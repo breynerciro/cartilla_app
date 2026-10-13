@@ -234,9 +234,9 @@ const InfoSlideView = ({
         <View style={[styles.infoModal, { width: modalW }]}>
           {slide.showExclamation && (
             <View style={styles.alertHeader}>
-              <Ionicons name="warning" size={20} color="#FC5939" />
+              <Ionicons name="warning" size={20} color={Colors.danger} />
               <Text style={styles.alertHeaderText}>¡IMPORTANTE!</Text>
-              <Ionicons name="warning" size={20} color="#FC5939" />
+              <Ionicons name="warning" size={20} color={Colors.danger} />
             </View>
           )}
           <View style={[styles.infoPhotoContainer, { width: calculatedWidth, height: calculatedHeight }]}>
@@ -526,11 +526,11 @@ const styles = StyleSheet.create({
 
   // Info/Modal slide
   infoModal: {
-    backgroundColor: Colors.lavender,
+    backgroundColor: Colors.textSecondary,
     borderRadius: 32,
     padding: Spacing.xxl,
     alignItems: 'center',
-    shadowColor: Colors.lavender,
+    shadowColor: Colors.textSecondary,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 12,
@@ -541,7 +541,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: Spacing.sm,
-    backgroundColor: 'rgba(255,255,255,0.4)',
+    backgroundColor: Colors.white,
     paddingVertical: Spacing.sm,
     paddingHorizontal: Spacing.lg,
     borderRadius: 20,
@@ -551,7 +551,7 @@ const styles = StyleSheet.create({
   alertHeaderText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 17,
-    color: '#FC5939',
+    color: Colors.danger,
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
