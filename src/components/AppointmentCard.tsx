@@ -45,7 +45,7 @@ export const AppointmentCard = ({ appointment, onPress, onToggleComplete, onDele
     <Animated.View style={[styles.container, { opacity: opacityAnim, borderLeftColor: typeConfig.color }]}>
       <TouchableOpacity style={styles.content} onPress={onPress} activeOpacity={0.7}>
         <View style={[styles.iconContainer, { backgroundColor: `${typeConfig.color}20` }]}>
-          <Ionicons name={typeConfig.icon} size={28} color={typeConfig.color} />
+          <Ionicons name={typeConfig.icon} size={28} color={Colors.navy} />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title} numberOfLines={1}>{appointment.title}</Text>

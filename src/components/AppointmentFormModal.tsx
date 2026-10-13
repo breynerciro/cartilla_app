@@ -144,8 +144,8 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
                     style={[styles.typeChip, isSelected && { backgroundColor: config.color, borderColor: config.color }]}
                     onPress={() => setType(key as AppointmentType)}
                   >
-                    <Ionicons name={config.icon} size={20} color={isSelected ? Colors.white : config.color} />
-                    <Text style={[styles.typeText, isSelected && { color: Colors.white }]}>{config.label}</Text>
+                    <Ionicons name={config.icon} size={20} color={isSelected ? Colors.navy : Colors.textSecondary} />
+                    <Text style={[styles.typeText, isSelected && { color: Colors.navy }]}>{config.label}</Text>
                   </TouchableOpacity>
                 );
               })}
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   typeText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     marginLeft: Spacing.sm,
   },
   input: {

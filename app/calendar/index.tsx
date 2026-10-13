@@ -244,8 +244,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(121, 140, 235, 0.3)',
   },
   filterChipActive: {
-    backgroundColor: Colors.lavender,
-    borderColor: Colors.lavender,
+    backgroundColor: Colors.textSecondary,
+    borderColor: Colors.textSecondary,
   },
   filterText: {
     fontFamily: Typography.fonts.ubuntuBold,

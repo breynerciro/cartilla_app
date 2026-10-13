@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   typeText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     marginLeft: Spacing.sm,
   },
   input: {

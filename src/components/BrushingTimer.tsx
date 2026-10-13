@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   alarmBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.lavender,
+    backgroundColor: Colors.textSecondary,
     marginTop: Spacing.xl,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
