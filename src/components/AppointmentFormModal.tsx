@@ -255,8 +255,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: Colors.navy,
   },
+  // Area tactil de 44 pt; el margen negativo deja el glifo donde estaba (alineado con el borde).
   closeBtn: {
-    padding: Spacing.xs,
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: -Spacing.xs,
   },
   content: {
     flex: 1,

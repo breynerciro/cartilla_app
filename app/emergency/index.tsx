@@ -362,7 +362,10 @@ const styles = StyleSheet.create({
     marginLeft: Spacing.sm,
   },
   deleteBtn: {
-    padding: Spacing.sm,
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   callBtn: {
     width: 44,
