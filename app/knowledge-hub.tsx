@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Colors } from '../src/theme/colors';
+import { Radius } from '../src/theme/radius';
+import { Spacing, screenPadding } from '../src/theme/spacing';
+import { Screen } from '../src/components/Screen';
 import { Button } from '../src/components/Button';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { Header } from '../src/components/Header';
@@ -26,10 +27,10 @@ export default function KnowledgeHubScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header 
-        title="TODO LO QUE DEBES SABER" 
-        decoration="right" 
+    <Screen>
+      <Header
+        title="TODO LO QUE DEBES SABER"
+        decoration="right"
       />
 
       <View style={styles.content}>
@@ -53,33 +54,27 @@ export default function KnowledgeHubScreen() {
         <BackButton onPress={() => router.back()} />
         <FooterLogos />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    justifyContent: 'space-between',
-  },
   content: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: screenPadding,
     justifyContent: 'center',
     alignItems: 'center',
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 8,
   },
   buttonsContainer: {
     width: '100%',
     maxWidth: 350,
-    gap: 20,
+    gap: Spacing.xl,
   },
   button: {
-    paddingVertical: 20,
-    borderRadius: 20,
+    paddingVertical: Spacing.xl,
+    borderRadius: Radius.lgPlus,
   },
 });

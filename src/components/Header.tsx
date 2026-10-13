@@ -2,7 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CornerDecoration } from './CornerDecoration';
 import { Colors } from '../theme/colors';
+import { Spacing, screenPadding } from '../theme/spacing';
 import { Typography } from '../theme/typography';
+
+// Ancho que ocupa CornerDecoration (90) más 2 pt de aire, en grilla de 4.
+const DECORATION_CLEARANCE = 92;
 
 interface HeaderProps {
   title?: string;
@@ -47,9 +51,9 @@ const styles = StyleSheet.create({
     position: 'relative',
     minHeight: 80,
     justifyContent: 'flex-end',
-    paddingBottom: 4,
-    marginTop: 10,
-    marginBottom: 10,
+    paddingBottom: Spacing.xs,
+    marginTop: Spacing.sm,
+    marginBottom: Spacing.md,
   },
 
   title: {
@@ -60,12 +64,12 @@ const styles = StyleSheet.create({
   },
   titleLeft: {
     textAlign: 'left',
-    paddingLeft: 20,
-    paddingRight: 90, // Evita pisar la decoracion derecha
+    paddingLeft: screenPadding, // alinea con el margen lateral del contenido
+    paddingRight: DECORATION_CLEARANCE, // Evita pisar la decoracion derecha
   },
   titleRight: {
     textAlign: 'right',
-    paddingRight: 20,
-    paddingLeft: 90, // Evita pisar la decoracion izquierda
+    paddingRight: screenPadding,
+    paddingLeft: DECORATION_CLEARANCE, // Evita pisar la decoracion izquierda
   },
 });

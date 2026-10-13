@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Switch,
-  FlatList,
   Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '../theme/colors';
 import { Typography } from '../theme/typography';
 import {
@@ -22,6 +22,7 @@ import {
 } from '../services/alarmSettings';
 import { scheduleDailyBrushingReminders } from '../services/notifications';
 
+import { Spacing } from '../theme/spacing';
 interface AlarmSettingsModalProps {
   visible: boolean;
   onClose: () => void;
@@ -93,6 +94,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
   const [settings, setSettings] = useState<AlarmSettings>(DEFAULT_ALARM_SETTINGS);
   const [editingTimeIndex, setEditingTimeIndex] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (visible) {
@@ -284,14 +286,14 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                               name="partly-sunny"
                               size={16}
                               color={settings.frequency === freq ? Colors.white : Colors.navy}
-                              style={{ marginLeft: 3 }}
+                              style={{ marginLeft: Spacing.xs }}
                             />
                           )}
                           <Ionicons
                             name="moon"
                             size={freq === 2 ? 16 : 14}
                             color={settings.frequency === freq ? Colors.white : Colors.navy}
-                            style={{ marginLeft: 3 }}
+                            style={{ marginLeft: Spacing.xs }}
                           />
                         </View>
                         <Text style={[
@@ -360,13 +362,11 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                 </View>
               </>
             )}
-
-            {/* Extra bottom padding so content isn't hidden behind footer */}
-            <View style={{ height: 16 }} />
           </ScrollView>
 
           {/* ── Footer Actions ── */}
-          <View style={styles.footer}>
+          {/* El footer es lo ultimo de la hoja: suma el inset inferior para no quedar bajo la barra de gestos. */}
+          <View style={[styles.footer, { paddingBottom: Spacing.md + insets.bottom }]}>
             <TouchableOpacity style={styles.cancelBtn} onPress={onClose} activeOpacity={0.7}>
               <Text style={styles.cancelBtnText}>Cancelar</Text>
             </TouchableOpacity>
@@ -394,7 +394,7 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 14, 85, 0.55)',
+    backgroundColor: Colors.scrim,
     justifyContent: 'flex-end',
   },
   overlayDismiss: {
@@ -418,8 +418,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: '#D1D5DB',
     alignSelf: 'center',
-    marginTop: 10,
-    marginBottom: 4,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.xs,
   },
 
   // Header
@@ -427,12 +427,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.navy,
-    marginHorizontal: 16,
+    marginHorizontal: Spacing.lg,
     borderRadius: 20,
-    paddingVertical: 16,
-    paddingHorizontal: 18,
-    marginBottom: 4,
-    gap: 14,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.xl,
+    marginBottom: Spacing.xs,
+    gap: Spacing.lg,
   },
   headerIcon: {
     width: 48,
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 20,
     color: Colors.white,
-    marginBottom: 2,
+    marginBottom: Spacing.xs,
   },
   subtitle: {
     fontFamily: Typography.fonts.ubuntu,
@@ -463,24 +463,24 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   body: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 8,
+    paddingHorizontal: Spacing.xl,
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.lg, // aire sobre el footer (antes un spacer de 16 mas 8)
   },
   section: {
-    marginBottom: 20,
+    marginBottom: Spacing.xl,
   },
   sectionTitle: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 15,
     color: Colors.navy,
-    marginBottom: 3,
+    marginBottom: Spacing.xs,
   },
   sectionHint: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 12,
     color: '#94A3B8',
-    marginBottom: 12,
+    marginBottom: Spacing.md,
   },
 
   // Toggle
@@ -490,13 +490,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.lg,
   },
   toggleInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: Spacing.md,
   },
   toggleLabel: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -507,14 +507,14 @@ const styles = StyleSheet.create({
   // Frequency
   frequencyRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: Spacing.md,
   },
   frequencyOption: {
     flex: 1,
     backgroundColor: Colors.offWhite,
     borderRadius: 18,
-    paddingVertical: 14,
-    paddingHorizontal: 10,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.md,
     alignItems: 'center',
     borderWidth: 2,
     borderColor: 'transparent',
@@ -526,13 +526,13 @@ const styles = StyleSheet.create({
   frequencyIconRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 6,
+    marginBottom: Spacing.sm,
   },
   frequencyText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 17,
     color: Colors.navy,
-    marginBottom: 2,
+    marginBottom: Spacing.xs,
   },
   frequencyTextSelected: {
     color: Colors.white,
@@ -553,9 +553,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    marginBottom: 8,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.lg,
+    marginBottom: Spacing.sm,
     borderWidth: 2,
     borderColor: 'transparent',
   },
@@ -572,7 +572,7 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 14,
+    marginRight: Spacing.lg,
   },
   alarmInfo: {
     flex: 1,
@@ -581,7 +581,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 13,
     color: Colors.navy,
-    marginBottom: 2,
+    marginBottom: Spacing.xs,
   },
   alarmTime: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -595,22 +595,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F2FF',
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
-    paddingHorizontal: 14,
-    paddingTop: 12,
-    paddingBottom: 14,
-    marginBottom: 10,
+    paddingHorizontal: Spacing.lg,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.lg,
+    marginBottom: Spacing.md,
     borderWidth: 1,
     borderTopWidth: 0,
     borderColor: 'rgba(121, 140, 235, 0.2)',
   },
   periodSection: {
-    marginBottom: 10,
+    marginBottom: Spacing.md,
   },
   periodHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    marginBottom: 8,
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm,
   },
   periodLabel: {
     fontFamily: Typography.fonts.ubuntuBold,
@@ -621,11 +621,11 @@ const styles = StyleSheet.create({
   slotsWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 6,
+    gap: Spacing.sm,
   },
   timeSlot: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.md,
     borderRadius: 10,
     backgroundColor: Colors.white,
     borderWidth: 1,
@@ -646,16 +646,16 @@ const styles = StyleSheet.create({
   // Footer
   footer: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    gap: 12,
+    paddingHorizontal: Spacing.xl,
+    paddingTop: Spacing.md,
+    gap: Spacing.md,
     borderTopWidth: 1,
     borderTopColor: 'rgba(0, 14, 85, 0.06)',
     backgroundColor: Colors.white,
   },
   cancelBtn: {
     flex: 1,
-    paddingVertical: 14,
+    paddingVertical: Spacing.lg,
     borderRadius: 16,
     alignItems: 'center',
     borderWidth: 2,
@@ -669,12 +669,12 @@ const styles = StyleSheet.create({
   saveBtn: {
     flex: 1.5,
     flexDirection: 'row',
-    paddingVertical: 14,
+    paddingVertical: Spacing.lg,
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.timer.success,
-    gap: 8,
+    gap: Spacing.sm,
     shadowColor: Colors.timer.success,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,

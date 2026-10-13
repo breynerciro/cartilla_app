@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Colors } from '../src/theme/colors';
+import { Radius } from '../src/theme/radius';
+import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
+import { Screen } from '../src/components/Screen';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { Header } from '../src/components/Header';
 import { BackButton } from '../src/components/BackButton';
@@ -13,13 +15,13 @@ export default function GlossaryScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header 
-        title="GLOSARIO" 
-        decoration="right" 
+    <Screen>
+      <Header
+        title="GLOSARIO"
+        decoration="right"
       />
 
-      <ScrollView 
+      <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={true}
@@ -36,33 +38,29 @@ export default function GlossaryScreen() {
         <BackButton onPress={() => router.back()} />
         <FooterLogos />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    justifyContent: 'space-between',
-  },
   scrollView: {
     flex: 1,
   },
+  // El margen lateral va en el contenido (no en la pantalla) para que el
+  // ScrollView llegue al borde y no recorte la sombra de los costados.
   content: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    paddingBottom: 40,
+    paddingHorizontal: screenPadding,
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.lg,
+    gap: Spacing.md,
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 8,
   },
   termContainer: {
     backgroundColor: Colors.offWhite,
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 12,
+    padding: Spacing.lg,
+    borderRadius: Radius.md,
     borderLeftWidth: 4,
     borderLeftColor: Colors.blue,
   },
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 18,
     color: Colors.navy,
-    marginBottom: 6,
+    marginBottom: Spacing.sm,
   },
   termDefinition: {
     fontFamily: Typography.fonts.ubuntu,

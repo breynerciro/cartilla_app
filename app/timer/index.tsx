@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors } from '../../src/theme/colors';
+import { screenPadding, Spacing } from '../../src/theme/spacing';
+import { Screen } from '../../src/components/Screen';
 import { Header } from '../../src/components/Header';
 import { BrushingTimer } from '../../src/components/BrushingTimer';
 import { BackButton } from '../../src/components/BackButton';
@@ -46,18 +46,25 @@ export default function GlobalTimerScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <Header 
-        title="Temporizador Clínico" 
+        title="Temporizador de Cepillado" 
         decoration="left" 
       />
-      <View style={styles.body}>
+      {/* ScrollView: el contenido del temporizador mide ~530 pt y en un iPhone SE
+          (667 pt) solo hay ~453 libres entre el Header y el Back. flexGrow lo centra
+          cuando sobra espacio y deja hacer scroll cuando no cabe. */}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.body}
+        showsVerticalScrollIndicator={false}
+      >
         <BrushingTimer
           onFinish={() => router.back()}
           onOpenAlarmSettings={() => setShowAlarmSettings(true)}
           alarmSummary={alarmSummary}
         />
-      </View>
+      </ScrollView>
       <View style={styles.footer}>
         <BackButton onPress={() => router.back()} />
       </View>
@@ -66,19 +73,21 @@ export default function GlobalTimerScreen() {
         visible={showAlarmSettings}
         onClose={handleAlarmSettingsClose}
       />
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white },
-  body: {
+  scroll: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 4,
+  },
+  body: {
+    flexGrow: 1,
+    paddingHorizontal: screenPadding,
+    paddingBottom: Spacing.xs,
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 8,
+    paddingBottom: Spacing.sm,
   },
 });

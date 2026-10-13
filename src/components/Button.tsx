@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { Pressable, Text, StyleSheet, ViewStyle, TextStyle, Animated } from 'react-native';
 import { Colors } from '../theme/colors';
+import { Radius } from '../theme/radius';
+import { Shadows } from '../theme/shadows';
+import { Spacing } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 
 interface ButtonProps {
@@ -8,7 +11,7 @@ interface ButtonProps {
   onPress: () => void;
   style?: ViewStyle | ViewStyle[];
   textStyle?: TextStyle | TextStyle[];
-  variant?: 'primary' | 'secondary' | 'dark' | 'outline';
+  variant?: 'primary' | 'secondary' | 'dark' | 'outline' | 'light';
 }
 
 export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }: ButtonProps) => {
@@ -36,6 +39,7 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
       case 'secondary': return Colors.lavender;
       case 'dark':      return Colors.navy;
       case 'outline':   return 'transparent';
+      case 'light':     return Colors.white;
       default:          return Colors.blue;
     }
   };
@@ -43,6 +47,7 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
   const getTextColor = () => {
     switch (variant) {
       case 'outline': return Colors.navy;
+      case 'light':   return Colors.navy;
       default:        return Colors.white;
     }
   };
@@ -75,16 +80,12 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary' }
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 16,
-    paddingHorizontal: 40,
-    borderRadius: 30,
+    paddingVertical: Spacing.lg,
+    paddingHorizontal: Spacing.huge,
+    borderRadius: Radius.xxl,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 6,
+    ...Shadows.lg,
   },
   text: {
     fontFamily: Typography.fonts.ubuntuBold,

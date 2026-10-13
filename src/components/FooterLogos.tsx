@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import LogoHomi from '../../assets/images/svgs/logo_HOMI.svg';
 import LogoUnal from '../../assets/images/svgs/logo_UNAL.svg';
+import { Spacing } from '../theme/spacing';
 
 interface FooterLogosProps {
   color?: 'white' | 'black';
@@ -43,12 +44,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 10,
+    paddingTop: Spacing.sm,
+    // Distancia al borde seguro unica para todas las pantallas con logos (antes cada
+    // pantalla sumaba 0, 8, 10, 12 o 20 por fuera). Las pantallas ya no agregan la suya.
+    paddingBottom: Spacing.xl,
     width: '100%',
     opacity: 0.45,
   },
   divider: {
     width: 1,
-    marginHorizontal: 12,
+    marginHorizontal: Spacing.md,
   },
 });

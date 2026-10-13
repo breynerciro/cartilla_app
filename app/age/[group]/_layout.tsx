@@ -6,7 +6,7 @@ export default function AgeGroupLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: Colors.background.secondary },
+        contentStyle: { backgroundColor: Colors.surface },
         animation: 'slide_from_right',
       }}
     />

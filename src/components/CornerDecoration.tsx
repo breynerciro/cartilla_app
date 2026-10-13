@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors } from '../theme/colors';
 
 /**
@@ -9,7 +8,11 @@ import { Colors } from '../theme/colors';
  *
  * Props:
  *   position: 'bottom-left' | 'bottom-right'
- *   topOffset: Permite subir la decoración para ignorar el SafeAreaView
+ *   topOffset: Desplaza la decoración respecto al contenedor que la contiene
+ *
+ * La decoración queda dentro del área segura: ya no sube hasta el borde superior
+ * de la pantalla (antes top = topOffset - insets.top), porque ahí quedaba justo
+ * bajo la barra de estado y tapaba el reloj o los iconos (iconos oscuros sobre navy).
  */
 interface CornerDecorationProps {
   position?: 'bottom-left' | 'bottom-right';
@@ -21,14 +24,13 @@ export const CornerDecoration: React.FC<CornerDecorationProps> = ({
   topOffset = 0,
 }) => {
   const isLeft = position === 'bottom-left';
-  const insets = useSafeAreaInsets();
 
   return (
     <View
       style={[
         styles.wrapper,
         isLeft ? styles.wrapperLeft : styles.wrapperRight,
-        { top: topOffset - insets.top }
+        { top: topOffset }
       ]}
     >
       <Svg 

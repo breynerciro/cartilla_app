@@ -22,17 +22,19 @@ export const QuadrantIndicator: React.FC<QuadrantIndicatorProps> = ({ activeQuad
 };
 
 const QSIZE = 64; // Tamaño compacto
+// Grosor de la cruz que divide los cuadrantes (linea decorativa, no espaciado de layout).
+const DIVIDER = 2;
 
 const styles = StyleSheet.create({
   container: {
     width: QSIZE,
     height: QSIZE,
-    gap: 2, // Representa la cruz divisoria
+    gap: DIVIDER,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
-    gap: 2,
+    gap: DIVIDER,
   },
   quadrant: {
     flex: 1,

@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, useWindowDimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors } from '../src/theme/colors';
+import { Spacing, screenPadding } from '../src/theme/spacing';
 import { Typography } from '../src/theme/typography';
+import { Screen } from '../src/components/Screen';
+import { NavyCard } from '../src/components/NavyCard';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { NextButton } from '../src/components/NextButton';
-import { CornerDecoration } from '../src/components/CornerDecoration';
+import { Header } from '../src/components/Header';
 
 const slides = [
   {
@@ -50,16 +52,18 @@ export default function OnboardingScreen() {
   const isLast = currentSlide === slides.length - 1;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <CornerDecoration position="bottom-left" />
+    <Screen>
+      {/* Header sin titulo: renderiza la decoracion con el mismo patron que las demas pantallas
+          (dentro del flujo y del area segura), no suelta sobre el SafeAreaView. */}
+      <Header decoration="left" />
 
       {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
       <View style={styles.body}>
-        <View style={styles.card}>
+        <NavyCard size="lg" style={styles.card}>
           <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={15}>
             {slides[currentSlide].text}
           </Text>
-        </View>
+        </NavyCard>
       </View>
 
       {/* ZONE 3: Footer — always visible */}
@@ -74,33 +78,19 @@ export default function OnboardingScreen() {
         </View>
         <FooterLogos />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
   body: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 60,
+    paddingHorizontal: screenPadding,
     justifyContent: 'center',
   },
   card: {
-    backgroundColor: Colors.navy,
-    borderRadius: 32,
-    paddingVertical: 32,
-    paddingHorizontal: 24,
     width: '100%',
     flexShrink: 1,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
     justifyContent: 'center',
   },
   cardText: {
@@ -111,15 +101,14 @@ const styles = StyleSheet.create({
     lineHeight: 20 * 1.4,
   },
   footer: {
-    paddingHorizontal: 16,
-    paddingBottom: 8,
+    paddingHorizontal: screenPadding,
   },
   characterSection: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 4,
-    paddingVertical: 8,
+    paddingHorizontal: Spacing.xs,
+    paddingVertical: Spacing.sm,
   },
 });

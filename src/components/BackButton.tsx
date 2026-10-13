@@ -1,7 +1,11 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Pressable, Animated, View } from 'react-native';
+import { StyleSheet, Pressable, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../theme/colors';
+
+// Lado (cuadrado) del boton. Las pantallas con Back flotante lo usan para reservar
+// espacio al final del scroll.
+export const BACK_BUTTON_SIZE = 82;
 
 interface BackButtonProps {
   onPress: () => void;
@@ -39,13 +43,13 @@ export const BackButton: React.FC<BackButtonProps> = ({ onPress }) => {
       ]}>
         <Ionicons 
           name="play"
-          size={82} 
+          size={BACK_BUTTON_SIZE} 
           color={Colors.lavender} 
           style={[styles.borderLayer, { transform: [{ rotate: '180deg' }] }]}
         />
         <Ionicons 
           name="play"
-          size={82} 
+          size={BACK_BUTTON_SIZE} 
           color={Colors.navy} 
           style={[styles.frontLayer, { transform: [{ rotate: '180deg' }] }]}
         />
@@ -56,8 +60,8 @@ export const BackButton: React.FC<BackButtonProps> = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 82,
-    height: 82,
+    width: BACK_BUTTON_SIZE,
+    height: BACK_BUTTON_SIZE,
     justifyContent: 'center',
     alignItems: 'center',
   },

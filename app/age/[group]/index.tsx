@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity, useWindowDimensions,
+  View, Text, StyleSheet, Image, useWindowDimensions,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Colors } from '../../../src/theme/colors';
+import { Spacing, screenPadding } from '../../../src/theme/spacing';
 import { Typography } from '../../../src/theme/typography';
+import { Screen } from '../../../src/components/Screen';
+import { NavyCard } from '../../../src/components/NavyCard';
 import { ageGroupData, AgeGroup } from '../../../src/data/content';
 import { FooterLogos } from '../../../src/components/FooterLogos';
 import { NextButton } from '../../../src/components/NextButton';
@@ -36,7 +38,7 @@ export default function AgeGroupIntroScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       <Header 
         title={data.title}
         decoration={isLeft ? 'left' : 'right'}
@@ -53,9 +55,9 @@ export default function AgeGroupIntroScreen() {
       </View>
 
       <View style={styles.body}>
-        <View style={styles.card}>
+        <NavyCard size="lg" style={styles.card}>
           <Text style={styles.cardText}>{slide.text}</Text>
-        </View>
+        </NavyCard>
 
         <View style={styles.charRow}>
           <View style={styles.charImageContainer}>
@@ -70,17 +72,16 @@ export default function AgeGroupIntroScreen() {
       </View>
 
       <FooterLogos />
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.white },
   dotsRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 8,
-    paddingVertical: 10,
+    gap: Spacing.sm,
+    paddingVertical: Spacing.md,
   },
   dot: {
     width: 8, height: 8, borderRadius: 4,
@@ -92,22 +93,13 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: screenPadding,
     justifyContent: 'center',
     alignItems: 'center',
   },
   card: {
-    backgroundColor: Colors.navy,
-    borderRadius: 32,
-    paddingVertical: 32,
-    paddingHorizontal: 24,
     width: '100%',
-    marginBottom: 32,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
+    marginBottom: Spacing.xxxl,
   },
   cardText: {
     fontFamily: Typography.fonts.ubuntu,
@@ -121,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 8,
+    paddingHorizontal: Spacing.sm,
   },
   charImageContainer: { flex: 1 },
 });

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors } from '../src/theme/colors';
-import { Typography } from '../src/theme/typography';
+import { Radius } from '../src/theme/radius';
+import { Spacing, screenPadding } from '../src/theme/spacing';
+import { Screen } from '../src/components/Screen';
 import { Button } from '../src/components/Button';
 import { FooterLogos } from '../src/components/FooterLogos';
 import { Header } from '../src/components/Header';
@@ -20,10 +20,10 @@ export default function AgeSelectorScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Header 
-        title="¿QUÉ EDAD TIENE TU NIÑO(A)?" 
-        decoration="right" 
+    <Screen>
+      <Header
+        title="¿QUÉ EDAD TIENE TU NIÑO(A)?"
+        decoration="right"
       />
 
       <View style={styles.content}>
@@ -45,35 +45,29 @@ export default function AgeSelectorScreen() {
         <BackButton onPress={() => router.replace('/main-menu')} />
         <FooterLogos />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-    justifyContent: 'space-between',
-  },
   content: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: screenPadding,
     justifyContent: 'center',
     alignItems: 'center',
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 8,
   },
   buttonsContainer: {
     width: '100%',
     maxWidth: 350,
-    marginTop: 50,
-    gap: 20,
+    marginTop: Spacing.massive,
+    gap: Spacing.xl,
   },
   // Figma: borderRadius ~20, paddingVertical 20
   button: {
-    paddingVertical: 20,
-    borderRadius: 20,
+    paddingVertical: Spacing.xl,
+    borderRadius: Radius.lgPlus,
   },
 });

@@ -3,15 +3,17 @@ import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, Image as RNImage,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '../theme/colors';
+import { Spacing, screenPadding } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 import {
   ContentSlide, InfoSlide, DetailSlide, DiagramSlide, Slide,
 } from '../data/content';
+import { Screen } from './Screen';
 import { Header } from './Header';
+import { NavyCard } from './NavyCard';
 import { FooterLogos } from './FooterLogos';
 import { NextButton } from './NextButton';
 import { BackButton } from './BackButton';
@@ -33,7 +35,7 @@ const ContentSlideView = ({
   const toothSize = Math.min(width * 0.36, 170);
   const isLeft = slide.toothPosition === 'left';
   
-  const availableWidth = width - 72; // Screen width minus padding
+  const availableWidth = width - 2 * (screenPadding + Spacing.xl); // margen de pantalla + padding de NavyCard md
   const maxPhotoHeight = height * 0.45; // Reserve 45% of screen height max for photos
 
   let photoAspectRatio = 1.5;
@@ -49,7 +51,7 @@ const ContentSlideView = ({
   const calculatedHeight = calculatedWidth / photoAspectRatio;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       {/* ZONE 1 */}
       <Header title={groupTitle} decoration={isLeft ? 'left' : 'right'} />
       {slide.subtitle && (
@@ -60,7 +62,7 @@ const ContentSlideView = ({
 
       {/* ZONE 2 */}
       <View style={styles.body}>
-        <View style={styles.navyCard}>
+        <NavyCard size="md" style={styles.navyCard}>
           <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={20}>
             {slide.text}
           </Text>
@@ -99,13 +101,13 @@ const ContentSlideView = ({
               <Ionicons name="chevron-forward" size={24} color={Colors.blue} />
             </TouchableOpacity>
           ))}
-        </View>
+        </NavyCard>
 
-        <View style={[styles.mascotWrap, { alignItems: isLeft ? 'flex-start' : 'center', marginTop: 10 }]}>
+        <View style={[styles.mascotWrap, { alignItems: isLeft ? 'flex-start' : 'center', marginTop: Spacing.md }]}>
           <View style={[styles.mascotAndBubbleContainer, { flexDirection: 'row' }]}>
             {!isLeft && slide.speechBubble && (
               <TouchableOpacity 
-                style={[styles.speechBubbleFlex, { marginRight: 15 }]}
+                style={[styles.speechBubbleFlex, { marginRight: Spacing.lg }]}
                 activeOpacity={0.8}
                 onPress={() => onNavigate && onNavigate(slide.speechBubble!.targetId)}
               >
@@ -122,7 +124,7 @@ const ContentSlideView = ({
 
             {isLeft && slide.speechBubble && (
               <TouchableOpacity 
-                style={[styles.speechBubbleFlex, { marginLeft: 15 }]}
+                style={[styles.speechBubbleFlex, { marginLeft: Spacing.lg }]}
                 activeOpacity={0.8}
                 onPress={() => onNavigate && onNavigate(slide.speechBubble!.targetId)}
               >
@@ -146,7 +148,7 @@ const ContentSlideView = ({
         </View>
         <FooterLogos />
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 };
 
@@ -162,7 +164,7 @@ const DetailSlideView = ({
   isLast: boolean;
   hideNext?: boolean;
 }) => (
-  <SafeAreaView style={styles.container}>
+  <Screen>
     {/* ZONE 1 */}
     <Header title={groupTitle} decoration="right" />
     <Text style={styles.subtitle} adjustsFontSizeToFit numberOfLines={2}>
@@ -171,7 +173,7 @@ const DetailSlideView = ({
 
     {/* ZONE 2 */}
     <View style={styles.body}>
-      <View style={styles.navyCard}>
+      <NavyCard size="md" style={styles.navyCard}>
         <Text style={styles.navyCardText} adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={20}>
           {slide.bodyText}
         </Text>
@@ -182,7 +184,7 @@ const DetailSlideView = ({
             </View>
           </TouchableOpacity>
         )}
-      </View>
+      </NavyCard>
     </View>
 
     {/* ZONE 3 */}
@@ -193,7 +195,7 @@ const DetailSlideView = ({
       </View>
       <FooterLogos />
     </View>
-  </SafeAreaView>
+  </Screen>
 );
 
 // ─── InfoSlideView (modal) ────────────────────────────────────────────────────
@@ -207,9 +209,9 @@ const InfoSlideView = ({
   isLast: boolean;
 }) => {
   const { width, height } = useWindowDimensions();
-  const modalW = width - 32;
+  const modalW = width - 2 * screenPadding;
   const maxPhotoHeight = height * 0.45;
-  const availableWidth = modalW - 32;
+  const availableWidth = modalW - 2 * Spacing.lg;
   
   let photoAspectRatio = 1.5;
   if (slide.photo) {
@@ -223,7 +225,7 @@ const InfoSlideView = ({
   const calculatedHeight = calculatedWidth / photoAspectRatio;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen>
       {/* ZONE 1 */}
       <Header title={groupTitle} decoration="none" />
 
@@ -247,12 +249,12 @@ const InfoSlideView = ({
       </View>
 
       {/* ZONE 3 */}
-      <View style={styles.footer}>
+      <View style={[styles.footer, styles.footerNoLogos]}>
         <View style={[styles.footerRow, { justifyContent: 'center' }]}>
           <BackButton onPress={onBack} />
         </View>
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 };
 
@@ -267,7 +269,7 @@ const DiagramSlideView = ({
   isLast: boolean;
   hideNext?: boolean;
 }) => (
-  <SafeAreaView style={styles.container}>
+  <Screen>
     {/* ZONE 1 */}
     <Header title={groupTitle} decoration="left" />
 
@@ -277,13 +279,13 @@ const DiagramSlideView = ({
     </View>
 
     {/* ZONE 3 */}
-    <View style={styles.footer}>
+    <View style={[styles.footer, styles.footerNoLogos]}>
       <View style={[styles.footerRow, { justifyContent: 'space-between' }]}>
         <BackButton onPress={onBack} />
         {!hideNext && <NextButton onPress={onNext} isLast={isLast} />}
       </View>
     </View>
-  </SafeAreaView>
+  </Screen>
 );
 
 // ─── SlidesRunner orchestrator ────────────────────────────────────────────────
@@ -358,15 +360,10 @@ export function SlidesRunner({
 
 // ─── STYLES — shared across all slide types ───────────────────────────────────
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-
   // ZONE 2 — flex:1 fills all space between header and footer
   body: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: screenPadding,
     justifyContent: 'center', // vertically centers the card when content is short
   },
 
@@ -376,17 +373,8 @@ const styles = StyleSheet.create({
   //   flexShrink:1 → shrinks if content is smaller than available space
   //   This prevents the "giant empty card" problem while still using space well
   navyCard: {
-    backgroundColor: Colors.navy,
-    borderRadius: 32,
-    paddingVertical: 24,
-    paddingHorizontal: 20,
     width: '100%',
     flexShrink: 1,
-    shadowColor: Colors.navy,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 6,
     justifyContent: 'center',
   },
   navyCardText: {
@@ -398,15 +386,19 @@ const styles = StyleSheet.create({
   },
 
   // ZONE 3 — footer always at bottom
+  // El espacio inferior de los pies con logos lo da FooterLogos.
   footer: {
-    paddingHorizontal: 16,
-    paddingBottom: 8,
+    paddingHorizontal: screenPadding,
+  },
+  // Pies sin logos (info y diagrama): mismo aire inferior que el resto de pantallas.
+  footerNoLogos: {
+    paddingBottom: Spacing.sm,
   },
   footerRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    gap: 8,
+    paddingVertical: Spacing.sm,
+    gap: Spacing.sm,
   },
   mascotWrap: {
     alignItems: 'center',
@@ -418,8 +410,8 @@ const styles = StyleSheet.create({
   },
   speechBubbleFlex: {
     backgroundColor: '#FFF',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
     borderRadius: 20,
     maxWidth: 160,
     shadowColor: Colors.navy,
@@ -445,7 +437,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     borderBottomColor: 'transparent',
     top: '50%',
-    marginTop: -8,
+    marginTop: -8, // mitad del alto del triangulo (2 x borderWidth 8): centra el puntero; no es espaciado
   },
   pointerRightToothFlex: {
     right: -10,
@@ -464,14 +456,14 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.subtitle,
     color: Colors.text.primary,
     textAlign: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 6,
+    paddingHorizontal: screenPadding,
+    paddingVertical: Spacing.sm,
     lineHeight: Typography.sizes.subtitle * 1.2,
   },
 
   // Info icon inside detail card
   infoIconWrap: {
-    marginTop: 14,
+    marginTop: Spacing.lg,
     alignItems: 'center',
   },
   infoIconCircle: {
@@ -488,7 +480,7 @@ const styles = StyleSheet.create({
   cardPhoto: {
     alignSelf: 'center',
     borderRadius: 16,
-    marginTop: 16,
+    marginTop: Spacing.lg,
     backgroundColor: '#FFF',
     overflow: 'hidden',
     flexShrink: 1,
@@ -499,16 +491,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    marginTop: 12,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    marginTop: Spacing.md,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 4,
-    gap: 12,
+    gap: Spacing.md,
   },
   slideButtonTextWrap: {
     flex: 1,
@@ -536,7 +528,7 @@ const styles = StyleSheet.create({
   infoModal: {
     backgroundColor: Colors.lavender,
     borderRadius: 32,
-    padding: 24,
+    padding: Spacing.xxl,
     alignItems: 'center',
     shadowColor: Colors.lavender,
     shadowOffset: { width: 0, height: 8 },
@@ -548,12 +540,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
+    gap: Spacing.sm,
     backgroundColor: 'rgba(255,255,255,0.4)',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.lg,
     borderRadius: 20,
-    marginBottom: 16,
+    marginBottom: Spacing.lg,
     width: '100%',
   },
   alertHeaderText: {
@@ -566,7 +558,7 @@ const styles = StyleSheet.create({
   infoPhotoContainer: {
     backgroundColor: Colors.white,
     borderRadius: 16,
-    marginBottom: 16,
+    marginBottom: Spacing.lg,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
@@ -587,6 +579,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     lineHeight: 18 * 1.4,
-    paddingHorizontal: 8,
+    paddingHorizontal: Spacing.sm,
   },
 });
