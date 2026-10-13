@@ -89,6 +89,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
       <View style={[StyleSheet.absoluteFill, styles.textContainer]}>
         <Text
           style={styles.timeText}
+          maxFontSizeMultiplier={Typography.maxFontScale}
           accessibilityRole="timer"
           accessibilityLabel={spokenTime(timeRemaining)}
         >

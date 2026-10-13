@@ -101,7 +101,9 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
           >
             <Ionicons name="alarm" size={18} color={Colors.white} />
             {alarmSummary ? (
-              <Text style={styles.alarmBtnText} numberOfLines={1}>{alarmSummary}</Text>
+              <Text style={styles.alarmBtnText} numberOfLines={1} maxFontSizeMultiplier={Typography.maxFontScale}>
+                {alarmSummary}
+              </Text>
             ) : null}
           </TouchableOpacity>
         )}
@@ -146,7 +148,9 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
           accessibilityLiveRegion="polite"
         >
           <Ionicons name="alert-circle" size={18} color={Colors.danger} />
-          <Text style={styles.pressureWarning}>{timerPreset.pressureReminder}</Text>
+          <Text style={styles.pressureWarning} maxFontSizeMultiplier={Typography.maxFontScale}>
+            {timerPreset.pressureReminder}
+          </Text>
         </View>
       </View>
 
@@ -250,7 +254,7 @@ const styles = StyleSheet.create({
     ...Typography.scale.caption,
     fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.white,
-    maxWidth: 100,
+    maxWidth: 130, // 100 a 1.0x; el resumen de 12 px bold crece a ~125 con el tope de 1.3x
   },
 
   // ── Timer ──
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: Spacing.sm,
-    height: 30,
+    minHeight: 30,
     paddingHorizontal: Spacing.lg,
   },
   pressureWarning: {

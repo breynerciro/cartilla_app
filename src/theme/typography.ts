@@ -36,6 +36,9 @@ export const Typography = {
     tight: 0.95,
     normal: 1.25,
   },
+  // Tope de la fuente grande del sistema en textos dentro de contenedores de tamano fijo o acotado
+  // (botones de ancho fijo, celdas del calendario, reloj del timer...). Se pasa a maxFontSizeMultiplier.
+  maxFontScale: 1.3,
   // Escala semántica: se esparce directo en el estilo ({ ...Typography.scale.body }).
   // Los tamaños son FIJOS (sin normalize); el escalado por ancho de pantalla lo
   // resuelve B3. Auditoría: los fontSize reales son 11-20, 22, 24, 36 y 48.

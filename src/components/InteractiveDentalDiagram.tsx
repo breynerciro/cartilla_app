@@ -215,7 +215,7 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
             </Text>
             <View style={styles.ageRow}>
               <View style={[styles.clockIconContainer, { backgroundColor: TOOTH_COLORS[activeSpot.type] + '22' }]}>
-                <Text style={styles.clockIcon}>🕐</Text>
+                <Text style={styles.clockIcon} allowFontScaling={false}>🕐</Text>
               </View>
               <Text style={styles.infoAge}>{activeSpot.age}</Text>
             </View>
@@ -228,7 +228,7 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
             accessibilityLabel="Cerrar"
           >
             <View style={styles.closeBadge}>
-              <Text style={styles.closeText}>✕</Text>
+              <Text style={styles.closeText} allowFontScaling={false}>✕</Text>
             </View>
           </TouchableOpacity>
         </Animated.View>

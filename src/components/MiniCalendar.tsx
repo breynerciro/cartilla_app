@@ -57,7 +57,12 @@ export const MiniCalendar = ({ selectedDate, onSelectDate, markedDates, onMonthC
         >
           <Ionicons name="chevron-back" size={24} color={Colors.navy} />
         </TouchableOpacity>
-        <Text style={styles.monthText} accessibilityRole="header" accessibilityLiveRegion="polite">
+        <Text
+          style={styles.monthText}
+          maxFontSizeMultiplier={Typography.maxFontScale}
+          accessibilityRole="header"
+          accessibilityLiveRegion="polite"
+        >
           {MONTHS[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </Text>
         <TouchableOpacity
@@ -72,7 +77,7 @@ export const MiniCalendar = ({ selectedDate, onSelectDate, markedDates, onMonthC
 
       <View style={styles.daysHeader} importantForAccessibility="no-hide-descendants">
         {DAYS.map((d, i) => (
-          <Text key={i} style={styles.dayHeaderText}>{d}</Text>
+          <Text key={i} style={styles.dayHeaderText} maxFontSizeMultiplier={Typography.maxFontScale}>{d}</Text>
         ))}
       </View>
 
@@ -102,7 +107,7 @@ export const MiniCalendar = ({ selectedDate, onSelectDate, markedDates, onMonthC
               accessibilityLabel={dateLabel}
               accessibilityState={{ selected: isSelected }}
             >
-              <Text style={[
+              <Text maxFontSizeMultiplier={Typography.maxFontScale} style={[
                 styles.dayText,
                 isSelected && styles.selectedText,
                 isToday && !isSelected && styles.todayText

@@ -79,7 +79,10 @@ export const Button = ({ title, onPress, style, textStyle, variant = 'primary', 
           style,
         ]}
       >
-        <Text style={[styles.text, { color: getTextColor() }, textStyle]}>
+        <Text
+          style={[styles.text, { color: getTextColor() }, textStyle]}
+          maxFontSizeMultiplier={Typography.maxFontScale}
+        >
           {title}
         </Text>
       </Animated.View>

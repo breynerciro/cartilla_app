@@ -23,10 +23,16 @@ export default function IntroScreen() {
         <View style={styles.spacerTop} />
 
         <View style={styles.titleContainer}>
-          <Text style={styles.title} adjustsFontSizeToFit numberOfLines={2}>
+          <Text
+            style={styles.title}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+            maxFontSizeMultiplier={Typography.maxFontScale}
+            numberOfLines={2}
+          >
             HEMOFILIA Y{'\n'}ODONTOLOGÍA
           </Text>
-          <Text style={styles.subtitle}>Todo lo que debes saber</Text>
+          <Text style={styles.subtitle} maxFontSizeMultiplier={Typography.maxFontScale}>Todo lo que debes saber</Text>
         </View>
 
         <View style={styles.spacerMiddle} />
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
   },
   // Fondo, color de texto y borde vienen de variant="light"; aqui solo el ancho.
   button: {
-    width: 222,
+    minWidth: 222,
     marginBottom: Spacing.huge,
   },
 });

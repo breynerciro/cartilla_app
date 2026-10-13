@@ -60,7 +60,13 @@ export default function OnboardingScreen() {
       {/* ZONE 2: Body — card sizes to content, doesn't bloat */}
       <View style={styles.body}>
         <NavyCard size="lg" style={styles.card}>
-          <Text style={styles.cardText} adjustsFontSizeToFit minimumFontScale={0.5} numberOfLines={15}>
+          <Text
+            style={styles.cardText}
+            adjustsFontSizeToFit
+            minimumFontScale={0.85}
+            maxFontSizeMultiplier={Typography.maxFontScale}
+            numberOfLines={15}
+          >
             {slides[currentSlide].text}
           </Text>
         </NavyCard>
