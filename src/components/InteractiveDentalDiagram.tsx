@@ -44,6 +44,9 @@ const TOOTH_NAMES: Record<string, string> = {
 const DECIDUOUS_KEYS = ['ic', 'il', 'ca', 'pm', 'sm'];
 const PERMANENT_KEYS = ['ic', 'il', 'ca', 'pm1', 'pm2', 'm1', 'm2', 'm3'];
 
+// Cuanto sobresale el area tactil (44) de la insignia de cerrar (32), por lado.
+const CLOSE_OVERHANG = (44 - 32) / 2;
+
 // Tope del lado del diagrama: sin el, en tabletas y anchos grandes ocupa todo el ancho.
 const MAX_DIAGRAM_SIZE = 480;
 
@@ -213,8 +216,10 @@ export const InteractiveDentalDiagram = ({ ageGroup = '0-3' }: { ageGroup?: stri
             </View>
           </View>
           
-          <TouchableOpacity onPress={() => setActiveSpot(null)} style={styles.closeBadge}>
-            <Text style={styles.closeText}>✕</Text>
+          <TouchableOpacity onPress={() => setActiveSpot(null)} style={styles.closeHit}>
+            <View style={styles.closeBadge}>
+              <Text style={styles.closeText}>✕</Text>
+            </View>
           </TouchableOpacity>
         </Animated.View>
       ) : (
@@ -278,6 +283,7 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
+    minHeight: 44,
     paddingVertical: Spacing.sm,
     alignItems: 'center',
     borderRadius: 26,
@@ -338,9 +344,15 @@ const styles = StyleSheet.create({
   },
   clockIcon: { fontSize: 14 },
   infoAge: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 16, color: Colors.text.primary },
+  // Area tactil de 44 pt alrededor de la insignia de 32: los margenes compensan los 6 pt de cada
+  // lado para que la insignia quede donde estaba.
+  closeHit: {
+    width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
+    marginLeft: Spacing.md - CLOSE_OVERHANG, marginTop: -CLOSE_OVERHANG, marginRight: -CLOSE_OVERHANG,
+  },
   closeBadge: {
     width: 32, height: 32, borderRadius: 16, backgroundColor: '#F0F2F8',
-    alignItems: 'center', justifyContent: 'center', marginLeft: Spacing.md
+    alignItems: 'center', justifyContent: 'center',
   },
   closeText: { fontSize: 14, color: Colors.navy, fontFamily: Typography.fonts.ubuntuBold },
   hintBox: {
