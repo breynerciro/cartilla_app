@@ -43,7 +43,14 @@ export const AppointmentCard = ({ appointment, onPress, onToggleComplete, onDele
 
   return (
     <Animated.View style={[styles.container, { opacity: opacityAnim, borderLeftColor: typeConfig.color }]}>
-      <TouchableOpacity style={styles.content} onPress={onPress} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.content}
+        onPress={onPress}
+        activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityLabel={`${appointment.title}, ${hideDate ? '' : `${dateStr}, `}${timeStr}${appointment.location ? `, ${appointment.location}` : ''}`}
+        accessibilityHint="Editar cita"
+      >
         <View style={[styles.iconContainer, { backgroundColor: `${typeConfig.color}20` }]}>
           <Ionicons name={typeConfig.icon} size={28} color={Colors.navy} />
         </View>
@@ -60,14 +67,25 @@ export const AppointmentCard = ({ appointment, onPress, onToggleComplete, onDele
       </TouchableOpacity>
       
       <View style={styles.actions}>
-        <TouchableOpacity onPress={toggleComplete} style={styles.actionBtn}>
+        <TouchableOpacity
+          onPress={toggleComplete}
+          style={styles.actionBtn}
+          accessibilityRole="checkbox"
+          accessibilityLabel="Marcar cita como completada"
+          accessibilityState={{ checked: appointment.completed }}
+        >
           <Ionicons 
             name={appointment.completed ? "checkmark-circle" : "ellipse-outline"} 
             size={28} 
             color={appointment.completed ? Colors.success : Colors.lavender} 
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={confirmDelete} style={styles.actionBtn}>
+        <TouchableOpacity
+          onPress={confirmDelete}
+          style={styles.actionBtn}
+          accessibilityRole="button"
+          accessibilityLabel="Eliminar cita"
+        >
           <Ionicons name="trash-outline" size={24} color={Colors.danger} />
         </TouchableOpacity>
       </View>

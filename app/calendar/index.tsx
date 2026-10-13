@@ -130,6 +130,8 @@ export default function CalendarScreen() {
               <TouchableOpacity 
                 style={[styles.filterChip, filterType === 'all' && styles.filterChipActive]}
                 onPress={() => setFilterType('all')}
+                accessibilityRole="button"
+                accessibilityState={{ selected: filterType === 'all' }}
               >
                 <Text style={[styles.filterText, filterType === 'all' && styles.filterTextActive]}>Todas</Text>
               </TouchableOpacity>
@@ -137,6 +139,8 @@ export default function CalendarScreen() {
               <TouchableOpacity 
                 style={[styles.filterChip, filterType === 'pending' && styles.filterChipActive]}
                 onPress={() => setFilterType('pending')}
+                accessibilityRole="button"
+                accessibilityState={{ selected: filterType === 'pending' }}
               >
                 <Text style={[styles.filterText, filterType === 'pending' && styles.filterTextActive]}>Pendientes</Text>
               </TouchableOpacity>
@@ -144,6 +148,8 @@ export default function CalendarScreen() {
               <TouchableOpacity 
                 style={[styles.filterChip, filterType === 'completed' && styles.filterChipActive]}
                 onPress={() => setFilterType('completed')}
+                accessibilityRole="button"
+                accessibilityState={{ selected: filterType === 'completed' }}
               >
                 <Text style={[styles.filterText, filterType === 'completed' && styles.filterTextActive]}>Completadas</Text>
               </TouchableOpacity>
@@ -191,7 +197,13 @@ export default function CalendarScreen() {
         {/* Fila flotante: Back y FAB centrados entre si, dentro de `main`. */}
         <View style={styles.floatingRow}>
           <BackButton onPress={() => router.back()} />
-          <TouchableOpacity style={styles.fab} onPress={openNewAppointment} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.fab}
+            onPress={openNewAppointment}
+            activeOpacity={0.8}
+            accessibilityRole="button"
+            accessibilityLabel="Agregar cita"
+          >
             <Ionicons name="add" size={32} color={Colors.onPrimary} />
             <Text style={styles.fabText}>Nueva Cita</Text>
           </TouchableOpacity>

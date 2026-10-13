@@ -49,16 +49,28 @@ export const MiniCalendar = ({ selectedDate, onSelectDate, markedDates, onMonthC
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={handlePrevMonth} style={styles.navButton}>
+        <TouchableOpacity
+          onPress={handlePrevMonth}
+          style={styles.navButton}
+          accessibilityRole="button"
+          accessibilityLabel="Mes anterior"
+        >
           <Ionicons name="chevron-back" size={24} color={Colors.navy} />
         </TouchableOpacity>
-        <Text style={styles.monthText}>{MONTHS[currentMonth.getMonth()]} {currentMonth.getFullYear()}</Text>
-        <TouchableOpacity onPress={handleNextMonth} style={styles.navButton}>
+        <Text style={styles.monthText} accessibilityRole="header" accessibilityLiveRegion="polite">
+          {MONTHS[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+        </Text>
+        <TouchableOpacity
+          onPress={handleNextMonth}
+          style={styles.navButton}
+          accessibilityRole="button"
+          accessibilityLabel="Mes siguiente"
+        >
           <Ionicons name="chevron-forward" size={24} color={Colors.navy} />
         </TouchableOpacity>
       </View>
 
-      <View style={styles.daysHeader}>
+      <View style={styles.daysHeader} importantForAccessibility="no-hide-descendants">
         {DAYS.map((d, i) => (
           <Text key={i} style={styles.dayHeaderText}>{d}</Text>
         ))}
@@ -72,6 +84,10 @@ export const MiniCalendar = ({ selectedDate, onSelectDate, markedDates, onMonthC
           const isSelected = selectedDate.getDate() === day && selectedDate.getMonth() === currentMonth.getMonth() && selectedDate.getFullYear() === currentMonth.getFullYear();
           const isToday = today.getDate() === day && today.getMonth() === currentMonth.getMonth() && today.getFullYear() === currentMonth.getFullYear();
           const hasMark = markedDates.includes(isoDate);
+          const dateLabel =
+            `${day} de ${MONTHS[currentMonth.getMonth()].toLowerCase()} de ${currentMonth.getFullYear()}` +
+            (isToday ? ', hoy' : '') +
+            (hasMark ? ', con citas' : '');
 
           return (
             <TouchableOpacity 
@@ -82,6 +98,9 @@ export const MiniCalendar = ({ selectedDate, onSelectDate, markedDates, onMonthC
                 isToday && !isSelected && styles.todayCell
               ]}
               onPress={() => onSelectDate(new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day))}
+              accessibilityRole="button"
+              accessibilityLabel={dateLabel}
+              accessibilityState={{ selected: isSelected }}
             >
               <Text style={[
                 styles.dayText,
