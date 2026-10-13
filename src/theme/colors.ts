@@ -76,6 +76,8 @@ export const Colors = {
   // primary como texto 5.11:1 sobre surface, 4.76:1 sobre surfaceMuted.
   primary:   '#0F69DF',
   onPrimary: '#FFFFFF', // también es el texto sobre danger y success
+  // Fondo suave de primary: píldora de la pestaña activa. primary encima da 4.50:1.
+  primaryTint: '#EAF1FD',
 
   // Peligro: unifica #FC5939 / #E74C3C / #FF4444. Blanco sobre danger 5.08:1;
   // como texto 5.08:1 sobre surface, 4.73:1 sobre surfaceMuted.
