@@ -44,8 +44,14 @@ export default function OnboardingScreen() {
       } catch (error) {
         console.error("Error guardando el estado de onboarding", error);
       }
-      
-      router.push('/age-selector');
+
+      // Se vuelve a la pestaña de la guía (desde donde se abrió). Si no hay pila
+      // (deep link directo), se navega explícitamente.
+      if (router.canGoBack()) {
+        router.back();
+      } else {
+        router.replace('/guia');
+      }
     }
   };
 

@@ -23,7 +23,7 @@ export default function TopicMenuScreen() {
         <Button
           title="Finalizar"
           variant="dark"
-          onPress={() => router.replace('/age-selector')}
+          onPress={() => router.replace('/guia')}
         />
       }
     />

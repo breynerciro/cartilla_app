@@ -9,7 +9,6 @@ import {
   Linking,
   Alert,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../src/theme/colors';
 import { Radius } from '../../src/theme/radius';
@@ -17,7 +16,6 @@ import { Spacing, screenPadding } from '../../src/theme/spacing';
 import { Typography } from '../../src/theme/typography';
 import { Screen } from '../../src/components/Screen';
 import { Header } from '../../src/components/Header';
-import { BackButton, BACK_BUTTON_SIZE } from '../../src/components/BackButton';
 import { FooterLogos } from '../../src/components/FooterLogos';
 import {
   EmergencyContact,
@@ -29,8 +27,7 @@ import {
 } from '../../src/data/emergencyContacts';
 import { EmergencyContactFormModal } from '../../src/components/EmergencyContactFormModal';
 
-export default function EmergencyScreen() {
-  const router = useRouter();
+export default function EmergenciaScreen() {
   const [customContacts, setCustomContacts] = useState<EmergencyContact[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -127,135 +124,127 @@ export default function EmergencyScreen() {
   };
 
   return (
-    <Screen>
+    <Screen edges={['top', 'left', 'right']}>
       <Header title="CONTACTOS DE EMERGENCIA" decoration="right" />
 
-      {/* `main` termina donde empieza el pie (y el pie ya esta dentro del area segura de
-          Screen): el Back flotante nunca pisa los logos ni el inset inferior. */}
-      <View style={styles.main}>
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.content}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Banner Informativo */}
-          <View style={styles.banner}>
-            <Ionicons name="information-circle" size={24} color={Colors.white} />
-            <Text style={styles.bannerText}>
-              Toca sobre cualquier contacto para marcar directamente al número en
-              caso de urgencia.
-            </Text>
-          </View>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Banner Informativo */}
+        <View style={styles.banner}>
+          <Ionicons name="information-circle" size={24} color={Colors.white} />
+          <Text style={styles.bannerText}>
+            Toca sobre cualquier contacto para marcar directamente al número en
+            caso de urgencia.
+          </Text>
+        </View>
 
-          {/* Lista de contactos */}
-          <View style={styles.listContainer}>
-            {allContacts.map((contact) => {
-              const color = contactColor(contact);
-              const anim = animFor(contact.id);
-              const translateY = anim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [40, 0],
-              });
+        {/* Lista de contactos */}
+        <View style={styles.listContainer}>
+          {allContacts.map((contact) => {
+            const color = contactColor(contact);
+            const anim = animFor(contact.id);
+            const translateY = anim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [40, 0],
+            });
 
-              return (
-                <Animated.View
-                  key={contact.id}
-                  style={{
-                    opacity: anim,
-                    transform: [{ translateY }],
-                  }}
+            return (
+              <Animated.View
+                key={contact.id}
+                style={{
+                  opacity: anim,
+                  transform: [{ translateY }],
+                }}
+              >
+                <TouchableOpacity
+                  style={styles.card}
+                  activeOpacity={0.85}
+                  onPress={() => handleMakeCall(contact.phone, contact.name)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Llamar a ${contact.name}`}
+                  accessibilityHint={`Marca ${contact.phone}`}
                 >
-                  <TouchableOpacity
-                    style={styles.card}
-                    activeOpacity={0.85}
-                    onPress={() => handleMakeCall(contact.phone, contact.name)}
-                    accessibilityRole="button"
-                    accessibilityLabel={`Llamar a ${contact.name}`}
-                    accessibilityHint={`Marca ${contact.phone}`}
+                  <View
+                    style={[
+                      styles.iconContainer,
+                      { backgroundColor: `${color}25` },
+                    ]}
                   >
-                    <View
-                      style={[
-                        styles.iconContainer,
-                        { backgroundColor: `${color}25` },
-                      ]}
-                    >
+                    <Ionicons
+                      name={contact.icon as any}
+                      size={32}
+                      color={color}
+                    />
+                  </View>
+
+                  <View style={styles.textContainer}>
+                    <Text style={styles.contactName}>{contact.name}</Text>
+                    {contact.subtitle ? (
+                      <Text style={styles.contactSubtitle}>
+                        {contact.subtitle}
+                      </Text>
+                    ) : null}
+                    <View style={styles.phoneChip}>
                       <Ionicons
-                        name={contact.icon as any}
-                        size={32}
+                        name="call-outline"
+                        size={14}
                         color={color}
                       />
-                    </View>
-
-                    <View style={styles.textContainer}>
-                      <Text style={styles.contactName}>{contact.name}</Text>
-                      {contact.subtitle ? (
-                        <Text style={styles.contactSubtitle}>
-                          {contact.subtitle}
-                        </Text>
-                      ) : null}
-                      <View style={styles.phoneChip}>
-                        <Ionicons
-                          name="call-outline"
-                          size={14}
-                          color={color}
-                        />
-                        <Text
-                          style={[styles.phoneText, { color }]}
-                        >
-                          {contact.phone}
-                        </Text>
-                      </View>
-                    </View>
-
-                    <View style={styles.actionsContainer}>
-                      {contact.isCustom && (
-                        <TouchableOpacity
-                          style={styles.deleteBtn}
-                          onPress={() =>
-                            handleDeleteContact(contact.id, contact.name)
-                          }
-                          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                          accessibilityRole="button"
-                          accessibilityLabel={`Eliminar contacto ${contact.name}`}
-                        >
-                          <Ionicons
-                            name="trash-outline"
-                            size={20}
-                            color={Colors.danger}
-                          />
-                        </TouchableOpacity>
-                      )}
-                      <View
-                        style={[
-                          styles.callBtn,
-                          { backgroundColor: color },
-                        ]}
+                      <Text
+                        style={[styles.phoneText, { color }]}
                       >
-                        <Ionicons name="call" size={20} color={Colors.white} />
-                      </View>
+                        {contact.phone}
+                      </Text>
                     </View>
-                  </TouchableOpacity>
-                </Animated.View>
-              );
-            })}
-          </View>
+                  </View>
 
-          {/* Botón para agregar contacto personalizado */}
-          <TouchableOpacity
-            style={styles.addBtn}
-            activeOpacity={0.8}
-            onPress={() => setModalVisible(true)}
-            accessibilityRole="button"
-          >
-            <Ionicons name="add-circle-outline" size={24} color={Colors.navy} />
-            <Text style={styles.addBtnText}>Agregar contacto personalizado</Text>
-          </TouchableOpacity>
-        </ScrollView>
-
-        <View style={styles.floatingBack}>
-          <BackButton onPress={() => router.back()} />
+                  <View style={styles.actionsContainer}>
+                    {contact.isCustom && (
+                      <TouchableOpacity
+                        style={styles.deleteBtn}
+                        onPress={() =>
+                          handleDeleteContact(contact.id, contact.name)
+                        }
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        accessibilityRole="button"
+                        accessibilityLabel={`Eliminar contacto ${contact.name}`}
+                      >
+                        <Ionicons
+                          name="trash-outline"
+                          size={20}
+                          color={Colors.danger}
+                        />
+                      </TouchableOpacity>
+                    )}
+                    <View
+                      style={[
+                        styles.callBtn,
+                        { backgroundColor: color },
+                      ]}
+                    >
+                      <Ionicons name="call" size={20} color={Colors.white} />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </Animated.View>
+            );
+          })}
         </View>
-      </View>
+
+        {/* Botón para agregar contacto personalizado */}
+        <TouchableOpacity
+          style={styles.addBtn}
+          activeOpacity={0.8}
+          onPress={() => setModalVisible(true)}
+          accessibilityRole="button"
+        >
+          <Ionicons name="add-circle-outline" size={24} color={Colors.navy} />
+          <Text style={styles.addBtnText}>Agregar contacto personalizado</Text>
+        </TouchableOpacity>
+      </ScrollView>
 
       <FooterLogos />
 
@@ -268,20 +257,7 @@ export default function EmergencyScreen() {
   );
 }
 
-// Distancia del Back flotante al borde inferior de `main` (justo sobre el pie).
-const FLOATING_BOTTOM = Spacing.sm;
-
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-  },
-  floatingBack: {
-    position: 'absolute',
-    left: 0,
-    bottom: FLOATING_BOTTOM,
-    paddingHorizontal: screenPadding,
-    zIndex: 10,
-  },
   scroll: {
     flex: 1,
   },
@@ -290,8 +266,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: screenPadding,
     paddingTop: Spacing.lg,
-    // Reserva el alto real del Back flotante (82) para que el ultimo item no quede tapado.
-    paddingBottom: BACK_BUTTON_SIZE + FLOATING_BOTTOM + Spacing.lg,
+    paddingBottom: Spacing.lg,
   },
   banner: {
     flexDirection: 'row',
@@ -326,7 +301,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   iconContainer: {
-    // Tile de icono: mismo 56 / Radius.lg / separacion 16 que main-menu.
+    // Tile de icono: mismo 56 / Radius.lg / separacion 16 que el resto de tarjetas.
     width: 56,
     height: 56,
     borderRadius: Radius.lg,

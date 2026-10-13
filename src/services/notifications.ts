@@ -17,6 +17,41 @@ import { getAlarmSettings, AlarmSettings, AlarmTime } from './alarmSettings';
 
 const BRUSHING_NOTIFICATION_PREFIX = 'brushing-reminder-';
 
+/**
+ * Escucha cuando el usuario toca una notificación (app en primer o segundo plano).
+ * Devuelve una función para cancelar la suscripción. Sin expo-notifications no hace nada.
+ */
+export function addNotificationResponseListener(handler: () => void): () => void {
+  if (!Notifications) return () => {};
+  try {
+    const subscription = Notifications.addNotificationResponseReceivedListener(() =>
+      handler()
+    );
+    return () => subscription?.remove?.();
+  } catch (error) {
+    console.log("No se pudo registrar el listener de notificaciones:", error);
+    return () => {};
+  }
+}
+
+/**
+ * Caso de arranque en frío: la app estaba cerrada y se abrió desde una notificación.
+ * Devuelve true una sola vez (limpia la respuesta almacenada) para no repetir el
+ * destino en siguientes arranques.
+ */
+export async function consumeInitialNotificationResponse(): Promise<boolean> {
+  if (!Notifications) return false;
+  try {
+    const response = await Notifications.getLastNotificationResponseAsync?.();
+    if (!response) return false;
+    await Notifications.clearLastNotificationResponseAsync?.();
+    return true;
+  } catch (error) {
+    console.log("No se pudo leer la notificación inicial:", error);
+    return false;
+  }
+}
+
 const BRUSHING_MESSAGES: { title: string; body: string }[] = [
   {
     title: "¡Es hora de cepillarse! 🦷",

@@ -17,7 +17,7 @@ export const BottomNavigationActions = () => {
 
       <TouchableOpacity
         style={[styles.button, styles.primaryButton]}
-        onPress={() => router.replace('/age-selector')}
+        onPress={() => router.replace('/guia')}
       >
         <Ionicons name="home" size={20} color={Colors.white} />
         <Text style={styles.textWhite}>Inicio</Text>

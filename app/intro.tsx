@@ -41,7 +41,7 @@ export default function IntroScreen() {
           <Button
             title="Empezar"
             variant="light"
-            onPress={() => router.push('/main-menu')}
+            onPress={() => router.replace('/inicio')}
             style={styles.button}
           />
           <FooterLogos color="white" />
