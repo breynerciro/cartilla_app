@@ -101,7 +101,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
     borderRadius: 24,
-    padding: 16,
+    // 4 pt a los lados (no 16): con 7 columnas las celdas miden 44.6 pt a 360 pt de ancho
+    // y no 41; el ancho minimo de area tactil depende de este margen.
+    paddingVertical: 16,
+    paddingHorizontal: 4,
     shadowColor: Colors.navy,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
@@ -121,7 +124,10 @@ const styles = StyleSheet.create({
     color: Colors.navy,
   },
   navButton: {
-    padding: 4,
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   daysHeader: {
     flexDirection: 'row',
@@ -140,7 +146,7 @@ const styles = StyleSheet.create({
   },
   dayCell: {
     width: '14.28%', // 100/7
-    aspectRatio: 1,
+    minHeight: 44, // area tactil minima; el ancho lo da la grilla de 7 columnas
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

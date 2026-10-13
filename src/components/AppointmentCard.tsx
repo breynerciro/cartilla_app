@@ -135,7 +135,11 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     gap: 8,
   },
+  // Area tactil minima de 44 pt (papelera y check).
   actionBtn: {
-    padding: 8,
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
