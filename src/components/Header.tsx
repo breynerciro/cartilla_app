@@ -17,7 +17,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   title,
   decoration = 'none',
-  titleLines = 2,
+  titleLines = 3,
 }) => {
 
   const hasLeftDeco = decoration === 'left';
@@ -38,6 +38,8 @@ export const Header: React.FC<HeaderProps> = ({
           ]}
           adjustsFontSizeToFit 
           numberOfLines={titleLines}
+          minimumFontScale={0.75}
+          maxFontSizeMultiplier={Typography.maxFontScale}
           accessibilityRole="header"
         >
           {title}
