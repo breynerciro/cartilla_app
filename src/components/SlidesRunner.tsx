@@ -392,11 +392,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   navyCardText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 19,
+    ...Typography.scale.bodyLarge,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: 19 * 1.4,
   },
 
   // ZONE 3 — footer always at bottom
@@ -437,8 +435,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   speechBubbleText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 15,
     color: Colors.navy,
     textAlign: 'center',
   },
@@ -466,13 +464,12 @@ const styles = StyleSheet.create({
 
   // Subtitle below header
   subtitle: {
+    ...Typography.scale.subtitle,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: Typography.sizes.subtitle,
     color: Colors.text.primary,
     textAlign: 'center',
     paddingHorizontal: screenPadding,
     paddingVertical: Spacing.sm,
-    lineHeight: Typography.sizes.subtitle * 1.2,
   },
 
   // Info icon inside detail card
@@ -521,8 +518,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   slideButtonText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 16,
     color: Colors.navy,
   },
   slideButtonImgWrap: {
@@ -563,8 +560,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   alertHeaderText: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 17,
     color: Colors.danger,
     letterSpacing: 1,
     textTransform: 'uppercase',
@@ -588,11 +585,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   infoText: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 18,
+    ...Typography.scale.bodyLarge,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: 18 * 1.4,
     paddingHorizontal: Spacing.sm,
   },
 });
