@@ -2,12 +2,12 @@ import React, { useCallback, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useFocusEffect, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Radius } from '../../src/theme/radius';
-import { Spacing, screenPadding } from '../../src/theme/spacing';
-import { Screen } from '../../src/components/Screen';
-import { Button } from '../../src/components/Button';
-import { FooterLogos } from '../../src/components/FooterLogos';
-import { Header } from '../../src/components/Header';
+import { Radius } from '../../../src/theme/radius';
+import { Spacing, screenPadding } from '../../../src/theme/spacing';
+import { Screen } from '../../../src/components/Screen';
+import { Button } from '../../../src/components/Button';
+import { FooterLogos } from '../../../src/components/FooterLogos';
+import { Header } from '../../../src/components/Header';
 
 const AGE_GROUPS = [
   { label: '0 A 3 años', route: '0-3' },

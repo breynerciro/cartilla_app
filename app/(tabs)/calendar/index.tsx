@@ -1,26 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors } from '../../src/theme/colors';
-import { Radius } from '../../src/theme/radius';
-import { Shadows } from '../../src/theme/shadows';
-import { Spacing, screenPadding } from '../../src/theme/spacing';
-import { Typography } from '../../src/theme/typography';
-import { Screen } from '../../src/components/Screen';
-import { Header } from '../../src/components/Header';
-import { FooterLogos } from '../../src/components/FooterLogos';
-import { MiniCalendar } from '../../src/components/MiniCalendar';
-import { AppointmentCard } from '../../src/components/AppointmentCard';
-import { AppointmentFormModal } from '../../src/components/AppointmentFormModal';
-import { Button } from '../../src/components/Button';
-import { Appointment } from '../../src/data/appointments';
-import { getAppointments, saveAppointment, updateAppointment, deleteAppointment } from '../../src/services/storage';
-import { scheduleAppointmentReminder, cancelAppointmentReminder } from '../../src/services/notifications';
-import { BackButton, BACK_BUTTON_SIZE } from '../../src/components/BackButton';
+import { Colors } from '../../../src/theme/colors';
+import { Radius } from '../../../src/theme/radius';
+import { Shadows } from '../../../src/theme/shadows';
+import { Spacing, screenPadding } from '../../../src/theme/spacing';
+import { Typography } from '../../../src/theme/typography';
+import { Screen } from '../../../src/components/Screen';
+import { Header } from '../../../src/components/Header';
+import { FooterLogos } from '../../../src/components/FooterLogos';
+import { MiniCalendar } from '../../../src/components/MiniCalendar';
+import { AppointmentCard } from '../../../src/components/AppointmentCard';
+import { AppointmentFormModal } from '../../../src/components/AppointmentFormModal';
+import { Button } from '../../../src/components/Button';
+import { Appointment } from '../../../src/data/appointments';
+import { getAppointments, saveAppointment, updateAppointment, deleteAppointment } from '../../../src/services/storage';
+import { scheduleAppointmentReminder, cancelAppointmentReminder } from '../../../src/services/notifications';
 
 export default function CalendarScreen() {
-  const router = useRouter();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [, setCurrentMonth] = useState(new Date());
@@ -102,7 +99,7 @@ export default function CalendarScreen() {
   };
 
   return (
-    <Screen>
+    <Screen edges={['top', 'left', 'right']}>
       <Header 
         title="CALENDARIO DE CITAS" 
         decoration="left" 
@@ -194,9 +191,8 @@ export default function CalendarScreen() {
           </View>
         </ScrollView>
 
-        {/* Fila flotante: Back y FAB centrados entre si, dentro de `main`. */}
+        {/* FAB flotante dentro de `main`. Citas es raíz de pestaña: no lleva Volver. */}
         <View style={styles.floatingRow}>
-          <BackButton onPress={() => router.back()} />
           <TouchableOpacity
             style={styles.fab}
             onPress={openNewAppointment}
@@ -223,8 +219,10 @@ export default function CalendarScreen() {
   );
 }
 
-// Distancia de la fila flotante al borde inferior de `main` (justo sobre el pie).
+// Distancia de la fila flotante al borde inferior de `main` (justo sobre la barra de pestañas).
 const FLOATING_BOTTOM = Spacing.sm;
+// Alto del FAB: icono 32 + paddingVertical md (12) arriba y abajo.
+const FAB_HEIGHT = 32 + 2 * Spacing.md;
 
 const styles = StyleSheet.create({
   main: {
@@ -235,11 +233,11 @@ const styles = StyleSheet.create({
   },
   // El margen lateral va en el contenido para que el ScrollView llegue al borde
   // y no recorte las sombras de las tarjetas. El paddingBottom reserva el alto real
-  // de la fila flotante (Back 82) para que el ultimo item nunca quede tapado.
+  // de la fila flotante (FAB) para que el ultimo item nunca quede tapado.
   content: {
     paddingHorizontal: screenPadding,
     paddingTop: Spacing.lg,
-    paddingBottom: BACK_BUTTON_SIZE + FLOATING_BOTTOM + Spacing.lg,
+    paddingBottom: FAB_HEIGHT + FLOATING_BOTTOM + Spacing.lg,
   },
   filterContainer: {
     marginVertical: Spacing.lg,
@@ -310,7 +308,7 @@ const styles = StyleSheet.create({
     pointerEvents: 'box-none', // los huecos entre botones dejan pasar el toque al scroll
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     paddingHorizontal: screenPadding,
     zIndex: 10,
   },

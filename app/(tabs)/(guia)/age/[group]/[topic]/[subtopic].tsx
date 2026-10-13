@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ageGroupData, AgeGroup } from '../../../../src/data/content';
-import { BackButton } from '../../../../src/components/BackButton';
-import { TopicMenuList } from '../../../../src/components/TopicMenuList';
-import { SlidesRunner } from '../../../../src/components/SlidesRunner';
+import { ageGroupData, AgeGroup } from '../../../../../../src/data/content';
+import { BackButton } from '../../../../../../src/components/BackButton';
+import { TopicMenuList } from '../../../../../../src/components/TopicMenuList';
+import { SlidesRunner } from '../../../../../../src/components/SlidesRunner';
 
 export default function SubtopicScreen() {
   const { group, topic, subtopic } = useLocalSearchParams();

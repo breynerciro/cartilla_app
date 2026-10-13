@@ -1,4 +1,4 @@
-import { Stack, useRouter } from 'expo-router';
+import { Stack, useRootNavigationState, useRouter } from 'expo-router';
 import {
   useFonts,
   UbuntuSans_400Regular,
@@ -29,6 +29,8 @@ export default function RootLayout() {
     UbuntuSans_700Bold,
   });
   const router = useRouter();
+  // El Stack raíz no existe mientras cargan las fuentes; antes de eso no se puede navegar.
+  const navigationReady = !!useRootNavigationState()?.key;
 
   useEffect(() => {
     if (loaded || error) {
@@ -36,11 +38,15 @@ export default function RootLayout() {
     }
   }, [loaded, error]);
 
-  // Al tocar una notificación (o abrir la app desde una) se lleva al calendario.
+  // Al tocar una notificación (o abrir la app desde una) se lleva a la pestaña Citas.
+  // navigate (no push): /calendar es una pestaña y solo hay que enfocarla. Espera a que
+  // la navegación esté montada para que el arranque en frío no se pierda.
   useEffect(() => {
+    if (!navigationReady) return;
+
     const goToCalendar = () => {
       try {
-        router.push('/calendar');
+        router.navigate('/calendar');
       } catch (e) {
         console.log('No se pudo navegar desde la notificación:', e);
       }
@@ -52,7 +58,7 @@ export default function RootLayout() {
     });
 
     return unsubscribe;
-  }, []);
+  }, [navigationReady]);
 
   if (!loaded && !error) {
     return null;
@@ -72,9 +78,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="intro" />
         <Stack.Screen name="onboarding" />
-        <Stack.Screen name="glossary" />
-        <Stack.Screen name="calendar" />
-        <Stack.Screen name="age/[group]" />
+        {/* Guía (con glosario y temas), Citas y Cepillado viven dentro de las pestañas. */}
         <Stack.Screen name="(tabs)" />
       </Stack>
     </>

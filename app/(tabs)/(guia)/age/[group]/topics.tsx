@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ageGroupData, AgeGroup } from '../../../src/data/content';
-import { Button } from '../../../src/components/Button';
-import { TopicMenuList } from '../../../src/components/TopicMenuList';
+import { ageGroupData, AgeGroup } from '../../../../../src/data/content';
+import { Button } from '../../../../../src/components/Button';
+import { TopicMenuList } from '../../../../../src/components/TopicMenuList';
 
 export default function TopicMenuScreen() {
   const { group } = useLocalSearchParams();
@@ -23,7 +23,9 @@ export default function TopicMenuScreen() {
         <Button
           title="Finalizar"
           variant="dark"
-          onPress={() => router.replace('/guia')}
+          // Vuelve a la raíz de la pestaña Guía sacando de la pila la intro y el menú
+          // del grupo (replace los dejaba debajo).
+          onPress={() => router.dismissTo('/guia')}
         />
       }
     />

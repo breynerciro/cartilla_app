@@ -3,15 +3,15 @@ import {
   View, Text, StyleSheet, Image, useWindowDimensions,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Colors } from '../../../src/theme/colors';
-import { Spacing, screenPadding } from '../../../src/theme/spacing';
-import { Typography } from '../../../src/theme/typography';
-import { Screen } from '../../../src/components/Screen';
-import { NavyCard } from '../../../src/components/NavyCard';
-import { ageGroupData, AgeGroup } from '../../../src/data/content';
-import { FooterLogos } from '../../../src/components/FooterLogos';
-import { NextButton } from '../../../src/components/NextButton';
-import { Header } from '../../../src/components/Header';
+import { Colors } from '../../../../../src/theme/colors';
+import { Spacing, screenPadding } from '../../../../../src/theme/spacing';
+import { Typography } from '../../../../../src/theme/typography';
+import { Screen } from '../../../../../src/components/Screen';
+import { NavyCard } from '../../../../../src/components/NavyCard';
+import { ageGroupData, AgeGroup } from '../../../../../src/data/content';
+import { FooterLogos } from '../../../../../src/components/FooterLogos';
+import { NextButton } from '../../../../../src/components/NextButton';
+import { Header } from '../../../../../src/components/Header';
 
 export default function AgeGroupIntroScreen() {
   const { group } = useLocalSearchParams();

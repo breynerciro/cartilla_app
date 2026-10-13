@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { screenPadding, Spacing } from '../../src/theme/spacing';
-import { Screen } from '../../src/components/Screen';
-import { Header } from '../../src/components/Header';
-import { BrushingTimer } from '../../src/components/BrushingTimer';
-import { BackButton } from '../../src/components/BackButton';
-import { AlarmSettingsModal } from '../../src/components/AlarmSettingsModal';
-import { scheduleDailyBrushingReminders } from '../../src/services/notifications';
-import { getAlarmSettings, AlarmSettings } from '../../src/services/alarmSettings';
+import { StyleSheet, ScrollView } from 'react-native';
+import { screenPadding, Spacing } from '../../../src/theme/spacing';
+import { Screen } from '../../../src/components/Screen';
+import { Header } from '../../../src/components/Header';
+import { BrushingTimer } from '../../../src/components/BrushingTimer';
+import { AlarmSettingsModal } from '../../../src/components/AlarmSettingsModal';
+import { scheduleDailyBrushingReminders } from '../../../src/services/notifications';
+import { getAlarmSettings, AlarmSettings } from '../../../src/services/alarmSettings';
 
 export default function GlobalTimerScreen() {
-  const router = useRouter();
   const [showAlarmSettings, setShowAlarmSettings] = useState(false);
   const [alarmSummary, setAlarmSummary] = useState<string>('');
+  // Cambiar la key remonta el temporizador en 2:00. Antes se reiniciaba al salir de
+  // la pantalla; como raíz de pestaña ya no se sale, así que se reinicia al terminar.
+  const [timerRun, setTimerRun] = useState(0);
 
   useEffect(() => {
     scheduleDailyBrushingReminders();
@@ -46,13 +46,13 @@ export default function GlobalTimerScreen() {
   };
 
   return (
-    <Screen>
+    <Screen edges={['top', 'left', 'right']}>
       <Header 
         title="Temporizador de Cepillado" 
         decoration="left" 
       />
       {/* ScrollView: el contenido del temporizador mide ~530 pt y en un iPhone SE
-          (667 pt) solo hay ~453 libres entre el Header y el Back. flexGrow lo centra
+          (667 pt) no cabe entre el Header y la barra de pestañas. flexGrow lo centra
           cuando sobra espacio y deja hacer scroll cuando no cabe. */}
       <ScrollView
         style={styles.scroll}
@@ -60,14 +60,12 @@ export default function GlobalTimerScreen() {
         showsVerticalScrollIndicator={false}
       >
         <BrushingTimer
-          onFinish={() => router.back()}
+          key={timerRun}
+          onFinish={() => setTimerRun((run) => run + 1)}
           onOpenAlarmSettings={() => setShowAlarmSettings(true)}
           alarmSummary={alarmSummary}
         />
       </ScrollView>
-      <View style={styles.footer}>
-        <BackButton onPress={() => router.back()} />
-      </View>
 
       <AlarmSettingsModal
         visible={showAlarmSettings}
@@ -84,10 +82,6 @@ const styles = StyleSheet.create({
   body: {
     flexGrow: 1,
     paddingHorizontal: screenPadding,
-    paddingBottom: Spacing.xs,
-  },
-  footer: {
-    alignItems: 'center',
-    paddingBottom: Spacing.sm,
+    paddingBottom: Spacing.lg,
   },
 });

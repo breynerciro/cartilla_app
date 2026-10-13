@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
-import { Colors } from '../../../../src/theme/colors';
+import { Colors } from '../../../src/theme/colors';
 
-export default function TopicLayout() {
+export default function TimerLayout() {
   return (
     <Stack
       screenOptions={{
