@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -39,6 +39,9 @@ export const EmergencyContactFormModal = ({
   const [name, setName] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [phone, setPhone] = useState('');
+  const [focusedField, setFocusedField] = useState<'name' | 'subtitle' | 'phone' | null>(null);
+  const subtitleRef = useRef<TextInput>(null);
+  const phoneRef = useRef<TextInput>(null);
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
@@ -149,32 +152,50 @@ export const EmergencyContactFormModal = ({
 
             <Text style={styles.label}>Nombre o Entidad</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, focusedField === 'name' && styles.inputFocused]}
               placeholder="Ej: Dr. Pérez — Hematólogo"
+              placeholderTextColor={Colors.textSecondary}
               accessibilityLabel="Nombre o entidad"
               value={name}
               onChangeText={setName}
               maxLength={40}
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => subtitleRef.current?.focus()}
+              onFocus={() => setFocusedField('name')}
+              onBlur={() => setFocusedField(null)}
             />
 
             <Text style={styles.label}>Descripción o Nota (Opcional)</Text>
             <TextInput
-              style={styles.input}
+              ref={subtitleRef}
+              style={[styles.input, focusedField === 'subtitle' && styles.inputFocused]}
               placeholder="Ej: Odontólogo pediatra / Turno noche"
+              placeholderTextColor={Colors.textSecondary}
               accessibilityLabel="Descripción o nota"
               value={subtitle}
               onChangeText={setSubtitle}
               maxLength={60}
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => phoneRef.current?.focus()}
+              onFocus={() => setFocusedField('subtitle')}
+              onBlur={() => setFocusedField(null)}
             />
 
             <Text style={styles.label}>Número Telefónico</Text>
             <TextInput
-              style={styles.input}
+              ref={phoneRef}
+              style={[styles.input, focusedField === 'phone' && styles.inputFocused]}
               placeholder="Ej: 3001234567 o +57 601 2345678"
+              placeholderTextColor={Colors.textSecondary}
               accessibilityLabel="Número telefónico"
               value={phone}
               onChangeText={setPhone}
               keyboardType="phone-pad"
+              returnKeyType="done"
+              onFocus={() => setFocusedField('phone')}
+              onBlur={() => setFocusedField(null)}
             />
 
             <View style={styles.footer}>
@@ -262,15 +283,22 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     marginLeft: Spacing.sm,
   },
+  // El borde de 2 pt (transparente en reposo, primary con foco) se descuenta del padding para que
+  // el campo mida lo mismo que antes y el foco no mueva nada.
   input: {
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.lg,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    paddingHorizontal: Spacing.lg - 2,
+    paddingVertical: Spacing.lg - 2,
     // Tamano de body sin lineHeight: en un TextInput de una linea el lineHeight descentra el texto en Android.
     fontFamily: Typography.scale.body.fontFamily,
     fontSize: Typography.scale.body.fontSize,
     color: Colors.navy,
+  },
+  inputFocused: {
+    borderColor: Colors.primary,
   },
   footer: {
     flexDirection: 'row',

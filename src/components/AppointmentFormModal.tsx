@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, ScrollView, Platform,
   KeyboardAvoidingView, Alert,
@@ -32,6 +32,9 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
   
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [focusedField, setFocusedField] = useState<'title' | 'location' | 'notes' | null>(null);
+  const locationRef = useRef<TextInput>(null);
+  const notesRef = useRef<TextInput>(null);
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
@@ -160,12 +163,18 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
 
             <Text style={styles.label}>Título</Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input, focusedField === 'title' && styles.inputFocused]}
               placeholder="Ej: Control odontológico"
+              placeholderTextColor={Colors.textSecondary}
               accessibilityLabel="Título"
               value={title}
               onChangeText={setTitle}
               maxLength={40}
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => locationRef.current?.focus()}
+              onFocus={() => setFocusedField('title')}
+              onBlur={() => setFocusedField(null)}
             />
 
             <View style={styles.row}>
@@ -217,22 +226,33 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
 
             <Text style={styles.label}>Ubicación (Opcional)</Text>
             <TextInput
-              style={styles.input}
+              ref={locationRef}
+              style={[styles.input, focusedField === 'location' && styles.inputFocused]}
               placeholder="Ej: HOMI - Consultorio 305"
+              placeholderTextColor={Colors.textSecondary}
               accessibilityLabel="Ubicación"
               value={location}
               onChangeText={setLocation}
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => notesRef.current?.focus()}
+              onFocus={() => setFocusedField('location')}
+              onBlur={() => setFocusedField(null)}
             />
 
             <Text style={styles.label}>Notas (Opcional)</Text>
             <TextInput
-              style={[styles.input, styles.textArea]}
+              ref={notesRef}
+              style={[styles.input, styles.textArea, focusedField === 'notes' && styles.inputFocused]}
               placeholder="Agrega algún detalle importante..."
+              placeholderTextColor={Colors.textSecondary}
               accessibilityLabel="Notas"
               value={notes}
               onChangeText={setNotes}
               multiline
               numberOfLines={3}
+              onFocus={() => setFocusedField('notes')}
+              onBlur={() => setFocusedField(null)}
             />
 
             <View style={styles.footer}>
@@ -310,15 +330,22 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
     marginLeft: Spacing.sm,
   },
+  // El borde de 2 pt (transparente en reposo, primary con foco) se descuenta del padding para que
+  // el campo mida lo mismo que antes y el foco no mueva nada.
   input: {
     backgroundColor: Colors.offWhite,
     borderRadius: 16,
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.lg,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    paddingHorizontal: Spacing.lg - 2,
+    paddingVertical: Spacing.lg - 2,
     // Tamano de body sin lineHeight: en un TextInput de una linea el lineHeight descentra el texto en Android.
     fontFamily: Typography.scale.body.fontFamily,
     fontSize: Typography.scale.body.fontSize,
     color: Colors.navy,
+  },
+  inputFocused: {
+    borderColor: Colors.primary,
   },
   textArea: {
     minHeight: 100,
