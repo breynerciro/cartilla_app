@@ -86,10 +86,15 @@ export const EmergencyContactFormModal = ({
         style={styles.overlay}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.modalContainer}>
+        <View style={styles.modalContainer} accessibilityViewIsModal>
           <View style={styles.header}>
             <Text style={styles.headerTitle}>Nuevo Contacto</Text>
-            <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
+            <TouchableOpacity
+              onPress={onClose}
+              style={styles.closeBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Cerrar"
+            >
               <Ionicons name="close" size={28} color={Colors.navy} />
             </TouchableOpacity>
           </View>
@@ -121,6 +126,8 @@ export const EmergencyContactFormModal = ({
                       },
                     ]}
                     onPress={() => setType(key as EmergencyContactType)}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: isSelected }}
                   >
                     <Ionicons
                       name={config.icon as any}
@@ -144,6 +151,7 @@ export const EmergencyContactFormModal = ({
             <TextInput
               style={styles.input}
               placeholder="Ej: Dr. Pérez — Hematólogo"
+              accessibilityLabel="Nombre o entidad"
               value={name}
               onChangeText={setName}
               maxLength={40}
@@ -153,6 +161,7 @@ export const EmergencyContactFormModal = ({
             <TextInput
               style={styles.input}
               placeholder="Ej: Odontólogo pediatra / Turno noche"
+              accessibilityLabel="Descripción o nota"
               value={subtitle}
               onChangeText={setSubtitle}
               maxLength={60}
@@ -162,6 +171,7 @@ export const EmergencyContactFormModal = ({
             <TextInput
               style={styles.input}
               placeholder="Ej: 3001234567 o +57 601 2345678"
+              accessibilityLabel="Número telefónico"
               value={phone}
               onChangeText={setPhone}
               keyboardType="phone-pad"

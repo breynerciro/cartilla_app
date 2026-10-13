@@ -114,10 +114,15 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
         style={styles.overlay}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.modalContainer}>
+        <View style={styles.modalContainer} accessibilityViewIsModal>
           <View style={styles.header}>
             <Text style={styles.headerTitle}>{existingAppointment ? 'Editar Cita' : 'Nueva Cita'}</Text>
-            <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
+            <TouchableOpacity
+              onPress={onClose}
+              style={styles.closeBtn}
+              accessibilityRole="button"
+              accessibilityLabel="Cerrar"
+            >
               <Ionicons name="close" size={28} color={Colors.navy} />
             </TouchableOpacity>
           </View>
@@ -143,6 +148,8 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
                     key={key}
                     style={[styles.typeChip, isSelected && { backgroundColor: config.color, borderColor: config.color }]}
                     onPress={() => setType(key as AppointmentType)}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: isSelected }}
                   >
                     <Ionicons name={config.icon} size={20} color={isSelected ? Colors.navy : Colors.textSecondary} />
                     <Text style={[styles.typeText, isSelected && { color: Colors.navy }]}>{config.label}</Text>
@@ -155,6 +162,7 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
             <TextInput
               style={styles.input}
               placeholder="Ej: Control odontológico"
+              accessibilityLabel="Título"
               value={title}
               onChangeText={setTitle}
               maxLength={40}
@@ -163,14 +171,24 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
             <View style={styles.row}>
               <View style={styles.half}>
                 <Text style={styles.label}>Fecha</Text>
-                <TouchableOpacity style={styles.dateBtn} onPress={() => setShowDatePicker(true)}>
+                <TouchableOpacity
+                  style={styles.dateBtn}
+                  onPress={() => setShowDatePicker(true)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Fecha: ${date.toLocaleDateString('es-ES')}`}
+                >
                   <Ionicons name="calendar-outline" size={20} color={Colors.navy} />
                   <Text style={styles.dateText}>{date.toLocaleDateString('es-ES')}</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.half}>
                 <Text style={styles.label}>Hora</Text>
-                <TouchableOpacity style={styles.dateBtn} onPress={() => setShowTimePicker(true)}>
+                <TouchableOpacity
+                  style={styles.dateBtn}
+                  onPress={() => setShowTimePicker(true)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Hora: ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`}
+                >
                   <Ionicons name="time-outline" size={20} color={Colors.navy} />
                   <Text style={styles.dateText}>{date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</Text>
                 </TouchableOpacity>
@@ -201,6 +219,7 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
             <TextInput
               style={styles.input}
               placeholder="Ej: HOMI - Consultorio 305"
+              accessibilityLabel="Ubicación"
               value={location}
               onChangeText={setLocation}
             />
@@ -209,6 +228,7 @@ export const AppointmentFormModal = ({ visible, onClose, onSave, existingAppoint
             <TextInput
               style={[styles.input, styles.textArea]}
               placeholder="Agrega algún detalle importante..."
+              accessibilityLabel="Notas"
               value={notes}
               onChangeText={setNotes}
               multiline

@@ -169,6 +169,9 @@ export default function EmergencyScreen() {
                     style={styles.card}
                     activeOpacity={0.85}
                     onPress={() => handleMakeCall(contact.phone, contact.name)}
+                    accessibilityRole="button"
+                    accessibilityLabel={`Llamar a ${contact.name}`}
+                    accessibilityHint={`Marca ${contact.phone}`}
                   >
                     <View
                       style={[
@@ -212,6 +215,8 @@ export default function EmergencyScreen() {
                             handleDeleteContact(contact.id, contact.name)
                           }
                           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                          accessibilityRole="button"
+                          accessibilityLabel={`Eliminar contacto ${contact.name}`}
                         >
                           <Ionicons
                             name="trash-outline"
@@ -240,6 +245,7 @@ export default function EmergencyScreen() {
             style={styles.addBtn}
             activeOpacity={0.8}
             onPress={() => setModalVisible(true)}
+            accessibilityRole="button"
           >
             <Ionicons name="add-circle-outline" size={24} color={Colors.navy} />
             <Text style={styles.addBtnText}>Agregar contacto personalizado</Text>

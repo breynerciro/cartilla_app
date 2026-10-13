@@ -26,14 +26,14 @@ export const BleedingCheckModal: React.FC<BleedingCheckModalProps> = ({
     return (
       <Modal visible={visible} transparent animationType="slide">
         <View style={styles.overlay}>
-          <View style={styles.modalCard}>
+          <View style={styles.modalCard} accessibilityViewIsModal>
             <Text style={styles.titleAlert}>Protocolo Clínico de Sangrado</Text>
             {bleedingFollowUp.map((instruction, index) => (
               <Text key={index} style={styles.instruction}>
                 • {instruction}
               </Text>
             ))}
-            <TouchableOpacity style={styles.button} onPress={handleClose}>
+            <TouchableOpacity style={styles.button} onPress={handleClose} accessibilityRole="button">
               <Text style={styles.buttonText}>Entendido</Text>
             </TouchableOpacity>
           </View>
@@ -45,7 +45,7 @@ export const BleedingCheckModal: React.FC<BleedingCheckModalProps> = ({
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
-        <View style={styles.modalCard}>
+        <View style={styles.modalCard} accessibilityViewIsModal>
           <Text style={styles.title}>Evaluación Post-Cepillado</Text>
           <Text style={styles.subtitle}>¿Se presentó algún evento de sangrado durante el cepillado?</Text>
           
@@ -53,6 +53,7 @@ export const BleedingCheckModal: React.FC<BleedingCheckModalProps> = ({
             <TouchableOpacity 
               style={[styles.actionButton, { backgroundColor: Colors.danger }]} 
               onPress={() => setShowInstructions(true)}
+              accessibilityRole="button"
             >
               <Text style={styles.buttonText}>Sí</Text>
             </TouchableOpacity>
@@ -60,6 +61,7 @@ export const BleedingCheckModal: React.FC<BleedingCheckModalProps> = ({
             <TouchableOpacity 
               style={[styles.actionButton, { backgroundColor: Colors.success }]} 
               onPress={handleClose}
+              accessibilityRole="button"
             >
               <Text style={styles.buttonText}>No</Text>
             </TouchableOpacity>

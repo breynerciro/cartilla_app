@@ -202,6 +202,9 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                     ]}
                     onPress={() => handleTimeSelect(alarmIndex, slot.hour, slot.minute)}
                     activeOpacity={0.6}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${formatTime(slot.hour, slot.minute)}, ${period.label.toLowerCase()}`}
+                    accessibilityState={{ selected: isSelected }}
                   >
                     <Text style={[
                       styles.timeSlotText,
@@ -223,9 +226,16 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
       <View style={styles.overlay}>
         {/* Tap outside to close */}
-        <TouchableOpacity style={styles.overlayDismiss} onPress={onClose} activeOpacity={1} />
+        {/* El mismo gesto lo ofrece el boton Cancelar: aqui no hay nada que anunciar. */}
+        <TouchableOpacity
+          style={styles.overlayDismiss}
+          onPress={onClose}
+          activeOpacity={1}
+          accessible={false}
+          importantForAccessibility="no"
+        />
 
-        <View style={styles.container}>
+        <View style={styles.container} accessibilityViewIsModal>
           {/* Drag handle */}
           <View style={styles.dragHandle} />
 
@@ -260,6 +270,7 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                   <Text style={styles.toggleLabel}>Recordatorios activos</Text>
                 </View>
                 <Switch
+                  accessibilityLabel="Recordatorios activos"
                   value={settings.enabled}
                   onValueChange={handleToggleEnabled}
                   trackColor={{ false: '#E2E8F0', true: 'rgba(107, 203, 119, 0.4)' }}
@@ -286,6 +297,9 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                         ]}
                         onPress={() => handleFrequencyChange(freq)}
                         activeOpacity={0.7}
+                        accessibilityRole="button"
+                        accessibilityLabel={`${freq} veces al día, ${freq === 2 ? 'mañana y noche' : 'mañana, tarde y noche'}`}
+                        accessibilityState={{ selected: settings.frequency === freq }}
                       >
                         <View style={styles.frequencyIconRow}>
                           <Ionicons
@@ -341,6 +355,9 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
                           setEditingTimeIndex(editingTimeIndex === index ? null : index)
                         }
                         activeOpacity={0.7}
+                        accessibilityRole="button"
+                        accessibilityLabel={`${time.label}, ${formatTime(time.hour, time.minute)}`}
+                        accessibilityState={{ expanded: editingTimeIndex === index }}
                       >
                         <View
                           style={[
@@ -379,7 +396,12 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
           {/* ── Footer Actions ── */}
           {/* El footer es lo ultimo de la hoja: suma el inset inferior para no quedar bajo la barra de gestos. */}
           <View style={[styles.footer, { paddingBottom: Spacing.md + insets.bottom }]}>
-            <TouchableOpacity style={styles.cancelBtn} onPress={onClose} activeOpacity={0.7}>
+            <TouchableOpacity
+              style={styles.cancelBtn}
+              onPress={onClose}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+            >
               <Text style={styles.cancelBtnText}>Cancelar</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -387,6 +409,8 @@ export const AlarmSettingsModal: React.FC<AlarmSettingsModalProps> = ({ visible,
               onPress={handleSave}
               disabled={saving}
               activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityState={{ disabled: saving }}
             >
               <Ionicons name="checkmark-circle" size={20} color={Colors.white} />
               <Text style={styles.saveBtnText}>
