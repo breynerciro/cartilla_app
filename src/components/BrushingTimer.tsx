@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
   },
   songSelectorBtn: {
     flex: 1,
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: Spacing.xl,
@@ -210,6 +211,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   alarmBtn: {
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: Colors.textSecondary,

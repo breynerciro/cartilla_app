@@ -643,7 +643,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(0, 14, 85, 0.06)',
     minWidth: 80,
+    minHeight: 44,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   timeSlotText: {
     fontFamily: Typography.fonts.ubuntu,
