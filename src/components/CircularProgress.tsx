@@ -106,8 +106,7 @@ const styles = StyleSheet.create({
     transform: [{ translateY: -15 }], // Shifts the time up slightly so the play button fits perfectly below
   },
   timeText: {
-    fontSize: 48,
-    fontFamily: Typography.fonts.ubuntuBold,
+    ...Typography.scale.display,
     color: Colors.navy,
   },
 });

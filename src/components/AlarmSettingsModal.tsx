@@ -482,14 +482,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
+    ...Typography.scale.subtitle,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 20,
     color: Colors.white,
     marginBottom: Spacing.xs,
   },
   subtitle: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 13,
     color: Colors.lavender,
   },
 
@@ -507,14 +507,13 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   sectionTitle: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 15,
     color: Colors.navy,
     marginBottom: Spacing.xs,
   },
   sectionHint: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 12,
+    ...Typography.scale.caption,
     color: Colors.textSecondary,
     marginBottom: Spacing.md,
   },
@@ -535,8 +534,8 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   toggleLabel: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 15,
     color: Colors.navy,
   },
 
@@ -565,8 +564,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   frequencyText: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 17,
     color: Colors.navy,
     marginBottom: Spacing.xs,
   },
@@ -574,8 +573,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   frequencySubtext: {
-    fontFamily: Typography.fonts.ubuntu,
-    fontSize: 11,
+    ...Typography.scale.caption,
     color: Colors.textSecondary,
     textAlign: 'center',
   },
@@ -614,14 +612,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   alarmLabel: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 13,
+    ...Typography.scale.label,
     color: Colors.navy,
     marginBottom: Spacing.xs,
   },
   alarmTime: {
+    ...Typography.scale.subtitle,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 20,
     color: Colors.primary,
     letterSpacing: 0.5,
   },
@@ -649,8 +646,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   periodLabel: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 13,
+    ...Typography.scale.label,
     textTransform: 'uppercase',
     letterSpacing: 0.8,
   },
@@ -672,8 +668,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   timeSlotText: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 13,
     color: Colors.navy,
   },
   timeSlotTextSelected: {
@@ -700,8 +696,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.navy,
   },
   cancelBtnText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 15,
     color: Colors.navy,
   },
   saveBtn: {
@@ -720,8 +716,8 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   saveBtnText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 15,
     color: Colors.onPrimary,
   },
 });

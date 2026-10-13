@@ -269,15 +269,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
+    ...Typography.scale.subtitle,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 20,
     color: Colors.navy,
     textAlign: 'center',
     marginBottom: Spacing.sm,
   },
   subtitle: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 14,
     color: Colors.textSecondary,
     textAlign: 'center',
     maxWidth: '90%',
@@ -308,8 +308,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   tabText: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 14,
+    ...Typography.scale.label,
     color: Colors.textSecondary,
   },
   tabTextActive: {
@@ -337,14 +336,14 @@ const styles = StyleSheet.create({
   },
   infoContent: { flex: 1 },
   infoName: {
+    ...Typography.scale.bodyLarge,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 18,
     color: Colors.navy,
     marginBottom: Spacing.xs,
   },
   infoArch: {
+    ...Typography.scale.label,
     fontFamily: Typography.fonts.ubuntu,
-    fontSize: 13,
     color: Colors.textSecondary,
     marginBottom: Spacing.md,
   },
@@ -352,8 +351,8 @@ const styles = StyleSheet.create({
   clockIconContainer: {
     width: 26, height: 26, borderRadius: 13, alignItems: 'center', justifyContent: 'center'
   },
-  clockIcon: { fontSize: 14 },
-  infoAge: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 16, color: Colors.text.primary },
+  clockIcon: { fontSize: Typography.scale.label.fontSize },
+  infoAge: { ...Typography.scale.body, fontFamily: Typography.fonts.ubuntuBold, color: Colors.text.primary },
   // Area tactil de 44 pt alrededor de la insignia de 32: los margenes compensan los 6 pt de cada
   // lado para que la insignia quede donde estaba.
   closeHit: {
@@ -364,18 +363,18 @@ const styles = StyleSheet.create({
     width: 32, height: 32, borderRadius: 16, backgroundColor: '#F0F2F8',
     alignItems: 'center', justifyContent: 'center',
   },
-  closeText: { fontSize: 14, color: Colors.navy, fontFamily: Typography.fonts.ubuntuBold },
+  closeText: { ...Typography.scale.label, color: Colors.navy },
   hintBox: {
     flexDirection: 'row', alignItems: 'center', marginTop: Spacing.md, paddingVertical: Spacing.md,
     paddingHorizontal: Spacing.xl, backgroundColor: '#F0F2F8', borderRadius: 14, gap: Spacing.md
   },
-  hintIcon: { fontSize: 18 },
-  hintText: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 13, color: Colors.navy, flex: 1 },
+  hintIcon: { fontSize: Typography.scale.bodyLarge.fontSize },
+  hintText: { ...Typography.scale.label, color: Colors.navy, flex: 1 },
   legend: {
     flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: Spacing.sm, marginTop: Spacing.md,
     paddingHorizontal: Spacing.sm, borderTopWidth: 1, borderTopColor: '#EAECEF', paddingTop: Spacing.md, width: '100%'
   },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   legendDot: { width: 12, height: 12, borderRadius: 6, borderWidth: 1, borderColor: '#1A1A1A' },
-  legendText: { fontFamily: Typography.fonts.ubuntuBold, fontSize: 12, color: Colors.navy },
+  legendText: { ...Typography.scale.caption, fontFamily: Typography.fonts.ubuntuBold, color: Colors.navy },
 });

@@ -230,9 +230,8 @@ const styles = StyleSheet.create({
     borderColor: Colors.lavender,
   },
   songTitle: {
+    ...Typography.scale.label,
     flex: 1,
-    fontSize: 13,
-    fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.textSecondary,
     textTransform: 'uppercase',
   },
@@ -248,7 +247,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   alarmBtnText: {
-    fontSize: 11,
+    ...Typography.scale.caption,
     fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.white,
     maxWidth: 100,
@@ -291,17 +290,15 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   instructionTitle: {
-    fontSize: 16,
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
     color: Colors.timer.quadrant2,
     flexShrink: 1,
   },
   instructionText: {
-    fontSize: 15,
-    fontFamily: Typography.fonts.ubuntu,
+    ...Typography.scale.body,
     color: Colors.white,
     textAlign: 'center',
-    lineHeight: 22,
   },
 
   // ── Pressure warning ──
@@ -314,8 +311,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   pressureWarning: {
-    fontSize: 13,
-    fontFamily: Typography.fonts.ubuntuBold,
+    ...Typography.scale.label,
     color: Colors.danger,
   },
 
@@ -339,8 +335,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   songModalTitle: {
-    fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 22,
+    ...Typography.scale.title,
     color: Colors.navy,
     marginBottom: Spacing.xl,
     textAlign: 'center',
@@ -358,8 +353,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   songOptionText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 16,
     color: Colors.navy,
     marginLeft: Spacing.md,
   },
@@ -375,8 +370,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   songModalCloseText: {
+    ...Typography.scale.body,
     fontFamily: Typography.fonts.ubuntuBold,
-    fontSize: 16,
     color: Colors.navy,
   },
 });
