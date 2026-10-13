@@ -79,9 +79,9 @@ export const BrushingTimer: React.FC<BrushingTimerProps> = ({ onFinish, onOpenAl
       {/* Top row: Song selector + Alarm settings — pinned at top */}
       <View style={styles.topRow}>
         <TouchableOpacity onPress={() => setShowSongSelector(true)} style={styles.songSelectorBtn}>
-          <Ionicons name="musical-notes" size={18} color={Colors.lavender} />
+          <Ionicons name="musical-notes" size={18} color={Colors.textSecondary} />
           <Text style={styles.songTitle} numberOfLines={1}>{selectedSong.title}</Text>
-          <Ionicons name="chevron-down" size={16} color={Colors.lavender} />
+          <Ionicons name="chevron-down" size={16} color={Colors.textSecondary} />
         </TouchableOpacity>
 
         {onOpenAlarmSettings && (
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13,
     fontFamily: Typography.fonts.ubuntuBold,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     textTransform: 'uppercase',
   },
   alarmBtn: {

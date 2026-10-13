@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
   },
   grid: {
     flexDirection: 'row',

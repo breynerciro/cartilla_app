@@ -52,7 +52,7 @@ export const AppointmentCard = ({ appointment, onPress, onToggleComplete, onDele
           <Text style={styles.subtitle}>{hideDate ? timeStr : `${dateStr} • ${timeStr}`}</Text>
           {appointment.location && (
             <View style={styles.locationRow}>
-              <Ionicons name="location-outline" size={14} color={Colors.lavender} />
+              <Ionicons name="location-outline" size={14} color={Colors.textSecondary} />
               <Text style={styles.locationText} numberOfLines={1}>{appointment.location}</Text>
             </View>
           )}
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 14,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     marginBottom: 4,
   },
   locationRow: {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   locationText: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 13,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     marginLeft: 4,
   },
   actions: {

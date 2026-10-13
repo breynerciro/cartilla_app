@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
   contactSubtitle: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 13,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     marginBottom: Spacing.sm,
   },
   phoneChip: {

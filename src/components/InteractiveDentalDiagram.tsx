@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 14,
-    color: Colors.text.secondary,
+    color: Colors.textSecondary,
     textAlign: 'center',
     maxWidth: '90%',
   },
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
-    color: Colors.text.secondary,
+    color: Colors.textSecondary,
   },
   tabTextActive: {
     color: Colors.navy,
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
   infoArch: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 13,
-    color: Colors.text.secondary,
+    color: Colors.textSecondary,
     marginBottom: Spacing.md,
   },
   ageRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },

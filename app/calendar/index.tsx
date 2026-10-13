@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontFamily: Typography.fonts.ubuntuBold,
     fontSize: 14,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
   },
   filterTextActive: {
     color: Colors.white,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   countText: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 16,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
   },
   listContainer: {
     minHeight: 200,
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   emptyText: {
     fontFamily: Typography.fonts.ubuntu,
     fontSize: 16,
-    color: Colors.lavender,
+    color: Colors.textSecondary,
     textAlign: 'center',
     marginTop: Spacing.md,
     paddingHorizontal: Spacing.xxxl,
