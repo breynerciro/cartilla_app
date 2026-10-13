@@ -79,6 +79,8 @@ const ContentSlideView = ({
               style={styles.slideButton}
               activeOpacity={0.8}
               onPress={() => onNavigate && onNavigate(btn.targetId)}
+              accessibilityRole="button"
+              accessibilityLabel={btn.text}
             >
               {btn.imagePosition === 'left' && (
                 <View style={styles.slideButtonImgWrap}>
@@ -110,6 +112,8 @@ const ContentSlideView = ({
                 style={[styles.speechBubbleFlex, { marginRight: Spacing.lg }]}
                 activeOpacity={0.8}
                 onPress={() => onNavigate && onNavigate(slide.speechBubble!.targetId)}
+                accessibilityRole="button"
+                accessibilityLabel={slide.speechBubble.text}
               >
                 <View style={[styles.speechBubblePointer, styles.pointerRightToothFlex]} />
                 <Text style={styles.speechBubbleText}>{slide.speechBubble.text}</Text>
@@ -120,6 +124,8 @@ const ContentSlideView = ({
               source={slide.image}
               style={{ width: toothSize, height: toothSize, zIndex: 2 }}
               resizeMode="contain"
+              accessible={false}
+              importantForAccessibility="no"
             />
 
             {isLeft && slide.speechBubble && (
@@ -127,6 +133,8 @@ const ContentSlideView = ({
                 style={[styles.speechBubbleFlex, { marginLeft: Spacing.lg }]}
                 activeOpacity={0.8}
                 onPress={() => onNavigate && onNavigate(slide.speechBubble!.targetId)}
+                accessibilityRole="button"
+                accessibilityLabel={slide.speechBubble.text}
               >
                 <View style={[styles.speechBubblePointer, styles.pointerLeftToothFlex]} />
                 <Text style={styles.speechBubbleText}>{slide.speechBubble.text}</Text>
@@ -178,7 +186,13 @@ const DetailSlideView = ({
           {slide.bodyText}
         </Text>
         {slide.showInfoIcon && (
-          <TouchableOpacity style={styles.infoIconWrap} activeOpacity={0.8} onPress={onInfo}>
+          <TouchableOpacity
+            style={styles.infoIconWrap}
+            activeOpacity={0.8}
+            onPress={onInfo}
+            accessibilityRole="button"
+            accessibilityLabel="Más información"
+          >
             <View style={styles.infoIconCircle}>
               <Ionicons name="information" size={30} color={Colors.blue} />
             </View>

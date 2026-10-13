@@ -32,6 +32,8 @@ export const CornerDecoration: React.FC<CornerDecorationProps> = ({
         isLeft ? styles.wrapperLeft : styles.wrapperRight,
         { top: topOffset }
       ]}
+      accessible={false}
+      importantForAccessibility="no-hide-descendants"
     >
       <Svg 
         width="100%" 

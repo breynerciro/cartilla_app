@@ -64,7 +64,9 @@ export default function AgeGroupIntroScreen() {
             <Image 
               source={slide.image} 
               style={{ width: toothSize, height: toothSize, alignSelf: isLeft ? 'flex-start' : 'center' }} 
-              resizeMode="contain" 
+              resizeMode="contain"
+              accessible={false}
+              importantForAccessibility="no"
             />
           </View>
           <NextButton onPress={handleNext} isLast={isLast} />

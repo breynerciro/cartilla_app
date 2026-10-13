@@ -12,7 +12,16 @@ export function DynamicImage({ source, style, ...props }: DynamicImageProps) {
     const width = flattenedStyle.width || 50;
     const height = flattenedStyle.height || 50;
     
-    return <SvgIcon width={width} height={height} style={style} />;
+    return (
+      <SvgIcon
+        width={width}
+        height={height}
+        style={style}
+        accessible={props.accessible}
+        accessibilityLabel={props.accessibilityLabel}
+        importantForAccessibility={props.importantForAccessibility}
+      />
+    );
   }
 
   return <Image source={source} style={style} {...props} />;

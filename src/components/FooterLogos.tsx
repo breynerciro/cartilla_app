@@ -23,7 +23,11 @@ export const FooterLogos = ({ color = 'black' }: FooterLogosProps) => {
   const unalHeight = logoWidth / UNAL_RATIO;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      accessible={false}
+      importantForAccessibility="no-hide-descendants"
+    >
       <LogoHomi
         width={logoWidth}
         height={homiHeight}

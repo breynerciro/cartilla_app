@@ -73,6 +73,8 @@ export default function OnboardingScreen() {
             source={slides[currentSlide].image}
             style={{ width: charSize, height: charSize }}
             resizeMode="contain"
+            accessible={false}
+            importantForAccessibility="no"
           />
           <NextButton onPress={nextSlide} isLast={isLast} />
         </View>
