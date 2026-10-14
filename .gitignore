@@ -7,4 +7,5 @@ ios
 .claude/
 .agents/
 openspec/
+graphify-out/
 dist/
